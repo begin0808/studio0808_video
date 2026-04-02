@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Compressor</title>
+    <style>
+        :root {
+            --primary: #009688;
+            --secondary: #00796B;
+            --accent: #E91E63;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #4DD0E1, #4DB6AC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 150, 136, 0.1);
+            border-color: var(--primary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .tip-box {
+            background-color: rgba(0, 150, 136, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Video Compressor</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_compress.png" alt="Smart Video Compressor Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Overview</h2>
+            <p><strong>Smart Video Compressor</strong>
+                is a highly efficient video slimming tool. When your video file is too large to upload to social
+                platforms, or occupies too much hard drive space, this tool can help you significantly reduce the file
+                size with virtually indistinguishable visual differences.</p>
+            <p>This module uses the industry-standard <strong>FFmpeg x264 CRF (Constant Rate Factor)</strong> encoding
+                algorithm under the hood, perfectly balancing file size and visual quality.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. Step-by-Step Operations</h2>
+            <ol>
+                <li><strong>Load Video</strong>: Click "Add Video File" to choose the video you want to compress.</li>
+                <li><strong>Select Target Quality</strong>: You can choose to maintain original resolution, or shrink a
+                    4K video to 1080p, 720p or even 480p to achieve an extremely small file size.</li>
+                <li><strong>Select Compression Strength</strong>:
+                    <ul>
+                        <li><span class="highlight">High Quality (Larger file)</span>: Suitable for videos that need to
+                            preserve extreme details, applying less compression.</li>
+                        <li><span class="highlight">Balanced (Medium)</span>: The recommended option. It effectively
+                            reduces file sizes by around 50% or more while maintaining excellent visual quality.</li>
+                        <li><span class="highlight">Strong Compression (Tiny file)</span>: Applicable for preview-only
+                            purposes, or presentation/dialog videos with little visual changes.</li>
+                    </ul>
+                    <p style="margin-top: 5px; color: var(--info);">💡 <strong>Batch Processing Supported:</strong> You can select multiple videos at once by holding Ctrl or Shift. The system will automatically queue and compress them seamlessly.</p>
+                </li>
+                <li><strong>Start Compression</strong>: Click the orange button to start, and texts and progress bars
+                    will prompt you regarding the current processing progress below.</li>
+                <li><strong>Cancel Midway</strong>: If you realize you entered wrong parameter settings, you can click
+                    the "Interrupt" button to cancel the compression task.</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>03. Frequently Asked Questions (Q&A)</h2>
+            <h3>Q: Why did the compressed file size actually become larger?</h3>
+            <p>A: If your original video has already been heavily compressed by a platform (like Facebook or LINE) and
+                you selected "High Quality" for re-encoding, the tool might attempt to use more data bits to describe
+                already blurred frames, resulting in a larger file. In this case, you can try lowering the compression
+                strength, or simply don't process this particular video.</p>
+
+            <h3>Q: How long does the compression process take?</h3>
+            <p>A: This depends on the duration of the video, target resolution, and your CPU performance. Smart
+                compression is a computationally intensive task, so batch processing during idle computer times is
+                recommended.</p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

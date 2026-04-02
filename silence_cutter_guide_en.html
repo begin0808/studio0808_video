@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Silence Cutter</title>
+    <style>
+        :root {
+            --primary: #E64A19;
+            --secondary: #D84315;
+            --accent: #FFB300;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #3D5AFE, #00E5FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(230, 74, 25, 0.1);
+            border-color: var(--primary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .tip-box {
+            background-color: rgba(230, 74, 25, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Auto Silence Cutter</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_silence.png" alt="Auto Silence Cutter Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Overview</h2>
+            <p><strong>Auto Silence Cutter</strong> is designed to improve editing efficiency. It can automatically
+                analyze your video or audio-only files, identify the "silent segments" (like pauses during speech,
+                thinking time, or breathing), and trim these segments with a single click.</p>
+            <p>This can save massive amounts of manual "chopping" time for Podcasters, course recording creators, or
+                YouTube single-take Talking Head video creators.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. Parameter Tuning Suggestions</h2>
+            <p>Everyone's microphone and recording environment are different, so appropriate parameter settings are key
+                to success:</p>
+            <ul>
+                <li><strong>Silence Threshold (dB)</strong>: Represents "what volume level and below is considered
+                    silence".
+                    <ul>
+                        <li><span class="highlight">-30dB</span>: Less sensitive. Suitable for loud ambient noise, but
+                            might mistakenly cut out breathing or quiet speech.</li>
+                        <li><span class="highlight">-40dB (Default)</span>: Balanced choice, suitable for most standard
+                            microphone environments.</li>
+                        <li><span class="highlight">-50dB / -60dB</span>: Strict judgment. Only very quiet segments will
+                            be cut, suitable for extremely quiet studio environments.</li>
+                    </ul>
+                </li>
+                <li><strong>Silence Duration (Seconds)</strong>: Represents "how long the silence must last before it
+                    gets cut".
+                    <ul>
+                        <li><span class="highlight">0.3s / 0.5s (Default)</span>: Makes speech rhythm compact, almost
+                            sentence-to-sentence.</li>
+                        <li><span class="highlight">1.0s or more</span>: Retains natural pause spaces, sounding more
+                            relaxed.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. Important Notes</h2>
+            <div class="tip-box">
+                <strong>⚠️ Special Warning for Video Files:</strong><br>
+                When processing videos, this tool will completely dismantle the original video and
+                <strong>re-encode</strong> it into the new duration. Since video encoding is extremely CPU-intensive,
+                processing a one-hour video might take considerable time.
+                <br><br>
+                <strong>Strongly Recommended:</strong> First record a 1~2 minute test video containing pauses, and test
+                various parameters through the tool. Once satisfied with the results, apply them to your full-length
+                videos.
+            </div>
+
+            <ol>
+                <li>This process also supports audio-only files (.mp3 / .wav). Audio-only processing is many times
+                    faster than video.</li>
+                <li>If you click "Interrupt" to stop video processing, you might find temporary sliced files in the
+                    output folder; please clean them up manually.</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

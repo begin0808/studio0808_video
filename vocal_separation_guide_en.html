@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocal Separation Engine</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #00C853, #64DD17);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 10rem;
+            background-color: var(--secondary);
+            color: white;
+            margin-left: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Vocal Separation Engine</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/vocal_separation.png" alt="Vocal Separation Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Core Technology</h2>
+            <p>This application integrates Meta's (Facebook) state-of-the-art music separation model, <strong>Hybrid
+                    Transformer Demucs
+                    (htdemucs)</strong>, providing you with studio-grade track separation services.</p>
+            <p>Unlike traditional EQ filtering, AI models can truly "understand" different instruments in music,
+                perfectly isolating them into:</p>
+            <ul>
+                <li>🎤 <strong>Vocals</strong>: Preserves the singer's vocal details.</li>
+                <li>🥁 <strong>Drums</strong>: Independent percussion track.</li>
+                <li>🎸 <strong>Bass</strong>: Low-frequency instrument track.</li>
+                <li>🎹 <strong>Other (Instrumentals)</strong>: Piano, guitar, synths, and other instruments.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. Supported Models</h2>
+            <p>We've curated the three most powerful pre-trained models to suit different needs:</p>
+
+            <h3>🚀 htdemucs V4 (Standard - Fast) <span class="badge">Default</span></h3>
+            <p>This is the standard Demucs V4 model, balancing separation quality with processing speed. It is suitable for 90% of use cases, especially creating Karaoke backing tracks.</p>
+
+            <h3>🎯 htdemucs_ft (Fine-tuned - High Detail)</h3>
+            <p>The Fine-tuned version is specifically optimized to "preserve vocal details". If you are extracting dry vocals for <strong>AI Voice Cover Training</strong>, this model typically retains more high-frequency nuances.</p>
+
+            <h3>💎 mdx_extra (MDX-Net V3 - Highest Quality)</h3>
+            <p>This is the top-tier high-quality model based on the MDX-Net architecture. It provides industry-leading separation purity, perfect for users with extreme audio quality requirements.</p>
+            <div class="card">
+                <h2>03. ⚠️ Critical Concept: Why is there echo remaining?</h2>
+                <p>This is a very professional and common question! The primary job of "Vocal Separation" models like
+                    Demucs is to <strong>"separate human vocals from background instruments (BGM)"</strong>.</p>
+                <p>However, vocals extracted from pop songs or videos often still contain heavy <strong>spatial
+                        reverberation (Reverb), Echo, or Chorus</strong>. This happens because mixing engineers
+                    intentionally add "spatial effects" during studio recording or post-production to make the voice
+                    sound fuller and rounder.</p>
+
+                <h3>How does this affect AI Covers (RVC)?</h3>
+                <ul>
+                    <li><strong>Fatal Impact:</strong> If you feed vocals containing "echo/reverb" to an AI model (like
+                        RVC or GPT-SoVITS) during training, the AI will incorrectly learn that the reverb is an inherent
+                        part of the singer's timbre.
+                    </li>
+                    <li><strong>Result:</strong> The trained model will permanently speak with a hollow "cave-like"
+                        sound, making the output blurry and distant.</li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">※ Why do vocals sound weird/unlike the original after "De-Reverb"?</h3>
+                <p>When you check <strong>"☑️ Enable De-Reverb Filter"</strong> and listen to the resulting
+                    <code>_Vocal_Dry.wav</code>, you might find the voice sounds very thin or slightly robotic. This is
+                    a normal "<strong>Studio Magic Deprivation Effect</strong>", for the following reasons:</p>
+                <ul>
+                    <li><strong>Chorus and Doubling:</strong>
+                        Pop songs usually overlay multiple harmonizing tracks behind the lead vocalist. The de-reverb
+                        model only removes "spatial reverb" but <strong>cannot delete vocal harmonies</strong>. Thus,
+                        you hear a strange spatial effect of multiple voices layered together.</li>
+                    <li><strong>The "Make-up Free" Voice:</strong> Mixing engineers use million-dollar EQs and reverbs
+                        to polish a singer's voice. When AI roughly strips away these "cosmetics", what's left is
+                        naturally the driest, unpolished, true raw voice.</li>
+                </ul>
+
+                <h3 style="margin-top: 2rem; color: var(--accent);">🏆 How to get the highest quality AI training
+                    material?</h3>
+                <p>To train a flawless S-Tier voice conversion or cloning model, <strong>top-tier material is almost
+                        never pop songs (CDs)</strong>, but rather:</p>
+                <ul>
+                    <li><strong>Podcast Interviews</strong></li>
+                    <li><strong>Radio Shows</strong></li>
+                    <li><strong>A cappella or BGM-free live streams</strong></li>
+                </ul>
+                <p>These materials naturally lack complex background music and have relatively dry recording
+                    environments. After running such files through a standard denoiser or de-reverb, the output will be
+                    a perfect "zero-flaw dry vocal".</p>
+            </div>
+
+            <div class="card">
+                <h2>04. Detailed Operation Flow</h2>
+                <ol>
+                    <li><strong>Select Files</strong>: Drag and drop audio or video files directly into the application
+                        window, or click "Add File". Batch processing is supported.</li>
+                    <li><strong>Select Model</strong>: Choose your desired model from the top dropdown menu (defaults to
+                        Standard).</li>
+                    <li><strong>Settings</strong>:
+                        <ul>
+                            <li><span class="highlight">Save Clean Vocals (WAV)</span>: Highly recommended. This saves
+                                the separated vocals independently as a high-quality WAV file for easy editing.</li>
+                            <li><span class="highlight">Instrumental Only Mode</span>: If checked, the program will
+                                automatically mix drums, bass, and other instruments into a single "Instrumental Track",
+                                ready for you to sing along.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Start Processing</strong>: Click the orange button, and the application will
+                        automatically invoke the GPU (if available) for high-speed computation.</li>
+                </ol>
+                <p><em>💡 Tip: Processed files are automatically saved in the <code>Outputs/Vocals</code> folder.</em>
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>04. Q&A</h2>
+
+                <h3>Q: Why is processing so slow?</h3>
+                <p>A: Deep learning models require massive matrix computations. If you use an <strong>NVIDIA Graphics
+                        Card (GPU)</strong>, processing is typically 10~50x faster than CPU. If you only have a CPU,
+                    you'll need to wait longer.
+                </p>
+
+                <h3>Q: Why does the first song take exceptionally long?</h3>
+                <p>A: The first time you use a new model, the program needs to download the model weights (hundreds of
+                    MBs) from the cloud. Subsequent uses will be extremely fast.</p>
+
+                <h3>Q: Encountering "Out of Memory" errors?</h3>
+                <p>A: This means your graphics card VRAM is insufficient. Don't worry, this application features an
+                    <strong>auto-fallback mechanism</strong>. Upon detecting low memory, it automatically switches back
+                    to CPU mode to finish the task.
+                </p>
+
+                <h3 id="uvr5-guide">Q: Can this application directly De-Reverb for me?</h3>
+                <p>A: <strong>Yes!</strong> Starting from V2.3, this application natively integrates UVR5's
+                    <code>VR Architecture</code> top-tier de-reverb model.</p>
+                <p>Simply check <strong>"☑️ Enable De-Reverb Filter (Designed for Model Training)"</strong> on the
+                    interface. After isolating the vocals, the system will automatically launch a second AI neural
+                    network pass in the background to extract the reverb, outputting a flawless
+                    <code>_Vocal_Dry.wav</code> for you. This file can be directly dropped into RVC or GPT-SoVITS for
+                    training without relying on external software!</p>
+            </div>
+
+            <div class="card">
+                <h2>05. Core Specs</h2>
+                <p>This feature is built upon the following open-source technologies, ensuring maximum compatibility and
+                    performance:</p>
+                <ul>
+                    <li><strong>AI Engine</strong>: <span class="highlight">Demucs</span> (Hybrid Transformer) & <span
+                            class="highlight">MDX-Net</span></li>
+                    <li><strong>Deep Learning Framework</strong>: <span class="highlight">PyTorch</span> (with CUDA
+                        Acceleration)</li>
+                    <li><strong>Audio Processing</strong>: <span class="highlight">FFmpeg</span> (for high-quality
+                        encoding/decoding)</li>
+                    <li><strong>Vector Search</strong>: <span class="highlight">Faiss</span> (for feature retrieval)
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer">
+                © 2026 Studio0808 Team. All rights reserved.</p><br>
+                Powered by Demucs & PyTorch.
+            </div>
+        </div>
+</body>
+
+</html>

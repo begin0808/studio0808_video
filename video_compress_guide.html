@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 智能影片壓縮</title>
+    <style>
+        :root {
+            --primary: #009688;
+            --secondary: #00796B;
+            --accent: #E91E63;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #4DD0E1, #4DB6AC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 150, 136, 0.1);
+            border-color: var(--primary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .tip-box {
+            background-color: rgba(0, 150, 136, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>智能影片壓縮</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_compress.png" alt="智能影片壓縮 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能概述 (Overview)</h2>
+            <p><strong>智能影片壓縮 (Video Compressor)</strong>
+                是一個高效的影片瘦身工具。當您的影片檔案太大，無法上傳至社群平台，或是佔用過多硬碟空間時，這個工具可以幫助您在肉眼幾乎看不出差異的情況下，大幅度縮減檔案體積。</p>
+            <p>本模組底層採用業界標準的 <strong>FFmpeg x264 CRF (Constant Rate Factor)</strong> 編碼算法，能在檔案大小與畫質之間取得完美的平衡。</p>
+        </div>
+
+        <div class="card">
+            <h2>02. 詳細操作流程</h2>
+            <ol>
+                <li><strong>載入影片</strong>：點擊「加入影片檔案」來選擇您想要壓縮的影片。
+                    <p style="margin-top: 5px; color: var(--info);">💡 <strong>批次處理支援：</strong>您可以在選擇檔案時框選或按住 Ctrl / Shift 來一次加入多個影片，系統將會一鍵自動排隊壓縮。</p></li>
+                <li><strong>選擇目標畫質</strong>：您可以選擇保持原解析度，或是將 4K 影片縮小至 1080p, 720p 甚至 480p 以獲得極致小的體積。</li>
+                <li><strong>選擇壓縮強度</strong>：
+                    <ul>
+                        <li><span class="highlight">高品質 (檔案較大)</span>：適合需要保留極高細節的影片，較少壓縮。</li>
+                        <li><span class="highlight">平衡 (Medium)</span>：推薦選項。這能在維持優良畫質的同時，有效縮減約 50% 或更多的檔案大小。</li>
+                        <li><span class="highlight">強烈壓縮 (檔案極小)</span>：適用於僅供預覽、或是畫面變動不大的簡報/對話影片。</li>
+                    </ul>
+                </li>
+                <li><strong>開始壓縮</strong>：點擊橘色按鈕開始，下方會有文字與進度條提示您當前的處理進度。</li>
+                <li><strong>中途取消</strong>：如果您發現參數設定錯誤，可以點擊「中斷」按鈕來取消壓縮任務。</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>03. 常見問題 (Q&A)</h2>
+            <h3>Q: 為什麼壓縮後的檔案反而變大了？</h3>
+            <p>A: 如果您原本的影片已經被平台 (如 Facebook 或 LINE)
+                嚴重壓縮過，而您選擇了「高品質」進行重新編碼，工具可能會試圖用更多的資料量來描述已經模糊的畫面，導致檔案變大。遇到這種情況，您可以嘗試降低壓縮強度，或是不需要特別處理這支影片。</p>
+
+            <h3>Q: 壓縮過程需要多久？</h3>
+            <p>A: 這取決於影片的長度、目標解析度以及您的電腦 CPU 效能。智能壓縮屬於計算密集型的任務，建議在電腦閒置時進行批次處理。</p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

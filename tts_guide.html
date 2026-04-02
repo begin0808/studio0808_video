@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 微軟語音合成 (Edge-TTS)</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #E53935, #FBC02D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 10rem;
+            background-color: var(--secondary);
+            color: white;
+            margin-left: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>微軟語音合成技術</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/tts.png" alt="微軟語音 Edge-TTS 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 核心技術介紹</h2>
+            <p>本程式 整合了微軟最新的 <strong>Edge-TTS (Azure Cognitive Services)</strong> 技術，讓您無需申請複雜的 API 金鑰，即可免費使用高品質的
+                AI 神經網路語音。</p>
+            <p>與傳統機械音不同，Neural TTS 模型能生成極其自然、抑揚頓挫、且帶有情感的人聲，廣泛應用於：</p>
+            <ul>
+                <li>🎬 <strong>影片旁白</strong>：為解說影片、短影音快速配音。</li>
+                <li>📚 <strong>有聲書製作</strong>：將長篇文章轉為語音朗讀。</li>
+                <li>🎤 <strong>角色扮演</strong>：透過多角色設定，一人分飾多角演出對話。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. 功能特色解析</h2>
+
+            <h3>🌍 多國語言支援</h3>
+            <p>系統內建支援多種語言模型，包含：</p>
+            <ul>
+                <li><strong>中文 (Chinese)</strong>：台灣口音 (曉臻、雲哲)、大陸口音 (曉曉、雲希)、粵語等。</li>
+                <li><strong>英文 (English)</strong>：美式 (Jenny)、英式 (Ryan) 等，發音標準道地。</li>
+                <li><strong>日韓與其他</strong>：完整的日語、韓語、法語、德語支援。</li>
+            </ul>
+
+            <h3>🎛️ 進階參數控制 <span class="badge">New!</span></h3>
+            <p>為了滿足更細緻的聲音需求，本封測版本加入了強大的獨立控制功能：</p>
+            <ul>
+                <li><strong>語速 (Speed)</strong>：支援 <code>-50%</code> (慢速) 到 <code>+50%</code> (快速) 的全域調整。</li>
+                <li><strong>音調 (Pitch)</strong>：支援 5 個角色 <span class="highlight">獨立音調設定</span>。
+                    <ul>
+                        <li>想讓 **男童 (Boy)** 聲音更稚嫩？試試 <code>+20Hz</code> 或 <code>+30Hz</code>。</li>
+                        <li>想讓 **男聲 (Man)** 更沉穩？試試 <code>-20Hz</code> 或 <code>-30Hz</code>。</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. 使用模式說明</h2>
+
+            <h3>📝 一般文字模式 (Text Mode)</h3>
+            <p>直接輸入文字即可生成語音。支援特殊的 **「角色標籤」** 功能，讓您在同一段文字中切換不同聲音：</p>
+            <pre><code style="display:block; padding:1rem; background:#222; margin:1rem 0;">Man: 你好，我是爸爸。
+Woman: 嗨，我是媽媽。
+Boy: 我是小明！
+Girl: 我是小美～
+(無標籤): 這是旁白聲音。</code></pre>
+            <p>系統會自動依據標籤切換對應的角色設定 (包含您設定的獨立音調)。</p>
+
+            <h3>🎬 SRT 字幕配音模式 (SRT Dubbing)</h3>
+            <p>直接載入 <code>.srt</code> 字幕檔，系統會依據字幕的時間軸生成語音。</p>
+            <ul>
+                <li><strong>智慧避讓 (Smart Anti-Overlap)</strong>：如果上一句還沒唸完，下一句會自動順延，確保聲音不重疊。</li>
+                <li><strong>字幕清洗 (SRT Cleaner)</strong>：針對雙語字幕 (如中日對照)，可使用 <span class="highlight">🧹 只保留中文</span>
+                    功能，一鍵去除外語，避免 AI 朗讀出不必要的原文。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>04. 常見問題 (Q&A)</h2>
+
+            <h3>Q: 出現 "403 Forbidden" 錯誤？</h3>
+            <p>A: 這是因為微軟更新了 API 驗證機制。請點擊介面左下角的 <span class="highlight">🔄 更新組件 (Fix 403)</span> 按鈕，系統會自動更新
+                <code>edge-tts</code> 核心組件來修復此問題。
+            </p>
+
+            <h3>Q: 為什麼顯示「【某某語言模型】 無法朗讀中文內容」？</h3>
+            <p>A: 雖然部分外語模型 (如日文模型) 也能讀漢字，但發音通常不準確。如果您輸入中文內容卻選擇了外語模型 (例如德文、法文等)，系統會自動偵測並發出明確的警告
+                (精準標示出是哪個模型不匹配)，避免生成錯誤或無聲的音訊。</p>
+
+            <h3>Q: 雲澤 (Yunze) 聲音不見了？</h3>
+            <p>A: 微軟官方似乎已移除了雲澤模型。建議改用 **雲希 (Yunxi)** 並搭配 **音調調整** 來模擬類似的聲音。</p>
+
+            <h3>Q: 怎麼把生成的語音直接播給 Discord 裡的朋友聽？</h3>
+            <p>A: 由於語音合成是把聲音輸出到您的喇叭，朋友是聽不到的。您可以透過兩種方式分享：</p>
+            <ol>
+                <li>使用 <strong class="highlight">立體聲混音 (Stereo Mix)</strong>：在 Discord
+                    把麥克風改成「立體聲混音」，這樣您電腦播出來的合成語音，朋友就聽得到了（但同時也會聽到您看影片的聲音）。</li>
+                <li>使用 <strong class="highlight">VB-Audio Virtual Cable</strong>（推薦）：去 Windows
+                    音效設定，把播放合成語音的軟體（或系統預設輸出）指派給 <code>CABLE Input</code>，然後在 Discord 麥克風選擇
+                    <code>CABLE Output</code>，這樣就能乾淨的只傳送合成出來的語音！
+                </li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>05. 技術規格 (Specs)</h2>
+            <ul>
+                <li><strong>核心引擎 (Core Engine)</strong>：Microsoft Edge Read Aloud API (微軟大聲朗讀技術)</li>
+                <li><strong>音訊格式 (Format)</strong>：MP3 (中間運算格式) / WAV (最終輸出封裝，方便後製)</li>
+                <li><strong>音質取樣 (Sample Rate)</strong>：24kHz / 48kHz (高解析度音質)</li>
+                <li><strong>網路需求 (Network)</strong>：必須保持網際網路連線 (使用雲端即時運算)</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by Microsoft Edge-TTS & Python.
+        </div>
+    </div>
+</body>
+
+</html>

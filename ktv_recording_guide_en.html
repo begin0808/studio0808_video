@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: KTV Recording Tech</title>
+    <style>
+        :root {
+            --primary: #d500f9;
+            --secondary: #651fff;
+            --accent: #ffab00;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #00B0FF, #1DE9B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--primary);
+        }
+
+        .highlight { color: var(--accent); font-weight: bold; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>KTV Recording Technology</h1>
+        </header>
+
+        <div class="card">
+            <h2>01. Overview</h2>
+            <p><strong>KTV Studio</strong> is an all-in-one workstation for cover artists, allowing professional-grade vocal and backing track synthesis.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. Core Features</h2>
+
+            <h3>🎤 Smart Audio Input</h3>
+            <p>The system automatically prioritizes low-latency drivers (WASAPI / WDM-KS) and intelligently selects the best physical microphone.</p>
+
+            <h4 style="color: var(--accent); margin-top: 1.2rem; margin-bottom: 0.5rem;">📋 Common Devices Guide</h4>
+            <table style="width:100%; border-collapse: collapse; font-size: 0.93em; margin-top: 0.5rem;">
+                <thead>
+                    <tr style="background:rgba(101,31,255,0.25);">
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">Device</th>
+                        <th style="padding:8px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1);">Status</th>
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Microsoft Sound Mapper</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">✅ Default</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Points to your current Windows default microphone.</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.02);">
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Microphone (Realtek / USB Audio)</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">⭐ Best</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Direct physical mic. Best results for singing and RVC.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Stereo Mix</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#FF9800; font-weight:bold;">⚠️ Internal</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Records system sounds. Not suitable for vocal recording due to echo.</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.02);">
+                        <td style="padding:7px 12px;"><code>Headset (Hands-Free)</code></td>
+                        <td style="padding:7px 12px; text-align:center; color:#FF5252; font-weight:bold;">❌ Disable</td>
+                        <td style="padding:7px 12px;">Bluetooth call mode. Low bandwidth; results in poor audio quality.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>03. Workflow</h2>
+            <ol>
+                <li><strong>Setup</strong>: Select mic and wear headphones.</li>
+                <li><strong>Load</strong>: Click "📂 Select Song" to load backing track.</li>
+                <li><strong>Record</strong>: Click "🔴 Start Recording" and sing.</li>
+                <li><strong>Finish</strong>: Click "⏹️ Stop & Synthesis" for auto-processing.</li>
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>

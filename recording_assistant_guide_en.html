@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: Recording Assistant Guide</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2E7D32;
+            --accent: #FF5252;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --info: #03A9F4;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #AA00FF, #E040FB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--info);
+        }
+
+        .highlight { color: var(--primary); font-weight: bold; }
+        .tag { padding: 2px 6px; border-radius: 4px; font-size: 0.85em; font-weight: bold; margin-bottom: 2px; display: inline-block;}
+        .tag-green { background: rgba(76, 175, 80, 0.2); color: #81C784; }
+        .tag-blue { background: rgba(3, 169, 244, 0.2); color: #4FC3F7; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Recording Assistant</h1>
+        </header>
+
+        <div class="card">
+            <h2>01. Overview</h2>
+            <p><strong>Recording Assistant</strong> is a lightweight tool with live waveform display and AI denoise, perfect for high-quality voice samples.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. Core Features</h2>
+
+            <h3>🎤 Device Selection</h3>
+            <ul>
+                <li>👉 <span class="tag tag-green">Vocal Recording:</span> Select <strong>Physical Microphone</strong> (e.g. Realtek Audio).</li>
+                <li>👉 <span class="tag tag-blue">Internal Recording:</span> Select <strong>Stereo Mix</strong> to capture system sounds.</li>
+            </ul>
+
+            <h4 style="color: var(--primary);">📋 Common Devices</h4>
+            <table style="width:100%; border-collapse: collapse; font-size: 0.93em; margin-top: 0.5rem;">
+                <thead>
+                    <tr style="background:rgba(76, 175, 80, 0.15);">
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">Device</th>
+                        <th style="padding:8px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1);">Status</th>
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Microsoft Sound Mapper</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">✅ OK</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Points to Windows default devices.</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.02);">
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Microphone (Realtek / USB Audio)</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">⭐ Best</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Best for vocal recording.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Stereo Mix</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#29B6F6; font-weight:bold;">🎧 Int.</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Records internal PC audio.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>03. Steps</h2>
+            <ol>
+                <li><strong>Record</strong>: Click "🔴 Record" to start.</li>
+                <li><strong>Review</strong>: Click "▶ Play" to check quality.</li>
+                <li><strong>File</strong>: Open the output folder to find your <code>.wav</code>.</li>
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>

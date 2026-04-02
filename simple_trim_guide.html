@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 簡易剪輯 (Simple Trim)</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #F50057, #FF9000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>簡易剪輯模組</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_trim.png" alt="無損簡易剪輯 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能介紹</h2>
+            <p><strong>簡易剪輯 (Simple Trim)</strong> 是專為「不需重新編碼的快速切割」設計。無須像傳統影音軟體層層等待重新輸出，可以直接根據您標記的起點與終點，秒速「抽」出您要的影片段落。
+            </p>
+            <ul>
+                <li>無畫質減損，不會影響影片解析度與色彩。<span class="highlight">(Stream Copy)</span></li>
+                <li>直接透過預覽播放器選擇精確秒數。</li>
+                <li>適用於想將一小時的素材精簡為幾秒鐘或幾分鐘的情境。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. 詳細操作流程</h2>
+            <ol>
+                <li><strong>加入檔案</strong>：點選「加入檔案」載入欲剪切的目標影片檔。</li>
+                <li><strong>預覽與定位</strong>：待影片成功顯示於黑框預覽視窗，您可以利用下方的「|<, <<, ▶,>>, >|」傳統控制鈕進行跳轉及播放來尋找您需擷取的範圍。</li>
+                <li><strong>設定標記</strong>：
+                    <ul>
+                        <li><span class="highlight">設定起點</span>：將進度停在您想保留的開頭，按下此按鈕。</li>
+                        <li><span class="highlight">設定終點</span>：將進度停在您想保留的結尾，按下此按鈕。</li>
+                    </ul>
+                </li>
+                <li><strong>開始剪輯</strong>：當起終點皆確立後，粉紅色的「開始剪輯」按鈕這才會解鎖。點擊後系統即可光速切割該段落。
+                    <p style="margin-top: 5px; color: var(--info);">💡 <strong>剪輯模式切換：</strong>您也可以選擇「刪除此區段」模式。系統會自動刪除指定的區段，並將前後剩餘的影片無縫合併！</p></li>
+            </ol>
+            <p><em>💡 提示：切割後的獨立片段會放在 <code>Outputs/Tools</code> 資料夾內。</em></p>
+        </div>
+
+        <div class="card">
+            <h2>03. 常見問題 (Q&A)</h2>
+
+            <h3>Q: 為什麼切割點不是完全精準的秒段？</h3>
+            <p>A: 因為系統使用的是<strong>不重新編碼 (No Re-encoding)</strong> 的高速模式，因此剪輯引擎只能從最靠近目標時間點的「Keyframe
+                (關鍵影格)」進行切割。若極度追求毫秒不差，請改用非線性剪輯軟體 (NLE)。</p>
+
+            <h3>Q: 出現預覽畫面不連貫或變黑？</h3>
+            <p>A: 當前簡易剪輯的播放預覽受到 Tkinter UI 極限，建議用於粗略標記使用。太高度的高解析影片可能會在拖拉時間軸時發生些許卡頓。</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by FFmpeg & OpenCV.
+        </div>
+    </div>
+</body>
+
+</html>

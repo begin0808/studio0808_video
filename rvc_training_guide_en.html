@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RVC Model Cloud Training</title>
+    <style>
+        :root {
+            /* Purple/Pink Theme for Creation/Training */
+            --primary: #ff4081;
+            /* Pink */
+            --secondary: #7c4dff;
+            /* Deep Purple */
+            --accent: #00e5ff;
+            /* Cyan Accent */
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #FF3D00, #FFAB40);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(124, 77, 255, 0.2);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        h4 {
+            color: var(--text);
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--accent);
+        }
+
+        .step-block {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 10rem;
+            background-color: var(--secondary);
+            color: white;
+            margin-left: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>RVC Model Cloud Training</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/rvc_training.png" alt="RVC Model Training Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>Prologue: Creating Your Exclusive AI Voice</h2>
+            <p>This guide will show you how to use <strong>Google Colab's</strong> free computing power to train
+                high-quality RVC voice conversion models. For the best results, we standardize the process into three
+                stages:</p>
+            <ol>
+                <li><strong>Data Preparation</strong>: Use this application and UVR5 to create pure clean vocals.</li>
+                <li><strong>Cloud Training</strong>: Use Google Colab's powerful GPUs for training.</li>
+                <li><strong>Model Import</strong>: Place the trained model into this application for use.</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>Stage 1: Data Preparation (The Most Important Step)</h2>
+            <p>The quality of a model is <span class="highlight">90% dependent on the quality of the dataset</span>.
+                Please ensure your training audio is an absolutely clean voice with no background music (BGM) and no
+                reverberation (Reverb/Echo).
+            </p>
+
+            <h3>1. Initial Separation (Using this application)</h3>
+            <div class="step-block">
+                Use this software's "Vocal Separation" feature:
+                <ol>
+                    <li>Input your audio/video source.</li>
+                    <li>Check <strong>Save Clean Vocals As (WAV)</strong>.</li>
+                    <li>Execute and retrieve <code>vocals.wav</code>.</li>
+                </ol>
+            </div>
+
+            <h3>2. Removing Reverb and Noise (Using UVR5) <span class="badge">Crucial</span></h3>
+            <p>Vocals separated by this application usually still have spatial reverberation, which will cause the model
+                training to fail (the voice sounds muddy). Please make sure to use <a
+                    href="https://github.com/Anjok07/ultimatevocalremovergui/releases" target="_blank">UVR5 (Ultimate
+                    Vocal Remover)</a> for secondary processing.</p>
+            <div class="step-block">
+                <strong>UVR5 Recommended Settings (De-Reverb):</strong>
+                <ul>
+                    <li>Process Method: <strong>VR Architecture</strong></li>
+                    <li>Window Size: <code>320</code> (Default) or <code>512</code></li>
+                    <li>Aggression Setting: <code>10</code></li>
+                    <li>Model: Select <strong>5_HP-Karaoke-UVR.pth</strong> or <strong>VR - DeEcho-DeReverb.pth</strong>
+                    </li>
+                    <li>After execution, you will get extremely clean, close-miked sound, which is standard training
+                        material!</li>
+                </ul>
+            </div>
+
+            <h3>3. Packaging the Dataset (Detailed Instructions)</h3>
+            <div class="step-block">
+                <strong>File Preparation Principles:</strong>
+                <ul>
+                    <li><strong>Quantity</strong>: Please prepare <strong>multiple</strong> short audio files (10~15
+                        seconds each recommended), totaling about 10~30 minutes.</li>
+                    <li><strong>Format</strong>: Must be in <span class="highlight">WAV</span> format (PCM_16), sample
+                        rate 44100Hz or 48000Hz, mono is preferred.</li>
+                    <li><strong>Naming</strong>: Please use English or numbers for filenames (e.g.,
+                        <code>001.wav</code>, <code>002.wav</code>), avoiding special symbols.</li>
+                </ul>
+
+                <strong>Packaging Steps:</strong>
+                <ol>
+                    <li>Create a folder and name it <code>dataset</code>.</li>
+                    <li>Place all prepared <code>.wav</code> files into this folder.</li>
+                    <li>Right-click the folder and select "Add to archive" to create a
+                        <strong><code>dataset.zip</code></strong> file.</li>
+                </ol>
+                <p><em>Structure Example:</em><br>
+                    <code>dataset.zip</code> <br>
+                    └── <code>dataset/</code> <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;├── <code>001.wav</code> <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;├── <code>002.wav</code> <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;└── ...
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Stage 2: Google Colab Cloud Training</h2>
+            <p>We recommend using <a
+                    href="https://colab.research.google.com/github/IAHispano/Applio/blob/master/notebooks/Applio.ipynb"
+                    target="_blank">Applio Colab</a> (currently the most powerful RVC modification).</p>
+
+            <h3>1. Prerequisite Setup</h3>
+            <div class="step-block">
+                After entering the Colab page:
+                <ol>
+                    <li>Top menu <strong>"Runtime" -> "Change runtime type"</strong>.</li>
+                    <li>Hardware accelerator: select <strong>T4 GPU</strong>.</li>
+                    <li>Click <strong>"Connect"</strong> in the top right corner.</li>
+                </ol>
+            </div>
+
+            <h3>2. Starting Execution and Entering WebUI</h3>
+            <p>Click the play button (▶) on the left of each block in order:</p>
+            <ul>
+                <li><strong>Install Dependencies</strong>: Wait for installation to complete.</li>
+                <li><strong>Start Applio</strong>: After execution, a public link will appear (e.g.,
+                    <code>gradio.live</code>), click to enter the graphical interface.</li>
+            </ul>
+
+            <h3>3. Training Parameter Recommendations</h3>
+            <div class="step-block">
+                In the WebUI's Train tab:
+                <ul>
+                    <li><strong>Experiment Name</strong>: Choose an English name (e.g., <code>my_voice</code>).</li>
+                    <li><strong>Sample Rate</strong>: <code>40k</code> or <code>48k</code>.</li>
+                    <li><strong>Process Data</strong>: Upload your <code>dataset.zip</code>.</li>
+                    <li><strong>Extract Features</strong>: F0 Method select <code>rmvpe</code> (best results).</li>
+                    <li><strong>Train Model</strong>:
+                        <ul>
+                            <li>Total Epochs: <code>100</code> ~ <code>300</code> (train more rounds if you have less
+                                data).</li>
+                            <li>Batch Size: T4 graphics card can handle <code>8</code> ~ <code>12</code>.</li>
+                        </ul>
+                    </li>
+                </ul>
+                Click <strong>Train Model</strong> to begin training!
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Stage 3: Import to this application</h2>
+            <p>Once training is complete, download the <code>.pth</code> model file and <code>.index</code> index file
+                from Colab.</p>
+
+            <div class="step-block">
+                <ol>
+                    <li>Go to this software's directory <code>models/RVC/</code>.</li>
+                    <li>Create a new folder (e.g., <code>My_AI_Voice</code>).</li>
+                    <li>Place the two downloaded files into this folder.</li>
+                    <li>Open this application -> <strong>Real-time VC</strong>.</li>
+                    <li>Load your new model in the model field, and start voice conversion!</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            RVC (Retrieval-based Voice Conversion) Technology.
+        </div>
+    </div>
+</body>
+
+</html>

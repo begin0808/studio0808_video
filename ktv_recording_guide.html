@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 錄音合成 (KTV Recording)</title>
+    <style>
+        :root {
+            --primary: #d500f9;
+            --secondary: #651fff;
+            --accent: #ffab00;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #00B0FF, #1DE9B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--primary);
+        }
+
+        .highlight { color: var(--accent); font-weight: bold; }
+
+        .tip-box {
+            background-color: rgba(255, 171, 0, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>錄音合成技術</h1>
+        </header>
+
+        <div class="card">
+            <h2>01. 功能概述</h2>
+            <p><strong>錄音合成 (KTV Studio)</strong> 允許您載入影音伴奏進行即時演唱錄製，並自動進行人聲與伴奏的專業級合成。</p>
+        </div>
+
+        <div class="card">
+            <h2>02. 核心技術特色</h2>
+
+            <h3>🎤 智慧音訊輸入系統 (Smart Input)</h3>
+            <p>系統自動優先採用低延遲驅動架構 (WASAPI / WDM-KS)，並智慧選擇最適合錄音的實體裝置。</p>
+
+            <h4 style="color: var(--accent); margin-top: 1.2rem; margin-bottom: 0.5rem;">📋 常見輸入裝置解說</h4>
+            <table style="width:100%; border-collapse: collapse; font-size: 0.93em; margin-top: 0.5rem;">
+                <thead>
+                    <tr style="background:rgba(101,31,255,0.25);">
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">裝置名稱</th>
+                        <th style="padding:8px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1);">狀態</th>
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Microsoft 音效對應表 (Sound Mapper)</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">✅ 系統預設</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Windows 預設裝置，指向當前系統設定的預設麥克風。</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.02);">
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>麥克風 (Microphone / Realtek Audio)</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">⭐ 推薦</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">實體麥克風直連。錄音品質最理想，系統已預設優先選用。</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>立體聲混音 (Stereo Mix)</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#FF9800; font-weight:bold;">⚠️ 系統音</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">錄製電腦內部的音樂。錄製人聲時請勿選用，以免產生回音。</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.02);">
+                        <td style="padding:7px 12px;"><code>耳機 (Bluetooth Hands-Free)</code></td>
+                        <td style="padding:7px 12px; text-align:center; color:#FF5252; font-weight:bold;">❌ 禁用</td>
+                        <td style="padding:7px 12px;">藍牙通話模式。頻寬極窄導致聲音嚴重失真，請勿選用。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🤖 AI 智慧降噪 (AI Denoise)</h3>
+            <p>整合深度學習模型，利用 GPU 加速智慧剔除環境噪音，保留純淨人聲。</p>
+        </div>
+
+        <div class="card">
+            <h2>03. 詳細操作流程</h2>
+            <ol>
+                <li><strong>設定</strong>：選擇麥克風，建議佩戴耳機以防伴奏干擾。</li>
+                <li><strong>載入</strong>：點擊「📂 選歌」載入伴奏。</li>
+                <li><strong>錄製</strong>：點擊「🔴 開始錄音」演唱。</li>
+                <li><strong>合成</strong>：結束後點擊「⏹️ 停止並合成」，系統將自動混音。</li>
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>

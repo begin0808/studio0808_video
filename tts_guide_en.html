@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge-TTS Voice Generator</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #E53935, #FBC02D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 10rem;
+            background-color: var(--secondary);
+            color: white;
+            margin-left: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Edge-TTS Voice Generator</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/tts.png" alt="Microsoft Edge-TTS Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Core Technology Introduction</h2>
+            <p>This application integrates Microsoft's latest <strong>Edge-TTS (Azure Cognitive Services)</strong> technology,
+                allowing you to use high-quality AI neural network voices for free without needing to apply for complex
+                API keys.</p>
+            <p>Unlike traditional robotic voices, Neural TTS models can generate extremely natural human voices with
+                intonation and emotion, widely used for:</p>
+            <ul>
+                <li>🎬 <strong>Video Narration</strong>: Quickly dubbing explainer videos and shorts.</li>
+                <li>📚 <strong>Audiobook Creation</strong>: Reading long articles aloud.</li>
+                <li>🎤 <strong>Roleplaying</strong>: Performing dialogues by setting up multiple characters voiced by
+                    one person.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. Feature Highlights</h2>
+
+            <h3>🌍 Multi-Language Support</h3>
+            <p>The system built-in supports multiple language models, including:</p>
+            <ul>
+                <li><strong>Chinese</strong>: Taiwanese accents (HsiaoChen, YunZhe), Mainland accents (Xiaoxiao, Yunxi),
+                    Cantonese, etc.</li>
+                <li><strong>English</strong>: American (Jenny), British (Ryan), etc., with standard and authentic
+                    pronunciation.</li>
+                <li><strong>Japanese, Korean & Others</strong>: Complete support for Japanese, Korean, French, German,
+                    etc.</li>
+            </ul>
+
+            <h3>🎛️ Advanced Parameter Control <span class="badge">New!</span></h3>
+            <p>To meet more detailed voice needs, this closed beta version adds powerful independent control features:
+            </p>
+            <ul>
+                <li><strong>Speed</strong>: Supports global adjustment from <code>-50%</code> (slow) to
+                    <code>+50%</code> (fast).</li>
+                <li><strong>Pitch</strong>: Supports <span class="highlight">independent pitch settings</span> for 5
+                    roles.
+                    <ul>
+                        <li>Want the **Boy**'s voice to sound more childish? Try <code>+20Hz</code> or
+                            <code>+30Hz</code>.</li>
+                        <li>Want the **Man**'s voice to sound deeper? Try <code>-20Hz</code> or <code>-30Hz</code>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. Usage Modes</h2>
+
+            <h3>📝 Plain Text Mode</h3>
+            <p>Simply enter text to generate speech. It supports a special **"Role Tag"** feature, allowing you to
+                switch between different voices in the same text block:</p>
+            <pre><code style="display:block; padding:1rem; background:#222; margin:1rem 0;">Man: Hello, I am the father.
+Woman: Hi, I am the mother.
+Boy: I am Jimmy!
+Girl: I am Jenny~
+(No tag): This is the narrator's voice.</code></pre>
+            <p>The system will automatically switch to the corresponding role settings (including your independent pitch
+                settings) based on the tags.</p>
+
+            <h3>🎬 SRT Dubbing Mode</h3>
+            <p>Load an <code>.srt</code> subtitle file directly, and the system will generate speech based on the
+                subtitle's timeline.</p>
+            <ul>
+                <li><strong>Smart Anti-Overlap</strong>: If the previous sentence hasn't finished, the next sentence
+                    will automatically be delayed to ensure voices don't overlap.</li>
+                <li><strong>SRT Cleaner</strong>: For bilingual subtitles (e.g., Chinese-Japanese), you can use the
+                    <span class="highlight">🧹 Keep Chinese Only</span>
+                    feature to remove the foreign language with one click, preventing the AI from reading unnecessary
+                    original text.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>04. Troubleshooting (Q&A)</h2>
+
+            <h3>Q: Receiving a "403 Forbidden" error?</h3>
+            <p>A: This is because Microsoft updated their API verification mechanism. Please click the <span
+                    class="highlight">🔄 Update Core (Fix 403)</span> button in the bottom left of the interface. The
+                system will automatically update the <code>edge-tts</code> core component to fix this issue.
+            </p>
+
+            <h3>Q: Why does it say "[Language Model] cannot read Chinese content"?</h3>
+            <p>A: While some foreign models (like Japanese) can read Kanji, their pronunciation is usually inaccurate.
+                If you input Chinese content but select a foreign model (like German, French), the system will
+                automatically detect this and issue a clear warning (precisely indicating which model mismatches) to
+                prevent generating erroneous or silent audio.</p>
+
+            <h3>Q: Yunze's voice is missing?</h3>
+            <p>A: It appears Microsoft officially removed the Yunze model. We recommend switching to **Yunxi** and using
+                **Pitch adjustment** to simulate a similar voice.</p>
+
+            <h3>Q: How can I play the generated voice directly to my friends on Discord?</h3>
+            <p>A: Since speech synthesis outputs audio to your speakers, your friends can't hear it. You can share it in
+                two ways:</p>
+            <ol>
+                <li>Use <strong class="highlight">Stereo Mix</strong>: Change your microphone in Discord to "Stereo
+                    Mix", so your friends can hear the synthesized voice playing from your computer (but they will also
+                    hear any videos you are watching).</li>
+                <li>Use <strong class="highlight">VB-Audio Virtual Cable</strong> (Recommended): Go to Windows Sound
+                    Settings, assign the playback of the software (or default system output) to
+                    <code>CABLE Input</code>, and then select <code>CABLE Output</code> as your microphone in Discord.
+                    This cleanly transmits just the synthesized voice!
+                </li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>05. Technical Specifications (Specs)</h2>
+            <ul>
+                <li><strong>Core Engine</strong>: Microsoft Edge Read Aloud API</li>
+                <li><strong>Format</strong>: MP3 (Intermediate calculation format) / WAV (Final output container,
+                    convenient for post-production)</li>
+                <li><strong>Sample Rate</strong>: 24kHz / 48kHz (High-resolution audio)</li>
+                <li><strong>Network</strong>: Must maintain an active internet connection (uses cloud-based real-time
+                    computation)</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by Microsoft Edge-TTS & Python.
+        </div>
+    </div>
+</body>
+
+</html>

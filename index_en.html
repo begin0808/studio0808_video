@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 AI Video Tools - System</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --sidebar-bg: rgba(24, 26, 31, 0.85);
+            --neon-cyan: #00E5FF;
+            --neon-pink: #FF2A6D;
+            --neon-gold: #FFCA28;
+            --text-main: #E0E0E0;
+            --text-dim: #90CAF9;
+            --border-glow: 0 0 10px rgba(0, 229, 255, 0.5);
+            --font-main: "Microsoft JhengHei UI", "Segoe UI", sans-serif;
+            --font-mono: "Consolas", "Courier New", monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background-image:
+                linear-gradient(rgba(11, 12, 16, 0.9), rgba(11, 12, 16, 0.9)),
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 100 V0 L100 100 Z" fill="%23181A1F" opacity="0.1"/></svg>');
+            background-size: cover;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid rgba(0, 229, 255, 0.3);
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 22px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            color: var(--neon-pink);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(255, 42, 109, 0.5);
+        }
+
+        .nav-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 0;
+        }
+
+        /* Custom Scrollbar for Sidebar */
+        .nav-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .nav-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 229, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .nav-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 229, 255, 0.6);
+        }
+
+        .nav-group {
+            margin-bottom: 15px;
+        }
+
+        .nav-title {
+            padding: 5px 20px;
+            font-size: 13px;
+            color: var(--neon-gold);
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li a {
+            display: block;
+            padding: 10px 20px 10px 40px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links li a::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: transparent;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #fff;
+            background: rgba(0, 229, 255, 0.1);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-links li a:hover::before {
+            background-color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        /* Active State */
+        .nav-links li a.active {
+            color: var(--neon-cyan);
+            background: linear-gradient(90deg, rgba(0, 229, 255, 0.15) 0%, transparent 100%);
+            border-right: 3px solid var(--neon-cyan);
+            font-weight: bold;
+        }
+
+        .nav-links li a.active::before {
+            background-color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        /* Main Content iframe */
+        .main-content {
+            flex: 1;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(30, 34, 42, 0.6) 0%, rgba(11, 12, 16, 1) 100%);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+        }
+
+        /* Loader Overlay */
+        .loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 5;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .loader-glitch {
+            position: relative;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--neon-cyan);
+            letter-spacing: 5px;
+            text-shadow: var(--border-glow);
+            font-family: var(--font-mono);
+        }
+
+        .loader.hidden {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="app.png" width="96" height="96" alt="App Logo"
+                style="display: block; margin: 0 auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;">
+                <a href="index.html"
+                    style="text-decoration: none; padding: 4px 12px; border-radius: 4px; font-size: 0.85em; border: 1px solid var(--text-dim); color: var(--text-dim); transition: 0.3s;"
+                    onmouseover="this.style.borderColor='var(--neon-cyan)'; this.style.color='var(--neon-cyan)';"
+                    onmouseout="this.style.borderColor='var(--text-dim)'; this.style.color='var(--text-dim)';">繁體中文</a>
+                <a href="index_en.html"
+                    style="text-decoration: none; padding: 4px 12px; border-radius: 4px; font-size: 0.85em; font-weight: bold; background-color: var(--neon-cyan); color: var(--bg-color);">English</a>
+            </div>
+        </div>
+
+        <div class="nav-container">
+            <!-- 主要功能 -->
+            <div class="nav-group">
+                <div class="nav-title">🔗 Main App Features</div>
+                <ul class="nav-links">
+                    <li><a href="home_guide_en.html" target="content_frame" class="active"
+                            onclick="setActive(this)">Home Overview</a></li>
+                    <li><a href="video_download_guide_en.html" target="content_frame" onclick="setActive(this)">Video
+                            Downloader</a>
+                    </li>
+                    <li><a href="vocal_separation_guide_en.html" target="content_frame" onclick="setActive(this)">Vocal
+                            Separation</a></li>
+                    <li><a href="ktv_recording_guide_en.html" target="content_frame" onclick="setActive(this)">KTV
+                            Recording</a>
+                    </li>
+                    <li><a href="subtitle_generation_guide_en.html" target="content_frame" onclick="setActive(this)">AI
+                            Subtitles</a></li>
+                    <li><a href="tts_guide_en.html" target="content_frame" onclick="setActive(this)">Edge-TTS Engine</a>
+                    </li>
+                    <li><a href="voice_cloning_guide_en.html" target="content_frame" onclick="setActive(this)">Voice
+                            Cloning</a></li>
+                    <li><a href="rvc_guide_en.html" target="content_frame" onclick="setActive(this)">RVC Inference</a>
+                    </li>
+                    <li><a href="realtime_vc_guide_en.html" target="content_frame" onclick="setActive(this)">Realtime
+                            VC</a>
+                    </li>
+                    <li><a href="rvc_training_guide_en.html" target="content_frame" onclick="setActive(this)">RVC
+                            Training</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 影音小工具 -->
+            <div class="nav-group">
+                <div class="nav-title">🧰 Audio & Video Toolbox</div>
+                <ul class="nav-links">
+                    <li><a href="recording_assistant_guide_en.html" target="content_frame"
+                            onclick="setActive(this)">Recording Assistant</a></li>
+                    <li><a href="format_converter_guide_en.html" target="content_frame" onclick="setActive(this)">Format
+                            Converter</a></li>
+                    <li><a href="audio_extractor_guide_en.html" target="content_frame" onclick="setActive(this)">Audio
+                            Extractor</a>
+                    </li>
+                    <li><a href="simple_trim_guide_en.html" target="content_frame" onclick="setActive(this)">Simple
+                            Trim</a>
+                    </li>
+                    <li><a href="video_merger_guide_en.html" target="content_frame" onclick="setActive(this)">Lossless
+                            Merger</a>
+                    </li>
+                    <li><a href="video_compress_guide_en.html" target="content_frame" onclick="setActive(this)">Video
+                            Compressor</a>
+                    </li>
+                    <li><a href="silence_cutter_guide_en.html" target="content_frame" onclick="setActive(this)">Silence
+                            Cutter</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 支持贊助 -->
+            <div class="nav-group">
+                <div class="nav-title">💖 Support the Developer</div>
+                <ul class="nav-links">
+                    <li><a href="support_guide_en.html" target="content_frame" onclick="setActive(this)"
+                            style="color: #FF2A6D; font-weight: bold;">☕ Support & Sponsor</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="loader" id="loader">
+            <div class="loader-glitch">INITIALIZING_</div>
+        </div>
+        <iframe name="content_frame" id="content_frame" src="home_guide_en.html" onload="hideLoader()"></iframe>
+    </div>
+
+    <script>
+        // Update active class on click
+        function setActive(element) {
+            // Remove active class from all links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            // Add active class to clicked link
+            element.classList.add('active');
+
+            // Show loader briefly
+            const loader = document.getElementById('loader');
+            loader.classList.remove('hidden');
+        }
+
+        // Hide loader when iframe finishes loading
+        function hideLoader() {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 300); // Small artificial delay for visual effect
+        }
+    </script>
+</body>
+
+</html>

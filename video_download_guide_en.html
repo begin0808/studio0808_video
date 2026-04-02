@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDEO DOWNLOADER CORE</title>
+    <style>
+        :root {
+            --bg-color: #0f1215;
+            --card-bg: #1a1e24;
+            --text-color: #e0e0e0;
+            --accent-cyan: #00bcd4;
+            --accent-amber: #ffa000;
+            --accent-red: #ff5252;
+            --grid-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-cyan);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #9575CD, #4FC3F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+            margin: 0;
+
+
+        }
+
+        h2 {
+            border-left: 5px solid var(--accent-amber);
+            padding-left: 15px;
+            margin-top: 40px;
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            font-size: 1.5em;
+        }
+
+        h3 {
+            color: #fff;
+            margin-top: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-cyan);
+        }
+
+        .highlight {
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .warning {
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: #ffeb3b;
+        }
+
+        /* --- Process Visualization --- */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .node {
+            background: #2a3038;
+            padding: 15px 25px;
+            border-radius: 6px;
+            border: 1px solid var(--accent-cyan);
+            text-align: center;
+            position: relative;
+        }
+
+        .node .sub-text {
+            font-size: 0.8em;
+            color: #aaa;
+            display: block;
+        }
+
+        .arrow {
+            color: var(--accent-cyan);
+            font-size: 20px;
+        }
+
+        /* --- FAQ --- */
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 15px;
+        }
+
+        .question {
+            font-weight: bold;
+            color: var(--accent-cyan);
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .answer {
+            color: #ccc;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>VIDEO DOWNLOADER CORE</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/video_download.png" alt="Video Downloader Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Core Tech: Why do we merge files?</h2>
+            <p>Ever wonder why downloading a high-quality video shows <span class="highlight">Merging formats</span> in
+                the logs, or downloads both an mp4 and an m4a file?</p>
+            <p>This is the key mechanism our application uses to achieve <strong>ultimate video quality</strong>.</p>
+
+            <h3>The Mechanism</h3>
+            <p>To save bandwidth, modern platforms like YouTube structure their data streams as follows:</p>
+            <ul>
+                <li><strong>720p and below:</strong> Video and audio are bundled in the same stream.</li>
+                <li><strong>1080p / 2K / 4K:</strong> The <span class="warning">Video</span> and <span
+                        class="highlight">Audio</span> streams are transmitted completely separately.</li>
+            </ul>
+
+            <p>Therefore, to obtain a 4K video, our core engine must perform the following precise operations:</p>
+
+            <div class="process-flow">
+                <div class="node">
+                    <div>📥 Downloading Video</div>
+                    <span class="sub-text">2160p (4K)<br>(Muted mp4)</span>
+                </div>
+                <div class="arrow">➜</div>
+                <div class="node">
+                    <div>📥 Downloading Audio</div>
+                    <span class="sub-text">128k AAC<br>(No-video m4a)</span>
+                </div>
+                <div class="arrow">➕</div>
+                <div class="node" style="border-color: var(--accent-amber);">
+                    <div>🔄 FFmpeg Merging</div>
+                    <span class="sub-text">Merging Process</span>
+                </div>
+                <div class="arrow">➜</div>
+                <div class="node">
+                    <div>✅ Final Result</div>
+                    <span class="sub-text">Completed 4K MP4</span>
+                </div>
+            </div>
+
+            <div class="faq-item"
+                style="margin-top: 30px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px;">
+                <div class="question">❓ Log Anatomy: Why does downloading an MP4 involve mp4/webm → mkv → mp4?</div>
+                <div class="answer">
+                    <p>The complex merging process you see in the logs (downloading mp4 and webm → putting into mkv →
+                        extracting to mp4 → deleting temp files) is actually the perfect compromise for <strong>"Max
+                            Quality" and "Max Speed".</strong></p>
+                    <ol>
+                        <li><strong>Separate Downloads:</strong> YouTube stores its highest-quality video (often
+                            H.264/AV1 in <code>.mp4</code>) and highest-quality audio (often Opus in <code>.webm</code>)
+                            separately. The program must fetch the best of both worlds individually.</li>
+                        <li><strong>Why MKV first?:</strong> The MP4 container has strict format requirements and might
+                            reject advanced uncompressed streams. MKV, known as the "Universal Container," can safely
+                            pack any format together instantly without time-consuming re-encoding (which ruins quality).
+                            It acts as a safe intermediate stage.</li>
+                        <li><strong>Why MP4 at the end?:</strong> Since your target format is MP4, FFmpeg takes the
+                            safely packed MKV and performs one final "Lossless Repackaging (Remuxing)." This guarantees
+                            the output is an MP4 without any destructive "re-rendering."</li>
+                    </ol>
+                    <p style="color: var(--accent-cyan); margin-bottom: 0;">💡 <strong>Conclusion:</strong> These
+                        seemingly busy steps are actually instant, lossless container swaps. It is hundreds of times
+                        faster than forcing your GPU to re-render the video, guaranteeing 100% preservation of YouTube's
+                        original maximum quality!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>02. Interface Operation Details</h2>
+
+            <h3>Basic Operation & Layout</h3>
+            <ol>
+                <li><strong>Paste URLs</strong>: Paste links from YouTube, Facebook, Instagram, etc., into the top
+                    <code>Paste video URL(s) (One per line):</code> field.
+                </li>
+                <li><strong>Settings (Left to Right)</strong>: The UI uses an intuitive left-to-right logic:
+                    <ul>
+                        <li><span class="highlight">☑ Auto-Split Chapters</span>: If the video has built-in chapters, it
+                            will be precisely sliced after downloading.</li>
+                        <li><span class="highlight">☑ Attach Subtitles</span>: If the video provides subtitles, they
+                            will be downloaded along with it.</li>
+                        <li><strong>Select Sub Language</strong>: Specify the target subtitle language.</li>
+                        <li><strong>Select Quality</strong>: Defaults to <code>Best Quality (Auto)</code>.</li>
+                        <li><strong>Select Format</strong>: Defaults to <code>MP4</code>, but you can also choose
+                            <code>MP3</code> for audio-only.
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Start Download</strong>: Click the orange button, and the app will automatically handle
+                    downloading, merging, processing subtitles, and chapter slicing.</li>
+            </ol>
+
+            <h3>Batch & Playlist Support</h3>
+            <p>A fully upgraded queuing system for batch downloading:</p>
+            <ul>
+                <li><strong>Multi-line URLs</strong>: Paste multiple video links (one per line) in the input box. Click
+                    Download, and the system processes them sequentially.</li>
+                <li><span class="highlight">Auto-Resolve Playlists</span>: If your pasted URL contains the
+                    <code>&list=</code>
+                    parameter, the app intelligently detects this and pops up a brand-new <strong>Paginated Selection Window</strong>!
+                    <br>The window displays 50 entries per page with <strong>Select Page / Deselect Page / Select All / Deselect All</strong> quick controls — no more item count limit. Add your selection to the download queue with one click.
+                </li>
+            </ul>
+
+            <h3>Advanced Feature: Auto-Split Chapters</h3>
+            <p>If you check <span class="highlight">□ Auto-Split Chapters</span>:</p>
+            <ul>
+                <li>The system detects if the video has native "time-stamped chapters".</li>
+                <li>If there are no built-in chapters, it attempts to use <strong>AI to analyze the video
+                        description</strong>, looking for timestamps like <code>03:20 - Chorus</code>.</li>
+                <li>Once the download finishes, FFmpeg is invoked to perform an <strong>accurate, lossless
+                        slice</strong>, breaking a long video into multiple smaller clips, making it easier for you to
+                    collect or edit.</li>
+            </ul>
+
+            <h3>Core Update</h3>
+            <p>The <span class="highlight">Update Core</span> button at the top right is crucial. Click it to automatically check and install the following three essential components:</p>
+            <ul>
+                <li><code>yt-dlp</code>: The video download engine. YouTube frequently changes its algorithms, so keeping it updated prevents download failures.</li>
+                <li><code>FFmpeg</code>: The audio/video merge and conversion tool, used for multi-track merging and format conversion.</li>
+                <li><code>Deno</code>: A JavaScript runtime used to bypass YouTube's EJS challenge verification, ensuring high download success rates.</li>
+            </ul>
+            <p>If you encounter a download error, simply <strong>click this button</strong> to update all components to the latest version. This usually fixes the issue without reinstalling the entire software.</p>
+        </div>
+
+        <div class="card">
+            <h2>03. Smart Subtitle System & Protection</h2>
+            <p>This update introduces a brand new subtitle processing engine, solving common pain points regarding
+                YouTube subtitle downloads:</p>
+
+            <h3>Smart Language Picker</h3>
+            <ul>
+                <li><strong>Target Lock:</strong> You can directly choose target languages like "Traditional Chinese",
+                    "English", or "Japanese" on the UI.</li>
+                <li><strong>Official First:</strong> The program prioritizes the "Official Accurate Subtitles" uploaded
+                    by the creator.</li>
+                <li><strong>AI Fallback:</strong> If no official subtitles exist, the system "seamlessly switches" to
+                    fetch YouTube's Auto-Generated (AI) subtitles, guaranteeing you'll always have captions.</li>
+                <li><strong>Scraping Junk Tracks:</strong> It automatically filters out messy auto-translated tracks
+                    (like "Simplified to Traditional" or "English to Chinese"), ensuring the downloaded
+                    <code>.srt</code> file is clean and unique.
+                </li>
+            </ul>
+
+            <h3>HTTP Error 429 Protection & Auto-Retry</h3>
+            <p>Previously, forcing the download of unsupported AI subtitles (or being strictly blocked by YouTube's
+                servers) would crash the downloader, throwing an <span class="warning">HTTP Error 429: Too Many
+                    Requests</span> error.</p>
+            <p><strong>Now, we have added an auto-protection mechanism:</strong></p>
+            <ul>
+                <li>The moment the system detects a download block due to subtitles (Error 429), it will issue a
+                    warning: <code>⚠️ Detected YouTube server blocking subtitles...</code></li>
+                <li>The application will <strong>automatically cancel the subtitle task in 0 seconds</strong>.</li>
+                <li>It then <strong>automatically re-connects</strong> to safely download the high-quality video itself.
+                    The primary video download task will absolutely never fail just because of a subtitle problem!</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>04. Supported Platforms</h2>
+            <p>Powered by the robust <code>yt-dlp</code> engine, this application supports over 1000+ video sites
+                worldwide. Here are the most popular supported platforms:</p>
+
+            <div class="process-flow">
+                <div class="node" style="border-color: #ff0000; min-width: 80px;">YouTube</div>
+                <div class="node" style="border-color: #1877f2; min-width: 80px;">Facebook</div>
+                <div class="node" style="border-color: #e1306c; min-width: 80px;">Instagram</div>
+                <div class="node" style="border-color: #000; border: 1px solid #fff; min-width: 80px;">Threads</div>
+                <div class="node" style="border-color: #69c9d0; min-width: 80px;">TikTok</div>
+                <div class="node" style="border-color: #fff; min-width: 80px;">Twitter / X</div>
+                <div class="node" style="border-color: #9146ff; min-width: 80px;">Twitch</div>
+                <div class="node" style="border-color: #17D5FF; min-width: 80px;">Vimeo</div>
+                <div class="node" style="border-color: #ff8800; min-width: 80px;">SoundCloud</div>
+                <div class="node" style="border-color: #00a1d6; min-width: 80px;">Bilibili</div>
+            </div>
+            <p style="text-align: right; color: #888; font-size: 0.9em;">(and many more... if there's a video on a page,
+                it's worth trying)</p>
+        </div>
+
+        <div class="card">
+            <h2>05. Q&A</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: Why are some videos downloaded as MKV when I selected MP4?</div>
+                <div class="answer">A: Some extremely high-quality formats (like VP9/AV1 encoded 4K/8K) might natively
+                    be housed in an MKV container. To avoid re-encoding and losing quality, the program might prioritize
+                    keeping the MKV container. We recommend using VLC or PotPlayer for playback. Forcing MP4 in the
+                    options might trigger a time-consuming conversion.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Why does the download speed fluctuate?</div>
+                <div class="answer">A: Speed depends heavily on YouTube's server bandwidth allocation and the video
+                    quality chosen. Downloading 4K videos involves huge files and a final "merging" process, which
+                    consumes CPU and takes some time.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Can I download "Members Only" videos?</div>
+                <div class="answer">A: The current build does not support downloading videos that require login or
+                    cookies. It only supports Public or Unlisted links.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Why did it only download one video when I pasted a Playlist link?</div>
+                <div class="answer">A: The latest version supports playlist parsing! If you pasted a single video's URL,
+                    it only downloads that one. If you pasted a link containing the <code>list=</code> parameter, the
+                    system automatically pops up a <strong>paginated window</strong> letting you select from the entire list (no item limit), with quick Select/Deselect All controls.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: How do I download a Threads video?</div>
+                <div class="answer">A: Due to strict Meta API restrictions, the app cannot directly download Threads videos. When you paste a Threads URL, the app automatically copies the link to your clipboard and opens <code>threadsdownloader.com</code> in your browser. Simply press <strong>Ctrl+V</strong> in the site's input field and click Load Videos to complete the download.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: YouTube download fails with a "Sign in to confirm" or EJS error?</div>
+                <div class="answer">A: This is YouTube's new verification challenge. Click the <strong>Update Core</strong> button — the app will automatically download and integrate the <code>Deno</code> JavaScript runtime, enabling yt-dlp to bypass this challenge. Try the download again afterwards.</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

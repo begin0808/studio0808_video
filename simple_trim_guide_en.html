@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Trim</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #F50057, #FF9000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Simple Trim</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_trim.png" alt="Lossless Simple Trim Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Feature Introduction</h2>
+            <p><strong>Simple Trim</strong> is designed specifically for "rapid cutting without re-encoding". No need to
+                wait for layers of re-exporting like traditional video editing software; you can instantly "extract" the
+                video segment you want based on the start and end points you mark.
+            </p>
+            <ul>
+                <li>No loss in visual quality, resolution and colors are entirely unaffected. <span
+                        class="highlight">(Stream Copy)</span></li>
+                <li>Directly select exact second marks through the preview player.</li>
+                <li>Ideal for scenarios where you want to pare down an hour of material to a few seconds or minutes.
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. Step-by-Step Operations</h2>
+            <ol>
+                <li><strong>Add File</strong>: Click "Add File" to load the target video file you intend to trim.</li>
+                <li><strong>Preview and Locate</strong>: Once the video successfully displays in the black preview
+                    window, you can use the traditional control buttons "|<, <<, ▶,>>, >|" below to jump and play to
+                        locate the range you need to capture.</li>
+                <li><strong>Set Markers</strong>:
+                    <ul>
+                        <li><span class="highlight">Set Start Point</span>: Pause the playback at the beginning of what
+                            you want to keep, and press this button.</li>
+                        <li><span class="highlight">Set End Point</span>: Pause the playback at the end of what you want
+                            to keep, and press this button.</li>
+                    </ul>
+                </li>
+                <li><strong>Start Trimming</strong>: Once both the start and end points are established, the pink "Start
+                    Trimming" button will unlock. Click it, and the system easily slices the clip at light speed.
+                    <p style="margin-top: 5px; color: var(--info);">💡 <strong>Reverse Trim Mode:</strong> You can switch the mode to "Delete Segment". The system will remove the specified segment and seamlessly merge the remaining start and end parts together!</p></li>
+            </ol>
+            <p><em>💡 Tip: The standalone trimmed clips will be placed in the <code>Outputs/Tools</code> folder.</em>
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>03. Frequently Asked Questions (Q&A)</h2>
+
+            <h3>Q: Why aren't the cut points exactly on precise seconds?</h3>
+            <p>A: Because the system uses a high-speed <strong>No Re-encoding</strong> mode, the trimming engine can
+                only slice from the "Keyframe" closest to the target timestamp. If you demand millisecond precision,
+                please switch to Non-Linear Editing (NLE) software instead.</p>
+
+            <h3>Q: Why does the preview screen appear stuttery or go black?</h3>
+            <p>A: The current simple trim playback preview is limited by the Tkinter UI framework, recommending it
+                primarily for rough marker use. Extremely high-resolution videos may experience slight stutters when
+                dragging the timeline.</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by FFmpeg & OpenCV.
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 軟體總覽與統一說明</title>
+    <style>
+        :root {
+            --primary: #29B6F6;
+            --secondary: #AB47BC;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+            --warning: #FFB74D;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #D500F9, #FF4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+
+
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--warning);
+            margin-top: 1.5rem;
+            font-size: 1.0rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .danger-text {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .warn-box {
+            background-color: rgba(255, 82, 82, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--info);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Studio0808 AI 影音工具站</h1>
+            <p class="subtitle"><span style="color: #FF5252;">Unprofessional</span> <span style="color: #00E5FF;">Audio
+                    & Video Processing Suite</span></p>
+        </header>
+
+        <div class="card">
+            <h2>01. 核心技術</h2>
+            <ul>
+                <li>本系統採用強大且靈活的 <strong>Python</strong> 語言架構。視覺與操作介面由 <strong>CustomTkinter</strong> 打造，提供現代化的深色主題流暢體驗。
+                </li>
+                <li>核心運算深度整合 <strong>PyTorch</strong> 深度學習框架、<strong>FFmpeg</strong> 多媒體處理引擎、<strong>Pyannote</strong>
+                    人聲辨識技術。</li>
+                <li>語音生成與轉換採用了頂尖的 <strong>GPT-SoVITS</strong>、<strong>Edge-TTS</strong> 及 <strong>RVC</strong>
+                    (Retrieval-based Voice Conversion)演算法。</li>
+                <li>人聲分離則導入 <strong>Demucs</strong> 高保真音訊分離模型，全面打造【非】專業級的影音工作站。</li>
+            </ul>
+        </div>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/home_view.png" alt="首頁總覽 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>02. 硬體建議：關於顯卡 (GPU) 與 AMD 的支援度</h2>
+            <div class="tip-box">
+                <p>💡 <strong>硬體建議結論：</strong><br>
+                    • 本系統內建模型龐大，強烈建議具備 <strong>NVIDIA 獨立顯示卡 (RTX 系列佳)</strong> 以獲得最完美的秒殺級處理速度。<br>
+                    • 若為 <strong>AMD 顯卡、Intel 內顯或 Mac 系統</strong>，程式將自動轉由 <strong>CPU (中央處理器)</strong>
+                    進行運算，需耗費較長時間，敬請見諒。</p>
+            </div>
+
+            <p style="margin-top: 1rem;">本軟體內建許多先進的開源語音 AI 模型 (例如 <code>Demucs</code>, <code>RVC</code>,
+                <code>GPT-SoVITS</code>,
+                <code>Whisper</code>)，這些模型都需要強大的運算能力。
+            </p>
+
+            <h3>❓ 為什麼只支援 NVIDIA？</h3>
+            <p>目前全世界 90% 的主流開源 AI 專案底層都是仰賴一套叫做 <code>PyTorch</code> 的框架，並搭配 NVIDIA 專屬的運算語言
+                <strong>「CUDA」</strong>。因為其他品牌的顯卡 (如 AMD) 硬體內沒有 CUDA 核心，所以程式啟動時會判定「找不到合適的 AI 加速器」，進而自動將任務轉交給 CPU 處理
+                (也就是我們畫面上的紅字：<code>使用 CPU mode</code>)。
+            </p>
+
+            <h3>❓ 使用 CPU 模式有什麼影響？</h3>
+            <ul>
+                <li><strong>批次轉檔 (人聲分離、RVC等)</strong>：使用 NVIDIA 顯卡 (如 RTX 3060) 可能只要 20~30 秒的任務，用 CPU 跑可能需要 3 到 10 分鐘以上。
+                </li>
+                <li><strong>即時變聲 (麥克風)</strong>：影響最大。因為是即時性的，若 CPU 算不夠快，會導致說話後延遲 3~5 秒甚至斷斷續續，較不建議在 CPU 模式下使用即時變聲功能。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. 系統效能與多工作業 (Multi-Tasking)</h2>
+            <h3>❓ 程式允許多工作業嗎？可以一邊下載一邊轉檔嗎？</h3>
+            <p><strong>是的，本系統完全支援多工處理！</strong></p>
+            <p>程式在設計時，已為每個耗時任務 (包含格式轉換、影音下載、人聲分離等) 開闢了獨立的背景執行緒或子程序。只要您的電腦硬體效能 (CPU、記憶體、顯卡 VRAM) 足夠，您絕對可以：</p>
+            <ul>
+                <li>在「影音下載」抓檔的同時，切換到「格式轉換」進行批次轉檔。</li>
+                <li>甚至同時再開啟「人聲分離」讓顯示卡運算。</li>
+            </ul>
+            <p>任務之間互不干擾，主畫面也不會卡死。唯一的瓶頸僅為您電腦的硬體極限 (如：同時開啟太多 AI 模型導致 VRAM 不足，或硬碟讀取達到上限)。</p>
+        </div>
+
+        <div class="card">
+            <h2>04. 免責聲明 (Disclaimer)</h2>
+            <div class="warn-box">
+                <p>本軟體及內建之所有整合開源工具 (包含影音下載、語音模型、翻譯器等)，僅供<strong>個人學習、研究與學術交流</strong>使用。</p>
+                <ol>
+                    <li><strong>版權與授權</strong>：使用者須自行確保所下載或處理的影音素材未侵犯他人之著作權。嚴禁將本工具用於擷取商業付費內容或進行未經授權的再散佈。</li>
+                    <li><strong>AI 合成規範</strong>：使用「聲音複製」與「RVC變聲」技術時，請勿用來偽造他人聲音進行詐騙、散佈假消息或從事任何侵權與非法行為。</li>
+                    <li><strong>免責宣告</strong>：使用者應自行承擔使用本軟體所產生的風險與責任。軟體開發者不保證功能的絕對穩定性，亦不對任何資料遺失、封號及法律紛爭負責。</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>04. 系統檔案結構與輸出位置</h2>
+            <p>為了保持您的電腦乾淨，本軟體的輸出檔案與依賴模型都有統一的路徑規劃：</p>
+            <ul>
+                <li>📂 <strong><code>Outputs\</code> (所有作品輸出區)</strong>
+                    <ul>
+                        <li><code>Downloads\</code>：影音下載的原始檔案位置</li>
+                        <li><code>Vocals\</code>：人聲分離後的乾淨音軌及伴奏</li>
+                        <li><code>RVC\</code>：RVC 變聲後的作品</li>
+                        <li><code>Cloned\</code>：GPT-SoVITS 複製合成的語音</li>
+                    </ul>
+                </li>
+                <li>📂 <strong><code>models\</code> (各功能專屬 AI 模組)</strong>
+                    <ul>
+                        <li>如果您在網路上下載了他人的 <code>.pth</code>、<code>.ckpt</code> 或是 <code>.index</code>
+                            等人物聲音檔案，請依據功能放進對應的資料夾中 (<code>models\RVC</code> 或 <code>models\SoVITS</code>)。</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>05. 關於即時變聲的額外擴充軟體</h2>
+            <p>如果您想將「即時變聲」的聲音傳到 <strong>Discord、Line 或遊戲語音</strong> 中被別人聽到，您必須另外在電腦上安裝免費的「虛擬音源線」軟體，例如 <strong>VB-Audio
+                    Cable</strong>。</p>
+            <p>這就像是拉了一條虛擬的電線，把我們程式發出的變聲軌，直接督進 Discord 的麥克風插孔裡。詳細設定方式請參考「即時變聲」介面上的【設置說明】按鈕。</p>
+        </div>
+
+        <div class="card">
+            <h2>06. 核心引擎與套件版本清單</h2>
+            <p>本軟體整合了以下強大的開源引擎與技術底層，為確保最佳相容性，已針對最新硬體 (含 RTX 50 系列) 進行優化：</p>
+            <ul>
+                <li><span class="highlight">PyTorch v2.6.0+cu124</span> (核心 AI 運算引擎，支援最新 Blackwell sm_120 架構與 CUDA 12.4)
+                </li>
+                <li><span class="highlight">FFmpeg</span> (底層影音編碼與解碼引擎)</li>
+                <li><span class="highlight">htdemucs</span> (Meta 開源之高音質音樂人聲分離模型)</li>
+                <li><span class="highlight">Torchcrepe</span> (RVC 變聲使用之精準音高分析演算法)</li>
+                <li><span class="highlight">faster-whisper</span> (高效能 AI 語音轉寫與字幕生成引擎)</li>
+                <li><span class="highlight">Edge-TTS</span> (微軟雲端語音合成 API)</li>
+                <li><span class="highlight">yt-dlp</span> (開源影音串流下載工具)</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 影音合併 (Video Merger)</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #FF8A65, #FFD54F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>影音合併模組</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_merge.png" alt="無損影音合併 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能介紹</h2>
+            <p><strong>影音合併 (Video Merger)</strong> 是一套專門處理「無聲影片與純音源疊加」與「原音伴奏重新混縮」的微調工具。常被用於取代傳統剪輯軟體耗時的重新轉檔流程。</p>
+            <ul>
+                <li>將自己新錄製的人聲軌與無聲的 MV 高速結合。</li>
+                <li>調整影片與新音軌混和中的相對音量 (Gain 增益調整)。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. 詳細操作流程</h2>
+            <ol>
+                <li><strong>載入素材</strong>：分別點選「影片來源」與「音訊來源」旁邊的「加入影片檔案」與「加入音訊檔案」按鈕。</li>
+                <li><strong>混合模式 (Mix Mode)</strong>：
+                    <ul>
+                        <li><span
+                                class="highlight">勾選「混音模式」</span>：將會保留原影片的背景音，將其原影片音量與您載入的新音源進行「疊加混縮」。下方會跑出「影片原音音量」和「新載入音訊音量」供您設定。
+                        </li>
+                        <li><span class="highlight">取消勾選</span>：系統將會將原始影片內建的音軌抽離，並以新載入的音源完全取代。這個做法通常可達秒速無損輸出 (不須重編碼音波)。
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>自動長度裁切</strong>：不管兩者長度差異如何，最後完成的混合檔將會自動基於「影片長度」進行結束。</li>
+                <li><strong>開始合成</strong>：當設定妥當，點擊粉紅色的「開始合成」按鈕即可。</li>
+            </ol>
+            <p><em>💡 提示：合成後的專案會自動存放在 <code>Outputs/Tools</code> 資料夾。</em></p>
+        </div>
+
+        <div class="card">
+            <h2>03. 常見問題 (Q&A)</h2>
+
+            <h3>Q: 為什麼純替換音頻極快，勾選混音模式卻等很久？</h3>
+            <p>A: 純替換是一種所謂的封裝檔替換 (Remux) 作業，不需要重新編碼便能完成。但若您啟用「混音」，則系統必須先拆解雙邊軌道重新渲染音波才疊加合成，所需時間會依照檔案大小與位元率浮動。</p>
+
+            <h3>Q: 可以一次載入兩個以上的音訊嗎？</h3>
+            <p>A: 抱歉，簡易的影音合併只支援「一個影像來源＋一個外部匯入音訊來源」之混合。若需更多軌道混和，請使用專業的 DAW (數位音頻工作站)。</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by FFmpeg Audio Filters.
+        </div>
+    </div>
+</body>
+
+</html>

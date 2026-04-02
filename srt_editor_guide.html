@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: SRT 字幕編輯器指南</title>
+    <style>
+        :root {
+            --bg-color: #0f1215;
+            --card-bg: #1a1e24;
+            --text-color: #e0e0e0;
+            --accent-blue: #2196F3;
+            --accent-amber: #ffa000;
+            --accent-green: #4CAF50;
+            --grid-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #64B5F6, #2196F3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            border-left: 5px solid var(--accent-amber);
+            padding-left: 15px;
+            color: var(--accent-amber);
+            font-size: 1.3em;
+            margin-top: 0;
+        }
+
+        .highlight {
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--accent-green);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>SRT 字幕編輯器指南</h1>
+        </header>
+
+        <div class="card">
+            <h2>01. 工具用途</h2>
+            <p><strong>SRT 字幕編輯器</strong> 是一個輕量、高效的校對工具。它專為處理 AI 生成的字幕而設計，讓您能快速修正錯字、調整時間軸，而無需開啟龐大的專業剪輯軟體。</p>
+        </div>
+
+        <div class="card">
+            <h2>02. 核心功能介紹</h2>
+            <ul>
+                <li><strong>分頁顯示系統</strong>：為了解決傳統編輯器在處理長影片時會造成的卡頓，本工具採用「 pagination 分頁」技術。每頁顯示 50 筆字幕，確保編輯過程極速流暢。</li>
+                <li><strong>雙欄式編輯</strong>：左側為時間軸（開始與結束），右側為文字內容。您可以直接在格子內修改。</li>
+                <li><strong>即時儲存</strong>：點擊頂部的 <span class="highlight">「儲存」</span> 按鈕，程式會立即將所有分頁的修改合併並寫回原本的 .srt 檔案。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. 操作提示</h2>
+            <div class="tip-box">
+                <p>💡 <strong>如何切換頁面？</strong></p>
+                <p>您可以使用列表上方或下方的「上一頁」與「下一頁」按鈕。請放心，切換頁面時程式會自動暫存您目前的修改，直到您按下最終的「儲存」鍵。</p>
+            </div>
+            <div class="tip-box">
+                <p>💡 <strong>關於時間軸格式</strong></p>
+                <p>時間格式必須符合 <code>00:00:00,000</code> (時:分:秒,毫秒)。若格式錯誤，播放器可能無法正確讀取該段字幕。</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 50px;">
+            © 2026 Studio0808 Team. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Format Converter</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #00E676, #B2FF59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Format Converter</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_format.png" alt="Format Converter Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Feature Introduction</h2>
+            <p><strong>Format Converter</strong> allows you to establish universal conversion between different
+                multimedia formats. It uses high-performance internal tools for transcoding, guaranteeing lossless or
+                highest quality compression conversion.</p>
+            <ul>
+                <li>Video to Video (e.g., MKV to MP4)</li>
+                <li>Video to Audio (e.g., MP4 to MP3 or WAV)</li>
+                <li>Lossless Audio Conversion (e.g., FLAC/WAV/MP3 conversion)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. Step-by-Step Operations</h2>
+            <ol>
+                <li><strong>Add File</strong>: Click the "Add File" button on the screen and select the original video
+                    or audio file you want to convert.
+                    <p style="margin-top: 5px; color: var(--info);">💡 <strong>Batch Processing Supported:</strong> You can select multiple files at once by holding Ctrl or Shift. The system will automatically queue and process them sequentially.</p></li>
+                <li><strong>Select Target Format</strong>: Choose your desired output format from the dropdown menu
+                    (fully supporting 9 major formats: MP4, MKV, MOV, AVI, WMV, WEBM, FLV, MPEG, TS).</li>
+                <li><strong>Start Conversion</strong>: Click the pink "Start Conversion" button, and the system will
+                    automatically start the high-efficiency transcoding and encoding process.</li>
+            </ol>
+            <p><em>💡 Tip: Converted files will be automatically output to the <code>Outputs/Tools</code> folder. You
+                    can click "Open Output Folder" at any time to view the results.</em></p>
+        </div>
+
+        <div class="card">
+            <h2>03. Frequently Asked Questions (Q&A)</h2>
+
+            <h3>Q: Why does converting video take longer than converting audio?</h3>
+            <p>A: Video compression and re-encoding require massive CPU and GPU (if supported) computing resources. For
+                high-resolution videos like 4K, it will take a proportionally longer conversion time.</p>
+
+            <h3>Q: Will the video and audio quality degrade after conversion?</h3>
+            <p>A: This program features a powerful <strong>"Smart Fallback"</strong> mechanism that automatically
+                safeguards your media:
+            <ul>
+                <li><strong>Lossless & Instant</strong>: Before converting, it analyzes the original video. If the
+                    original video/audio codecs are already highly compatible (like H.264 + AAC), the program will
+                    instantly "remux" the container format in less than a second, retaining 100% of the original visual
+                    and audio quality.</li>
+                <li><strong>Smart Transcoding</strong>: If it detects incompatible or obscure formats (which are often
+                    the culprit for "no sound" or "video corruption" after conversion), the system will automatically
+                    initiate high-quality re-encoding. This ensures the output video plays perfectly across all your
+                    devices (phones, web browsers, TVs).</li>
+            </ul>
+            </p>
+
+            <h3>Q: Will multi-track audio or subtitles be retained from the original video file?</h3>
+            <p>A: Current conversions mostly extract the first primary audio track and perform universal encoding to
+                ensure highly consistent application support. If you need to extract specific tracks from special MKV
+                formats, you may need to use other advanced tools.</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by FFmpeg.
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 格式轉換 (Format Converter)</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #00E676, #B2FF59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>格式轉換模組</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_format.png" alt="萬用格式轉換 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能介紹</h2>
+            <p><strong>格式轉換 (Format Converter)</strong> 允許您在不同多媒體格式之間建立通用性變換。其底層運用高效能工具列來轉碼，保證無損或最高品質的壓縮轉換。</p>
+            <ul>
+                <li>影片轉影片 (如 MKV 轉 MP4)</li>
+                <li>影片轉音源 (如 MP4 提取 MP3 或 WAV)</li>
+                <li>無損音源轉換 (如 FLAC/WAV/MP3 互轉)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. 詳細操作流程</h2>
+            <ol>
+                <li><strong>加入檔案</strong>：點選畫面中的「加入檔案」按鈕，選擇您想要轉換的原始影片或音訊檔。
+                    <p style="margin-top: 5px; color: var(--info);">💡 <strong>批次處理支援：</strong>您可以在選擇檔案時框選或按住 Ctrl / Shift 來一次加入多個檔案，系統將會啟動自動排隊處理。</p></li>
+                <li><strong>選擇目標格式</strong>：在下拉選單中挑選您希望能產生出的影片格式（全面支援 MP4, MKV, MOV, AVI, WMV, WEBM, FLV, MPEG, TS 等 9
+                    大主流格式）。</li>
+                <li><strong>開始轉換</strong>：點擊粉紅色「開始轉換」按鈕，系統將自動啟動高效率的轉檔編碼程序。</li>
+            </ol>
+            <p><em>💡 提示：轉換完成的檔案，將會自動輸出至 <code>Outputs/Tools</code> 資料夾內，您可以隨時點選「開啟輸出資料夾」檢視結果。</em></p>
+        </div>
+
+        <div class="card">
+            <h2>03. 常見問題 (Q&A)</h2>
+
+            <h3>Q: 為什麼轉換影片時比起轉音訊久？</h3>
+            <p>A: 畫面壓縮與重新編碼需要極大的 CPU 及 GPU(若支援) 運算資源，若是 4K 等級之高畫質影片將需要等比例之轉換時間。</p>
+
+            <h3>Q: 轉換後的影片，畫質與聲音會變差嗎？</h3>
+            <p>A: 本程式內建強大的<strong>「智慧偵測轉換 (Smart Fallback)」</strong>機制，會自動為您把關：
+            <ul>
+                <li><strong>無損秒轉</strong>：轉換前會先分析原始影片，若原本的視訊/音訊編碼已具備高相容性（如 H.264 + AAC），程式會在一秒內「無損」直接替換封裝格式，畫質與音質 100%
+                    保留。</li>
+                <li><strong>智慧相容轉碼</strong>：若偵測到不相容的特殊格式（這常常是導致轉檔後「有影無聲」或「破圖」的元凶），系統才會自動啟動高品質的重新編碼，確保輸出的影片在各個平台（手機、網頁、電視）上都能完美播放。
+                </li>
+            </ul>
+            </p>
+
+            <h3>Q: 原本影片檔是多軌音訊或字幕，會保留嗎？</h3>
+            <p>A: 目前的轉換為了確保高一致性的應用支援，多以提取第一軌主聲音並進行泛用編碼為主。如果您需要對特殊規格 MKV 進行抽出，可能需搭配其他進階工具。</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by FFmpeg.
+        </div>
+    </div>
+</body>
+
+</html>

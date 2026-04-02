@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: RVC 變聲 (Retrieval-based Voice Conversion)</title>
+    <style>
+        :root {
+            --primary: #FF5722;
+            /* Deep Orange for RVC */
+            --secondary: #9C27B0;
+            /* Purple for Models */
+            --accent: #00BCD4;
+            /* Cyan for Features */
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #C6FF00, #1DE9B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(255, 87, 34, 0.15);
+            border-color: var(--primary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #FFB74D;
+            margin-top: 1.5rem;
+            font-size: 1.0rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--info);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .warn {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            font-size: 0.8em;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .tag-blue {
+            background-color: rgba(66, 165, 245, 0.2);
+            color: #64B5F6;
+        }
+
+        .tag-green {
+            background-color: rgba(102, 187, 106, 0.2);
+            color: #81C784;
+        }
+
+        .tag-orange {
+            background-color: rgba(255, 167, 38, 0.2);
+            color: #FFB74D;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .analog-box {
+            background-color: rgba(255, 87, 34, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            font-weight: bold;
+            width: 25%;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>RVC 變聲技術</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/rvc_inference.png" alt="RVC 變聲推論 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能概述 (Overview)</h2>
+            <p><strong>RVC (Retrieval-based Voice Conversion)</strong> 是一種強大的 AI
+                語音轉換技術。與「聲音複製(輸入文字產出語音)」不同，RVC
+                的運作方式是「輸入一段原始聲音」，然後 AI
+                會保留原本講話或唱歌的語調、情緒、節奏，但把<strong>音色</strong>替換成您指定的模型對象。</p>
+            <p>這項技術最常被用來製作<strong>「AI 翻唱 (AI Cover)」</strong>，例如讓知名歌手唱別人的歌，或是隱藏自己真實聲音進行直播與影片配音。</p>
+        </div>
+
+        <div class="card">
+            <h2>02. 操作區塊解說</h2>
+
+            <h3><span class="tag tag-blue">1</span> 輸入音訊</h3>
+            <p>這是您要轉換的原始聲音來源：</p>
+            <ul>
+                <li><strong>標準流程 (乾淨人聲)</strong>：最穩定的做法是，先用「人聲分離」功能，把歌曲的伴奏剝離，只把純粹的<strong>乾淨人聲</strong>餵給
+                    RVC。轉換完成後，再自行將新歌聲與伴奏合併。</li>
+                <li><strong>原音升降 Key (Source Shift)</strong>：<span
+                        class="highlight">【破音救星】</span>如果您在使用模型轉換時發現聲音變得很假、高音唱不上去 (例如男生唱女生的歌)，您可以直接在這裡將「原始音檔」進行升降 Key
+                    (例如 -2 或 -4)。程式會在背景以無損音質將您的原音變調後，再送給 AI 處理，這樣轉換出來的聲音會大幅提升自然度！</li>
+                <li><strong>自動分離與混音 (Auto-Mix)</strong>：如果您覺得自己處理太麻煩，可以直接輸入一首連帶伴奏的<strong>完整歌曲</strong>，並勾選「自動分離人聲與混音」。
+                    程式會在背景自動幫您先分離出人聲、把人聲丟進 RVC 變聲，最後再把變聲後的人聲與原本的伴奏自動合成在一起！一次搞定！<br>
+                    <em>(註：此功能需消耗較多運算時間，請耐心等候)</em>
+                </li>
+            </ul>
+
+            <h3><span class="tag tag-green">2</span> 模型選擇</h3>
+            <p>在這裡載入您想要「變成」的那個人的聲音：</p>
+            <ul>
+                <li><strong>模型權重 (.pth)</strong>：變聲的靈魂，包含了該人物的音色特徵。請務必指定！</li>
+                <li><strong>特徵索引 (.index / 選填)</strong>：模型訓練時順便產生的輔助檔。它可以幫助 AI
+                    在轉換時，讓咬字和發音更貼近模型本人。如果有就選，沒有留空也能運作。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. 轉換參數詳解 (核心必學)</h2>
+            <p>RVC 最強大的地方在於它的參數極具彈性，調整得當可以拯救破音、漏音，或是讓不同性別的翻唱變得無違和感。</p>
+
+            <table>
+                <tr>
+                    <th>變調 (Pitch)</th>
+                    <td>
+                        <strong>功能：</strong>改變輸入聲音的基頻 (音高) 前提，單位為「半音」。<br>
+                        <strong>用法：</strong>如果原本是男聲，要用女聲模型轉換，建議將 Pitch 設為 <code>+12</code> (升一個八度)。反之，女聲轉男聲請設為
+                        <code>-12</code>。同性別互轉保持 <code>0</code> 即可。如果是要改變歌曲本身的 Key 來符合模型音域，也可以微調 `+1` 或 `-2` 等。
+                    </td>
+                </tr>
+                <tr>
+                    <th>F0 預測算法</th>
+                    <td>
+                        <strong>功能：</strong>AI 抓取您原始咬字音高曲線的方法。<br>
+                        <strong>選項：</strong>
+                        <ul>
+                            <li><span class="highlight">rmvpe
+                                    (推薦)</span>：目前最強、最穩定的算法。速度快、抗雜音能力強，吃顯卡資源適中。<strong>預設首選！</strong></li>
+                            <li><span class="highlight">fcpe (推薦)</span>：較新的強力算法。對於部分高低音落差大、撕裂音或特殊唱腔的抓取比 rmvpe
+                                更準確，但耗時較長。遇到 rmvpe 處理不好的地方可以換這個試試。</li>
+                            <li><code>crepe</code>：老牌算法，準確度高但速度慢、很吃顯卡。</li>
+                            <li><code>pm</code>：速度最快，但音質最差，容易破音，適合電腦配備極低時使用。</li>
+                            <li><code>harvest</code>：低音抓取較準確，但高音容易破。</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>索引率<br>(Index Rate)</th>
+                    <td>
+                        <strong>功能：</strong>控制聲音特徵「向模型靠攏」的程度 (範圍 0~1)。要有 <code>.index</code> 檔案才會生效。<br>
+                        <strong>用法：</strong>數值越高：咬字與口吻會更像模型本人，但如果原本音訊音質很差，過高的索引率會導致各種怪異的「沙沙聲
+                        (Artifacts)」。數值越低：會有更多您自己原本聲音的影子。<br>
+                        <strong>推薦：</strong>預設 <code>0.75</code>，若出現怪聲，請調降至 <code>0.3 ~ 0.5</code>。
+                    </td>
+                </tr>
+                <tr>
+                    <th>過濾半徑<br>(Filter Radius)</th>
+                    <td>
+                        <strong>功能：</strong>當音高(F0)軌跡出現劇烈波動 (例如啞音、破音造成的預測失誤) 時，使用此數值進行中值濾波來平滑它。大於 3 才生效。<br>
+                        <strong>用法：</strong>如果您發現變出來的聲音在某些段落會突然極度不自然的「走音或爆音」，可以把此項調高，以削弱這種突兀變化。<br>
+                        <strong>推薦：</strong>預設 <code>3</code>，遇到啞音破音可往上調。
+                    </td>
+                </tr>
+                <tr>
+                    <th>混音響度包絡<br>(RMS Mix Rate)</th>
+                    <td>
+                        <strong>功能：</strong>決定「輸出聲音的音量大小變化」要多大程度參考「輸入原始聲音的音量」。<br>
+                        <strong>用法：</strong>預設 <code>0.25</code> 代表輸出聲音的音量起伏，只有四分之一會照著您的輸入走，四分之三交由模型決定。如果您勾選此項 (或將值調高靠向
+                        1)，AI 在大吼或低語的地方，音量變化會更還原您原本錄音時的大小。<br>
+                        <strong>推薦：</strong>想要情緒起伏明顯(大聲小聲差異大)就勾選；想要每句話音量都很平均，請取消勾選 (設為 0)。
+                    </td>
+                </tr>
+            </table>
+
+            <div class="tip-box">
+                <strong>💡 魔法公式：男女轉換必勝訣竅</strong><br>
+                如果您用男生的聲音去唱女生的歌 (男轉女)，請先試著把 <strong>變調 (Pitch) 設為
+                    +12</strong>。如果還是覺得怪，原因通常是男生根本唱不上去，此時強烈建議您**善用我們第一區塊的「原音升降 Key」功能**，把您的原音降個 -3 到 -6 個半音，並且
+                <strong>Pitch 依然維持 +12</strong>。用修飾過的低音域人聲餵給 RVC，效果會神乎其技的自然！
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h2>04. 常見問題排解 (Troubleshooting)</h2>
+
+            <h3>Q: 為什麼轉換過程中突然跳出「找不到模型檔」或「中斷」？</h3>
+            <p><span class="warn">解法：</span>
+                請確保您的 <code>.pth</code> 或 <code>.index</code>
+                檔案名稱、以及它們所在的「資料夾名稱」中，<strong>絕對不能包含任何空格、中文字、日文或特殊符號</strong>！<br>
+                RVC 底層的 Python 對於路徑解析非常嚴格，請將資料夾與模型名稱全部改為純英文＋數字。
+            </p>
+
+            <h3>Q: 我勾選了「自動分離人聲與混音」，為什麼轉出來只有伴奏沒有人聲，或是程式卡死不跑？</h3>
+            <p><span class="warn">解法：</span>
+                這代表底層的 Demucs 人聲分離模組失敗了。<br>
+                原因可能是您的顯示卡記憶體 (VRAM) 不足，無法同時負荷這兩個耗資源的 AI 程序。建議您先到「人聲分離」選單，手動切分出純人聲檔案，再拿這個檔案到這裡變聲，最後自己用剪輯軟體疊合伴奏。
+            </p>
+
+            <h3>Q: 變出來的聲音好像感冒了、或是像外星人在講話？</h3>
+            <p><span class="highlight">解法：</span>
+                這是因為 RVC 的算法抓錯了音域。最有效的解法是：更換 <strong>F0 預測算法</strong>！<br>
+                原本如果用 <code>rmvpe</code>，請換成 <code>fcpe</code> 或 <code>crepe</code> 再跑一次，通常都能得到大幅改善。另外，請檢察您的
+                <code>Pitch</code> (變調) 是否設反了。
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

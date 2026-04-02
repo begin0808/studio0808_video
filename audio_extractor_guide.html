@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 音訊提取 (Audio Extractor)</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #00E5FF, #2979FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>音訊提取模組</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_extractor.png" alt="音訊高音質提取 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能介紹</h2>
+            <p><strong>音訊提取 (Audio Extractor)</strong> 專門針對具有影像及聲音雙頻道的 MP4 及 MKV 多媒體檔案設計，能夠將畫面完全去除並抽離出乾淨的底層立體聲音軌。</p>
+            <ul>
+                <li>將佔用大空間的影片只保留其聲音的部分。</li>
+                <li>建立後續給 AI 人聲分離或語音辨識的來源檔。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. 詳細操作流程</h2>
+            <ol>
+                <li><strong>加入檔案</strong>：點選畫面中的「加入影片檔案」按鈕，選擇您想要提取音頻的影片檔 (.mp4, .mkv 等)。
+                    <p style="margin-top: 5px; color: var(--info);">💡 <strong>批次處理支援：</strong>您可以在選擇檔案時框選或按住 Ctrl / Shift 來一次加入多個檔案，系統將會啟動自動排隊處理。</p></li>
+                <li><strong>選擇輸出格式</strong>：在下拉選單中挑選您希望能產生出的音源格式：「MP3 (通用有損格式)」、「WAV (無損音訊)」、「FLAC (極高取樣率的高壓縮無損)」。</li>
+                <li><strong>開始提取</strong>：確認檔案正確後，點擊粉紅色「開始提取」按鈕。</li>
+            </ol>
+            <p><em>💡 提示：提取完成的檔案會儲存在 <code>Outputs/Tools</code> 資料夾內，您可以隨時點選「開啟輸出資料夾」檢視結果。此種提取通常非常快速 (30 秒內即可完成)。</em>
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>03. 常見問題 (Q&A)</h2>
+
+            <h3>Q: 提取後音量變小或變大？</h3>
+            <p>A: 音訊提取預設採用等比抽出並不會重新壓置音頻的增益設定 (Gain)。若您發現聲音怪異，通常為原始影片本身的收音環境有所誤差。</p>
+
+            <h3>Q: 能提取含有不同語言多軌音效的影片嗎？</h3>
+            <p>A: 系統預設只針對最重要的「主要音軌 (Track 0 或預設播放軌)」進行抽取作業，第二語言或次要音軌將會被系統忽略以保證流程簡潔。</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by FFmpeg.
+        </div>
+    </div>
+</body>
+
+</html>

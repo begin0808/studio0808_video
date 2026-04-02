@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 影音下載核心</title>
+    <style>
+        :root {
+            --bg-color: #0f1215;
+            --card-bg: #1a1e24;
+            --text-color: #e0e0e0;
+            --accent-cyan: #00bcd4;
+            --accent-amber: #ffa000;
+            --accent-red: #ff5252;
+            --grid-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-cyan);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #9575CD, #4FC3F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+            margin: 0;
+
+
+        }
+
+        h2 {
+            border-left: 5px solid var(--accent-amber);
+            padding-left: 15px;
+            margin-top: 40px;
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            font-size: 1.3em;
+        }
+
+        h3 {
+            color: #fff;
+            margin-top: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-cyan);
+        }
+
+        .highlight {
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .warning {
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: #ffeb3b;
+        }
+
+        /* --- Process Visualization --- */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .node {
+            background: #2a3038;
+            padding: 15px 25px;
+            border-radius: 6px;
+            border: 1px solid var(--accent-cyan);
+            text-align: center;
+            position: relative;
+        }
+
+        .node .sub-text {
+            font-size: 0.8em;
+            color: #aaa;
+            display: block;
+        }
+
+        .arrow {
+            color: var(--accent-cyan);
+            font-size: 20px;
+        }
+
+        /* --- FAQ --- */
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 15px;
+        }
+
+        .question {
+            font-weight: bold;
+            color: var(--accent-cyan);
+            font-size: 1.0em;
+            margin-bottom: 8px;
+        }
+
+        .answer {
+            color: #ccc;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>影音下載核心</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/video_download.png" alt="影音下載 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 核心技術：為什麼要合併？</h2>
+            <p>您是否好奇，為什麼下載高畫質影片時，日誌會顯示 <span class="highlight">Merging formats</span> 或是同時下載了 mp4 和 m4a 兩個檔案？</p>
+            <p>這正是本程式為了追求<strong>極致畫質</strong>所運作的關鍵機制。</p>
+
+            <h3>運作原理 (The Mechanism)</h3>
+            <p>YouTube 等現代影音平台為了節省頻寬，將數據流設計為：</p>
+            <ul>
+                <li><strong>720p 以下：</strong> 影像與聲音封裝在同一個數據流中。</li>
+                <li><strong>1080p / 2K / 4K：</strong> <span class="warning">影像</span> 與 <span
+                        class="highlight">聲音</span> 是完全分開獨立傳輸的。</li>
+            </ul>
+
+            <p>因此，若要取得 4K 高畫質影片，我們的核心必須執行以下精密操作：</p>
+
+            <div class="process-flow">
+                <div class="node">
+                    <div>📥 下載影像流</div>
+                    <span class="sub-text">2160p (4K)<br>(無聲 mp4)</span>
+                </div>
+                <div class="arrow">➜</div>
+                <div class="node">
+                    <div>📥 下載音訊流</div>
+                    <span class="sub-text">128k AAC<br>(無影 m4a)</span>
+                </div>
+                <div class="arrow">➕</div>
+                <div class="node" style="border-color: var(--accent-amber);">
+                    <div>🔄 FFmpeg 合併</div>
+                    <span class="sub-text">Merging Process</span>
+                </div>
+                <div class="arrow">➜</div>
+                <div class="node">
+                    <div>✅ 最終成品</div>
+                    <span class="sub-text">完整 4K MP4</span>
+                </div>
+            </div>
+
+            <div class="faq-item"
+                style="margin-top: 30px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px;">
+                <div class="question">❓ 日誌解析：為何下載 MP4，會先抓 mp4/webm 又變 mkv 又變 mp4？</div>
+                <div class="answer">
+                    <p>您在日誌中看到的複雜合併流程（下載 mp4 與 webm → 合成 mkv → 轉成 mp4 →
+                        刪除暫存檔），其實是為了<strong>「最高畫質」與「最快速度」所做的完美妥協。</strong></p>
+                    <ol>
+                        <li><strong>分別下載：</strong>YouTube 將最高畫質影像（常為 <code>.mp4</code> 內的 H.264/AV1）與最高音質聲音（常為
+                            <code>.webm</code> 內的 Opus）切開存放。程式必須分頭抓取最好的兩個檔案。</li>
+                        <li><strong>為何先合成 MKV？：</strong>因為老舊的 MP4 容器格式規定嚴格，不一定能把世上所有先進的影音編碼安全塞進去。而 MKV
+                            被稱為「萬能容器」，它能不經過耗時的重新轉檔（不破壞畫質），瞬間把任何格式打包在一起，作為安全中繼站。</li>
+                        <li><strong>為何最後又變回 MP4？：</strong>因為您指定的目標格式是 MP4。FFmpeg 確認影音在 MKV 中安全打包後，會做最後一次的「無損抽換裝箱
+                            (Remuxing)」，保證成品是 MP4 且沒有經過任何會破壞畫質的「重新渲染」。</li>
+                    </ol>
+                    <p style="color: var(--accent-cyan); margin-bottom: 0;">💡
+                        <strong>結論：</strong>這看似忙碌的流程，其實都是無損且瞬間的檔案裝箱作業，速度遠比叫顯示卡重新渲染轉檔快上百倍，能保證 100% 維持 YouTube 原始最高畫質！</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>02. 介面操作詳解</h2>
+
+            <h3>基本操作與介面配置 (Basic Operation & Layout)</h3>
+            <ol>
+                <li><strong>貼上網址</strong>：將 YouTube、Facebook、Instagram 等網址貼入上方 <code>貼上影片網址(可多筆，每行一個網址)：</code> 欄位。</li>
+                <li><strong>設定選項 (由左至右)</strong>：本系統採用直覺的由左至右操作邏輯：
+                    <ul>
+                        <li><span class="highlight">☑ 按章節自動分割</span>：若影片內建章節，則下載後進行精準切割。</li>
+                        <li><span class="highlight">☑ 附加下載字幕</span>：影片若有提供字幕，將一併抓取。</li>
+                        <li><strong>選擇字幕語言</strong>：指定要下載的字幕語言。</li>
+                        <li><strong>選擇畫質</strong>：預設為 <code>最佳畫質 (Auto)</code>，字體已加寬以完整顯示。</li>
+                        <li><strong>選擇格式</strong>：預設為 <code>MP4</code>，也可選擇 <code>MP3</code> 等純音訊。</li>
+                    </ul>
+                </li>
+                <li><strong>開始下載</strong>：點擊橘色按鈕，程式將自動執行下載、合併、甚至是字幕處理與切割流程。</li>
+            </ol>
+
+            <h3>批量與播放清單支援 (Batch & Playlist Support)</h3>
+            <p>本系統全面升級的批量排隊下載功能：</p>
+            <ul>
+                <li><strong>貼上多行網址</strong>：在輸入框中，您可以貼上多個影片連結（每行一個）。點擊下載後，系統會依序處理。</li>
+                <li><span class="highlight">自動解析播放清單 (Playlist)</span>：若您貼上的網址包含 <code>&list=</code>
+                    參數，系統會智能偵測並自動彈出全新「分頁式選擇視窗」！
+                    <br>視窗採用分頁瀏覽設計（每頁 50 筆），支援「<strong>全選此頁 / 取消此頁 / 全選所有 / 取消所有</strong>」四種快速操作，不再有數量上限。選好後一鍵加入下載序列。
+                </li>
+            </ul>
+
+            <h3>進階功能：自動章節分割 (Auto Split)</h3>
+            <p>如果您勾選 <span class="highlight">□ 按章節自動分割 (Split Chapters)</span>：</p>
+            <ul>
+                <li>系統會偵測影片是否有內建「時間軸章節」。</li>
+                <li>如果沒有內建章節，系統會嘗試<strong>AI 分析影片說明欄</strong>，找出類似 <code>03:20 - 副歌</code> 的時間點。</li>
+                <li>下載完成後，會自動呼叫 FFmpeg 進行<strong>無損/精準切割</strong>，將大影片切成多個小片段，方便您收藏或剪輯。</li>
+            </ul>
+
+            <h3>核心更新 (Core Update)</h3>
+            <p>右上角的 <span class="highlight">更新核心 (Update Core)</span> 按鈕非常重要。點擊後系統將自動檢查並補齊以下三個必要核心組件：</p>
+            <ul>
+                <li><code>yt-dlp</code>：影片下載引擎，YouTube 經常更改演算法，定期更新可避免下載失敗。</li>
+                <li><code>FFmpeg</code>：影音合併/轉換工具，用於多音軌合併與格式轉換。</li>
+                <li><code>Deno</code>：JavaScript 執行環境，用於解決 YouTube 的 EJS 挑戰驗證，確保下載成功率。</li>
+            </ul>
+            <p>遇到下載錯誤時，通常<strong>點一下這個按鈕</strong>將所有組件更新至最新版，即可解決問題，無需重新安裝軟體。</p>
+        </div>
+
+        <div class="card">
+            <h2>03. 智慧字幕系統與防護機制 (Smart Subtitles & Protection)</h2>
+            <p>本次更新導入了全新的字幕處理引擎，為您解決 YouTube 字幕下載的種種痛點：</p>
+
+            <h3>智慧語言選擇器 (Smart Language Picker)</h3>
+            <ul>
+                <li><strong>精準鎖定：</strong> 您可以直接在介面上選擇「繁體中文」、「英文」或「日文」等目標語言。</li>
+                <li><strong>官方優先：</strong> 程式會優先尋找創作者上傳的「官方精準字幕」。</li>
+                <li><strong>AI 聽打保底：</strong> 如果影片沒有提供官方字幕，系統會「自動無縫切換」去抓取 YouTube 的 AI 自動生成字幕，確保您一定有字幕可以看。</li>
+                <li><strong>過濾垃圾軌道：</strong> 自動過濾掉那些「簡體翻繁體」、「英文翻中文」等亂七八糟的自動翻譯軌道，確保下載下來的 <code>.srt</code> 檔案乾淨且唯一。</li>
+            </ul>
+
+            <h3>HTTP Error 429 防護與自動重試</h3>
+            <p>當您強制下載不支援或被 YouTube 伺服器嚴格阻擋的 AI 自動字幕時，原本的下載器會直接崩潰並回傳 <span class="warning">HTTP Error 429: Too Many
+                    Requests</span> 錯誤。</p>
+            <p><strong>現在，我們加入了自動防護機制：</strong></p>
+            <ul>
+                <li>一旦系統偵測到因為字幕導致下載被阻擋 (Error 429)，程式會發出警告：<code>⚠️ 偵測到 YouTube 字幕伺服器阻擋...</code></li>
+                <li>程式會在 <strong>0 秒內自動取消字幕下載任務</strong>。</li>
+                <li>接著<strong>自動重新連線</strong>，安全地將高畫質影片本體下載回來，保證原本的影片任務絕對不會因為字幕問題而失敗！</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>04. 支援平台 (Supported Platforms)</h2>
+            <p>本程式核心基於強大的 <code>yt-dlp</code> 引擎，支援全球超過 1000+ 個影音網站。以下列出最熱門的支援平台：</p>
+
+            <div class="process-flow">
+                <div class="node" style="border-color: #ff0000; min-width: 80px;">YouTube</div>
+                <div class="node" style="border-color: #1877f2; min-width: 80px;">Facebook</div>
+                <div class="node" style="border-color: #e1306c; min-width: 80px;">Instagram</div>
+                <div class="node" style="border-color: #000; border: 1px solid #fff; min-width: 80px;">Threads</div>
+                <div class="node" style="border-color: #69c9d0; min-width: 80px;">TikTok</div>
+                <div class="node" style="border-color: #fff; min-width: 80px;">Twitter / X</div>
+                <div class="node" style="border-color: #9146ff; min-width: 80px;">Twitch</div>
+                <div class="node" style="border-color: #17D5FF; min-width: 80px;">Vimeo</div>
+                <div class="node" style="border-color: #ff8800; min-width: 80px;">SoundCloud</div>
+                <div class="node" style="border-color: #00a1d6; min-width: 80px;">Bilibili</div>
+            </div>
+            <p style="text-align: right; color: #888; font-size: 0.9em;">(以及更多... 只要網頁上有影片，都值得一試)</p>
+        </div>
+
+        <div class="card">
+            <h2>05. 常見問題 (Q&A)</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: 為什麼有些影片下載後是 MKV 格式，但我選的是 MP4？</div>
+                <div class="answer">A: 某些極高畫質 (如 VP9/AV1 編碼的 4K/8K) 原生封裝可能是 MKV。為了不破壞畫質進行轉檔，程式可能會優先保留 MKV 封裝。建議使用 VLC 或
+                    PotPlayer 播放，或在選項中強制指定 MP4 (可能會觸發耗時的轉檔)。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: 下載速度忽快忽慢？</div>
+                <div class="answer">A: 這取決於 YouTube 伺服器的頻寬分配以及您選擇的畫質。下載 4K 影片時，因為檔案巨大且需要最後的「合併」過程，這會消耗 CPU 並需要一些時間處理。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: 可以下載會員限定 (Members Only) 的影片嗎？</div>
+                <div class="answer">A: 目前版本不支援需要登入或 Cookies 的會員影片下載。僅支援公開 (Public) 或非公開 (Unlisted) 連結。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: 為什麼下載列表 (Playlist) 只下載了一部？</div>
+                <div class="answer">A: 最新版本已支援播放清單解析！如果您貼上的是單一影片網址，就只會下載該影片。如果您貼上的是包含 <code>list=</code>
+                    參數的網址，系統會自動彈出分頁視窗讓您從整個清單中勾選（不再有數量上限），支援快速全選此頁或全選所有。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: 如何下載 Threads 影片？</div>
+                <div class="answer">A: 受 Meta 官方 API 嚴格限制，程式無法直接下載 Threads 影片。當您貼上 Threads 網址後，程式會自動將網址複製至剪貼簿，並開啟外部網站 <code>threadsdownloader.com</code>；您只需在網站輸入框按 <strong>Ctrl+V</strong> 貼上，再點 Load Videos 即可完成下載。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: 遇到 YouTube 下載失敗，出現 Sign in to confirm 或 EJS 錯誤？</div>
+                <div class="answer">A: 這是 YouTube 新增的驗證機制。請點擊「更新核心」按鈕，程式會自動下載並整合 <code>Deno</code> JS 執行環境，使 yt-dlp 能繞過此驗證，再次嘗試下載即可。</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

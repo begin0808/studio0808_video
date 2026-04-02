@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Unprofessional AI Video Processing Suite</title>
+    <style>
+        :root {
+            --primary: #29B6F6;
+            --secondary: #AB47BC;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+            --warning: #FFB74D;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #D500F9, #FF4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+
+
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--warning);
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .danger-text {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .warn-box {
+            background-color: rgba(255, 82, 82, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--info);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>The Unprofessional AI Video Processing Suite</h1>
+        </header>
+
+        <div class="card">
+            <h2>01. Core Technology</h2>
+            <ul>
+                <li>This system utilizes a powerful and flexible <strong>Python</strong> architecture. The visual
+                    interface is built with <strong>CustomTkinter</strong>, providing a sleek, modern dark-themed
+                    experience.</li>
+                <li>Core computations are deeply integrated with the <strong>PyTorch</strong> deep learning framework,
+                    <strong>FFmpeg</strong> multimedia processing engine, and <strong>Pyannote</strong> voice
+                    recognition technology.</li>
+                <li>Voice generation and conversion are powered by cutting-edge algorithms including
+                    <strong>GPT-SoVITS</strong>, <strong>Edge-TTS</strong>, and <strong>RVC</strong> (Retrieval-based
+                    Voice Conversion).</li>
+                <li>Vocal separation incorporates the <strong>Demucs</strong> high-fidelity audio separation model,
+                    creating a comprehensive "unprofessional" audio and video workstation.</li>
+            </ul>
+        </div>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/home_view.png" alt="Home Overview Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>02. Hardware Recommendations: GPUs And AMD Support</h2>
+            <div class="tip-box">
+                <p>💡 <strong>Hardware Conclusion:</strong><br>
+                    • This system runs massively large AI models. It is highly recommended to have an <strong>NVIDIA
+                        dedicated GPU (RTX series preferred)</strong> for lightning-fast processing.<br>
+                    • If you are using an <strong>AMD GPU, Intel integrated graphics, or Mac</strong>, the program will
+                    fallback to the <strong>CPU</strong>
+                    for computation, which will take significantly longer. Please be patient.</p>
+            </div>
+
+            <p style="margin-top: 1rem;">This software integrates several cutting-edge open-source voice AI models (e.g.
+                <code>Demucs</code>, <code>RVC</code>,
+                <code>GPT-SoVITS</code>,
+                <code>Whisper</code>), all of which require substantial computing power.
+            </p>
+
+            <h3>❓ Why does it only support NVIDIA?</h3>
+            <p>Currently, 90% of mainstream open-source AI projects rely on a framework called <code>PyTorch</code>
+                combined with NVIDIA's proprietary Compute API
+                <strong>"CUDA"</strong>. Because other GPU brands (like AMD) physically lack CUDA cores, the application
+                will determine that "no suitable AI accelerator was found" upon startup, and will automatically hand
+                over the task to the CPU
+                (indicated by the red text on the UI: <code>Running in CPU mode</code>).
+            </p>
+
+            <h3>❓ What is the impact of using CPU mode?</h3>
+            <ul>
+                <li><strong>Batch Processing (Vocal Separation, RVC, etc.)</strong>: A task that takes 20~30 seconds on
+                    an NVIDIA GPU (like an RTX 3060) might take 3 to 10+ minutes on a CPU.
+                </li>
+                <li><strong>Real-time VC (Microphone)</strong>: Biggest impact. Because this is real-time processing, if
+                    the CPU isn't fast enough, your voice will suffer a 3~5 second delay, or it may even stutter
+                    heavily. It's generally not recommended to use Realtime VC on CPU mode.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. System Performance & Multi-Tasking</h2>
+            <h3>❓ Does the app support multi-tasking? Can I download and convert at the same time?</h3>
+            <p><strong>Yes, the system fully supports multi-tasking!</strong></p>
+            <p>The program is designed to use independent background threads or subprocesses for every time-consuming
+                task (including formatting, downloading, vocal separation, etc.). As long as your hardware (CPU, RAM,
+                GPU VRAM) is powerful enough, you can absolutely:</p>
+            <ul>
+                <li>Queue up a batch conversion in the 'Format Converter' while the 'Video Downloader' is grabbing
+                    files.</li>
+                <li>Even run 'Vocal Separation' on your GPU at the very same time.</li>
+            </ul>
+            <p>Tasks will not interfere with each other, and the main window will remain responsive. The only bottleneck
+                will be your computer's hardware limits (e.g. running out of VRAM if too many AI models are loaded
+                simultaneously).</p>
+        </div>
+
+        <div class="card">
+            <h2>04. Disclaimer</h2>
+            <div class="warn-box">
+                <p>This software and all built-in integrated open-source tools (including Video Downloader, Voice
+                    Models, Translators, etc.) are strictly for <strong>personal study, research, and academic exchange
+                        only</strong>.</p>
+                <ol>
+                    <li><strong>Copyright & Licensing</strong>: Users must ensure that any downloaded or processed
+                        multimedia material does not infringe on the copyright of others. Use of this tool for
+                        extracting premium commercial content or unauthorized redistribution is strictly prohibited.
+                    </li>
+                    <li><strong>AI Generation Conduct</strong>: When using "Voice Cloning" and "RVC Inference", please
+                        do not use this technology to spoof others' voices for scams, spreading misinformation, or
+                        engaging in any infringing or illegal activities.</li>
+                    <li><strong>Liability Disclaimer</strong>: Users bear the risk and responsibility of using this
+                        software. The developer does not guarantee absolute stability of the features, and is not
+                        responsible for any data loss, account bans, or legal disputes.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>04. System File Structure & Outputs</h2>
+            <p>To keep your workspace clean, outputs and dependency models are managed in unified directories:</p>
+            <ul>
+                <li>📂 <strong><code>Outputs\</code> (All exported work)</strong>
+                    <ul>
+                        <li><code>Downloads\</code>: Raw files from the Video Downloader</li>
+                        <li><code>Vocals\</code>: Separated clean vocal tracks and instrumentals</li>
+                        <li><code>RVC\</code>: Audio generated from RVC Voice Conversion</li>
+                        <li><code>Cloned\</code>: Fully synthesised speech from GPT-SoVITS</li>
+                    </ul>
+                </li>
+                <li>📂 <strong><code>models\</code> (Function-specific AI modules)</strong>
+                    <ul>
+                        <li>If you've downloaded other people's <code>.pth</code>, <code>.ckpt</code>, or
+                            <code>.index</code> voice model files from the web, please drop them into their
+                            corresponding folders based on functionality (<code>models\RVC</code> or
+                            <code>models\SoVITS</code>).
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>05. Extending Realtime VC Integrations</h2>
+            <p>If you want to pass the "Realtime VC" modified voice into <strong>Discord, Line, or In-game Voice
+                    Chat</strong> so others can hear you, you must install a free "Virtual Audio Cable" software, such
+                as <strong>VB-Audio Cable</strong>.</p>
+            <p>This acts like a virtual wire routing our program's output track directly into Discord's microphone
+                input. For detailed configuration instructions, refer to the [Setup Guide] target button on the Realtime
+                VC UI.</p>
+        </div>
+
+        <div class="card">
+            <h2>06. Core Engines & Packages</h2>
+            <p>This software integrates the following robust open-source engines, fully optimized for compatibility with
+                the latest hardware (including RTX 50 series):</p>
+            <ul>
+                <li><span class="highlight">PyTorch v2.6.0+cu124</span> (Core AI compute engine, supporting latest
+                    Blackwell sm_120 arch and CUDA 12.4)
+                </li>
+                <li><span class="highlight">FFmpeg</span> (Underlying Audio/Video codec engine)</li>
+                <li><span class="highlight">htdemucs</span> (Meta's open-source high-quality music/vocal separation
+                    model)</li>
+                <li><span class="highlight">Torchcrepe</span> (Accurate pitch-estimation algorithm for RVC)</li>
+                <li><span class="highlight">faster-whisper</span> (High-performance AI transcription & subtitle engine)
+                </li>
+                <li><span class="highlight">Edge-TTS</span> (Microsoft's cloud-based speech synthesis API)</li>
+                <li><span class="highlight">yt-dlp</span> (Open-source video & stream & downloader)</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+
+</html>

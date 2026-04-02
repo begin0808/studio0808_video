@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT-SoVITS Voice Cloning Engine</title>
+    <style>
+        :root {
+            --primary: #E91E63;
+            /* Pink for GPT-SoVITS */
+            --secondary: #9C27B0;
+            /* Purple for Custom Models */
+            --accent: #E67E22;
+            /* Orange for API Start */
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #00E5FF, #2979FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(233, 30, 99, 0.15);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--info);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .warn {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            font-size: 0.8em;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .tag-pink {
+            background-color: rgba(233, 30, 99, 0.2);
+            color: #F06292;
+        }
+
+        .tag-purple {
+            background-color: rgba(156, 39, 176, 0.2);
+            color: #BA68C8;
+        }
+
+        .tag-green {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #81C784;
+        }
+
+        .tag-orange {
+            background-color: rgba(230, 126, 34, 0.2);
+            color: #FFB74D;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .analog-box {
+            background-color: rgba(156, 39, 176, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background-color: var(--card-bg);
+            border: 2px solid var(--text-muted);
+            color: var(--text);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin: 0 0.2rem;
+        }
+
+        .btn-api {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-stop {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .btn-apply {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-run {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--secondary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>GPT-SoVITS Voice Cloning Engine</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/voice_cloning.png" alt="Voice Cloning GPT-SoVITS Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Overview</h2>
+            <p><strong>Voice Cloning (GPT-SoVITS)</strong> is a powerful artificial intelligence speech generation
+                technology. It only requires a short <strong>3 to 10 seconds of clean human voice</strong> to instantly
+                mimic the speaker's timbre, tone, and inflection, making them speak any text you specify.
+            </p>
+            <p>This system supports cross-lingual pronunciation. You can even use a Chinese reference voice to make the
+                AI speak fluent English or Japanese! This technology is perfect for YouTube video dubbing, audiobook
+                reading, or creating your own personal AI voice assistant.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. Core Operation Flow: Five Main Sections</h2>
+
+            <h3>1. API Connection Setup</h3>
+            <p>Since GPT-SoVITS is a massive core engine, we must start it before we can begin working:</p>
+            <ul>
+                <li><strong><span class="action-btn btn-api">🚀 Start API</span></strong>: After clicking, the program
+                    will open a black command prompt window in the background to load the deep learning models (takes
+                    about 10-20 seconds). Please wait for the "Status" to display <span style="color:var(--success);">"✅
+                        Connected"</span> before proceeding.</li>
+                <li><strong><span class="action-btn btn-stop">🛑 Stop API</span></strong>: When you temporarily don't
+                    need the voice cloning feature, <span class="warn">it is strongly recommended to click this
+                        button</span>. This instantly closes the hidden AI engine in the background, freeing your
+                    graphics card memory (VRAM), ensuring your computer can smoothly edit videos or play
+                    games.<br><em>(Note: Closing the main program entirely will also automatically close the API for
+                        you.)</em></li>
+            </ul>
+
+            <h3>2. Custom Models (Optional)</h3>
+            <p>If you don't have specific needs, you can leave this completely blank, and the system will automatically
+                use the pre-trained "Default Official Model". If you have downloaded models from the internet or trained
+                your own, you can load them here:</p>
+            <ul>
+                <li><strong><span class="tag tag-pink">GPT Model (.ckpt)</span></strong>: Dominates the "brain, rhythm,
+                    and phrasing habits".</li>
+                <li><strong><span class="tag tag-purple">SoVITS Model (.pth)</span></strong>: Dominates the "timbre and
+                    throat vocal characteristics".</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Special Note:</strong> After selecting your custom files, you <span class="highlight">must click
+                    the purple "Load Selected Models"</span> button on the right for the system to actually switch the
+                models into memory.
+            </div>
+
+            <div class="analog-box">
+                <h4>🎙️ Deep Concept: Why have both "Models" and "Reference Audio"? Aren't they redundant?</h4>
+                <p>This is a core concept that confuses many beginners. Imagine GPT-SoVITS as a singer:</p>
+                <ol>
+                    <li><strong>Model = The Singer's Talent (Decides who they sound like)</strong>: If you load Jay
+                        Chou's custom model, it means this singer now possesses the talent to perfectly mimic Jay Chou.
+                        If you "don't load" one, the system uses a default amateur voice, which will absolutely never
+                        sound like Jay Chou. This determines the <strong>"ceiling"</strong> of voice similarity. Indeed,
+                        if you want to clone a specific celebrity's voice, <span class="highlight">preparing dedicated
+                            GPT and SoVITS models is "mandatory"</span>.
+                    </li>
+                    <li><strong>Reference Audio = The "Starting Cue" for the Singer</strong>: Even if the singer has Jay
+                        Chou's voice, whenever he is about to sing a new song, you still need to let him hear a 3-second
+                        clip of Jay Chou's original voice. It tells him: <strong>"Oh! For this sentence, I need to speak
+                            at this speed, with this emotion, starting at this pitch!"</strong></li>
+                </ol>
+                <p>👉 Conclusion: If you want Jay Chou to speak, <span class="warn">BOTH the model and reference audio
+                        are indispensable!</span> You must load Jay Chou's .ckpt and .pth, while simultaneously
+                    providing a 3~10 second clean human voice clip of Jay Chou and its text as a reference.</p>
+            </div>
+
+            <h3>3. Reference Audio (Required)</h3>
+            <p>This is the key to initiating generation:</p>
+            <ul>
+                <li><strong>Audio File</strong>: Please prepare a 3~10 second <span class="highlight">clean voice clip
+                        (Dry Vocal)</span>. It must not contain background music, wind noise, or reverb. If there is
+                    noise, the AI-cloned voice will inherently have that noise.</li>
+                <li><strong>Reference Text</strong>: You must type out <strong>word-for-word</strong> exactly what the
+                    person says in the reference audio, including punctuation. The AI uses this to analyze the
+                    relationship between the sound and the text.</li>
+                <li><strong>Reference Language</strong>: Select the language spoken in that audio clip.</li>
+            </ul>
+
+            <h3>4. Target Generation (Required)</h3>
+            <p>This is the new content you want the AI to speak. The system offers two modes:</p>
+            <ul>
+                <li><strong>📝 Single Sentence Mode</strong>:
+                    <ul>
+                        <li><strong>Target Language</strong>: The language you want to output (e.g., a Chinese reference
+                            audio can output fluent Japanese).</li>
+                        <li><strong>Target Text</strong>: Entering short sentences under 50 characters yields the best
+                            stability. Appropriately using punctuation like ",!?" can guide the AI to produce voices
+                            with greater emotional fluctuation.</li>
+                    </ul>
+                </li>
+                <li><strong>🎬 SRT Batch Dubbing Mode <span class="badge tag-orange"
+                            style="color:white; font-size: 0.7em;">Highly Rec</span></strong>:
+                    <ul>
+                        <li><strong>How it works</strong>: Load an <code>.srt</code> subtitle file, and the system will
+                            feed the text to the AI sentence by sentence to generate speech, then <span
+                                class="highlight">precisely paste it onto the timeline dictated by the subtitles</span>!
+                            Finally, it merges them into a complete, long audio track (WAV).</li>
+                        <li><strong>Smart Anti-Overlap</strong>: If the AI speaks the previous sentence too slowly and
+                            the time for the next sentence arrives, the system will automatically "delay" the next audio
+                            clip backward to prevent voices from overlapping and fighting.</li>
+                        <li><strong>Use Cases</strong>: Extremely suitable for "fully automatic video explainer dubbing"
+                            or automatically dubbing a foreign film into "full Chinese dubbing", because the timeline is
+                            already aligned for you; you just take the generated WAV file and merge it with the video!
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="card">
+            <h2>03. Training & Sourcing Custom Models</h2>
+            <p>Currently, the "Video Toolbox" focuses on providing the lightest, most stable, and cleanest "Inference"
+                interface. <strong>We do not have built-in model training capabilities</strong>. This is because
+                training models requires complex audio slicing, text correction (ASR), and lengthy graphics card
+                computation, which are not suitable for integration into a quick-generation gadget.
+            </p>
+
+            <p>But don't worry! Here is an introduction to the two best ways to acquire your own custom models:</p>
+
+            <h3>Path A: Train it Yourself (Highly Recommended)</h3>
+            <p>This is the most standard approach. You can easily train using the <strong>official GPT-SoVITS WebUI
+                    package</strong> you originally downloaded:</p>
+            <ol>
+                <li><strong>Prepare Materials</strong>: Use our built-in "Recording Assistant" or "Video Downloader" to
+                    prepare about 2~5 minutes of high-quality human voice (as quiet and background-noise-free as
+                    possible).</li>
+                <li><strong>Open Official WebUI</strong>: Go to your GPT-SoVITS folder on your computer and click
+                    <code>go-webui.bat</code> (or the corresponding launcher).
+                </li>
+                <li><strong>Follow Tutorials</strong>: In the detailed official web interface that pops up, sequentially
+                    perform "Audio Slicing", "ASR (Text Recognition)", and "Fine-tuning Training". We recommend
+                    searching YouTube for <a
+                        href="https://www.youtube.com/results?search_query=GPT-SoVITS+Training+Tutorial" target="_blank"
+                        style="color:var(--info);">"GPT-SoVITS Training Tutorial"</a>. There are many step-by-step
+                    videos available online.</li>
+                <li><strong>Reap the Rewards</strong>: After training finishes, you will find the <code>.ckpt</code> and
+                    <code>.pth</code> files belonging to your voice in the <code>GPT_weights</code> and
+                    <code>SoVITS_weights</code> folders!
+                </li>
+            </ol>
+
+            <h3>Path B: Download Models Shared by Others</h3>
+            <p>Many enthusiastic users share character models they have trained online (for example, famous YouTubers,
+                singers, or anime characters):</p>
+            <ul>
+                <li>You can look for them in AI model exchange communities (like Hugging Face or Discord groups).</li>
+                <li>Downloads are usually compressed files. Extract them, and you will get the paired <code>.ckpt</code>
+                    and <code>.pth</code> files.</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Final Step:</strong> Whether you trained it yourself or downloaded it, just place those two
+                files into the <code>D:\this application_Video\models\SoVITS</code>
+                folder. Afterwards, you can load them with one click in the "Custom Models" section of the "Video
+                Toolbox"!
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>04. Adjusting Hyperparameters</h2>
+            <p>The two sliders at the bottom of the interface are magic wands to control the AI's creativity. Please
+                only adjust them when you encounter weird noises:</p>
+
+            <table>
+                <tr>
+                    <th>Parameter Name</th>
+                    <th>Numerical Meaning</th>
+                    <th>Recommended Scenario</th>
+                </tr>
+                <tr>
+                    <td><strong>Auto Split (Punctuation)</strong><br>Default: ON</td>
+                    <td>Automatically splits long sentences into chunks based on punctuation.</td>
+                    <td><strong>Strongly recommended to keep ON</strong>. This fixes the "3-second cutoff" issue and prevents AI hallucinations on long texts (100+ words).</td>
+                </tr>
+                <tr>
+                    <td><strong>Temperature (Temp)</strong><br>Default: 0.8</td>
+                    <td>Controls the "richness and irregularity" of the output.<br>Higher values: More emotion, but prone to slurring or noise.<br>Lower values: Flatter, more robotic, but clearest pronunciation.</td>
+                    <td><strong>0.8 is the sweet spot</strong> for stability and quality. Sligthly increase (1.00 ~ 1.10) if the voice is too flat. Decrease (0.60) if you hear weird noises.</td>
+                </tr>
+                <tr>
+                    <td><strong>Stability (Top_P)</strong><br>Default: 0.8</td>
+                    <td>Determines the "conservatism" of the AI predicting the next word.<br>Works with Temp. Lower is more rigid; higher is more expressive.</td>
+                    <td>Usually keep at 0.8 to match the default Temp for the highest generation success rate.</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>05. Troubleshooting</h2>
+
+            <h3>Q: Why is the included GPT-SoVITS folder size as large as 13GB? Is this normal?</h3>
+            <p>A: <strong>Yes, this is completely normal!</strong> This is not garbage files generated by the system,
+                but because it contains a "complete execution environment and AI brain":
+            <ul>
+                <li><strong>Dedicated Python Runtime (approx. 6.6GB)</strong>: Contains massive deep learning
+                    computation frameworks like PyTorch and GPU drivers, allowing you to "plug and play" without
+                    installation.</li>
+                <li><strong>Pre-trained AI Core Models (approx. 4.1GB)</strong>: This is the foundation model brain
+                    trained by GPT-SoVITS with tens of thousands of hours of speech data, which is the key to achieving
+                    zero-shot high-quality voice mimicking.</li>
+                <li><strong>Peripheral Auxiliary AI Tools (approx. 1.9GB)</strong>: Includes the ASR voice recognition
+                    model used to automatically generate training subtitles, and the UVR5 vocal separation model that
+                    can remove background music noise.</li>
+                <li><strong>Pronunciation Dictionary Library (approx. 0.6GB)</strong>: Covers pronunciation rules for
+                    multiple languages, enabling the AI to accurately read Chinese, English, and Japanese.</li>
+            </ul>
+            In summary, this 13GB is exchanged for a <strong>"stable independent runtime environment"</strong> and
+            <strong>"powerful offline AI computation capability that does not rely on the internet"</strong>. You can
+            safely keep it on your hard drive.
+            </p>
+
+            <h3>Q: Why does clicking "🚀 Start API" keep showing connection failure?</h3>
+            <p><span class="warn">Solution:</span>
+            <ol>
+                <li>Your antivirus software might have blocked the background action of opening the Python server.
+                    Please check the antivirus quarantine zone.</li>
+                <li>Perhaps the old API crashed previously and didn't close completely. Open Windows Task Manager, force
+                    end all processes named <code>python.exe</code>, and try again.</li>
+            </ol>
+            </p>
+
+            <h3>Q: After clicking "Start Inference", the completed WAV file is empty (no sound)?</h3>
+            <p><span class="warn">Cause & Solution:</span>
+            <ol>
+                <li>Most common cause: <strong>Typos in the Reference Text!</strong> If the AI cannot find the sound
+                    characteristics corresponding to the text, it will crash and output silence. Carefully verify your
+                    reference text, change all English to lowercase, and remove special emojis.</li>
+                <li>Your loaded "Custom Model" is incompatible with the default official base version. Ensure your
+                    custom model uses the GPT-SoVITS V2 architecture.</li>
+            </ol>
+            </p>
+
+            <h3>Q: The synthesized voice always cracks, or has weird sounds like "Ah~" at the end?</h3>
+            <p><span class="highlight">Solution:</span> This is called AI Hallucination. It's usually because your
+                <strong>Reference Audio background isn't clean</strong>. Be sure to use the "Recording Assistant"'s
+                noise reduction feature to ensure you are feeding the AI very pure human voice. Also, moderately
+                lowering
+                <code>Temp</code> can effectively reduce the occurrence of weird ending noises.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

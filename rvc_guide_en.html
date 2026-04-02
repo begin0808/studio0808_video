@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RVC Voice Timbre Conversion</title>
+    <style>
+        :root {
+            --primary: #FF5722;
+            /* Deep Orange for RVC */
+            --secondary: #9C27B0;
+            /* Purple for Models */
+            --accent: #00BCD4;
+            /* Cyan for Features */
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #C6FF00, #1DE9B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(255, 87, 34, 0.15);
+            border-color: var(--primary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #FFB74D;
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--info);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .warn {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            font-size: 0.8em;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .tag-blue {
+            background-color: rgba(66, 165, 245, 0.2);
+            color: #64B5F6;
+        }
+
+        .tag-green {
+            background-color: rgba(102, 187, 106, 0.2);
+            color: #81C784;
+        }
+
+        .tag-orange {
+            background-color: rgba(255, 167, 38, 0.2);
+            color: #FFB74D;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .analog-box {
+            background-color: rgba(255, 87, 34, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            font-weight: bold;
+            width: 25%;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>RVC Voice Timbre Conversion</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/rvc_inference.png" alt="RVC Inference Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Overview</h2>
+            <p><strong>RVC (Retrieval-based Voice Conversion)</strong> is a powerful AI voice conversion technology.
+                Unlike "Voice Cloning (input text to output speech)", RVC's operation involves "inputting an original
+                sound clip," and the AI retains the original speaking or singing intonation, emotion, and rhythm, but
+                replaces the <strong>timbre</strong> with your specified model target.</p>
+            <p>This technology is most commonly used to create <strong>"AI Covers"</strong>, such as having a famous
+                singer sing someone else's song, or to hide one's real voice for live streaming and video dubbing.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. Operations Section Explanation</h2>
+
+            <h3><span class="tag tag-blue">1</span> Input Audio</h3>
+            <p>This is your original sound source to be converted:</p>
+            <ul>
+                <li><strong>Standard Flow (Clean Vocals)</strong>: The most stable approach is to first use the "Vocal
+                    Separation" feature to strip the song's accompaniment, and only feed the pure <strong>clean human
+                        voice</strong> to RVC. After conversion, merge the new vocals and accompaniment yourself.</li>
+                <li><strong>Source Key Shift</strong>: <span class="highlight">[Voice Cracking Savior]</span> If you
+                    find the voice sounds very fake or can't hit high notes when converting (e.g., a male singing a
+                    female's song), you can directly apply a Key Shift to the "original audio file" here (e.g., -2 or
+                    -4). The program will change the pitch of your original audio losslessly in the background before
+                    sending it to the AI, which will greatly improve the naturalness of the converted voice!</li>
+                <li><strong>Auto-Mix</strong>: If you find processing things yourself too troublesome, you can directly
+                    input a <strong>complete song</strong> with accompaniment and check "Auto-Separate Vocals and Mix".
+                    The program will automatically separate the vocals in the background, send the vocals to RVC for
+                    conversion, and finally automatically synthesize the converted vocals with the original
+                    accompaniment! Done in one step!<br>
+                    <em>(Note: This feature consumes more computing time, please be patient)</em>
+                </li>
+            </ul>
+
+            <h3><span class="tag tag-green">2</span> Model Selection</h3>
+            <p>Load the voice of the person you want to "become" here:</p>
+            <ul>
+                <li><strong>Model Weights (.pth)</strong>: The soul of voice conversion, containing the person's timbre
+                    characteristics. Must be specified!</li>
+                <li><strong>Feature Index (.index / Optional)</strong>: An auxiliary file generated during model
+                    training. It helps the AI make articulation and pronunciation closer to the model itself during
+                    conversion. Select it if you have it; it functions without it.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. Detailed Conversion Parameters (Core Must-Learn)</h2>
+            <p>RVC's most powerful aspect is its highly flexible parameters. Proper adjustment can save voice cracking,
+                missing audio, or make cross-gender covers sound seamless.</p>
+
+            <table>
+                <tr>
+                    <th>Pitch Shift (Pitch)</th>
+                    <td>
+                        <strong>Function:</strong> Changes the fundamental frequency (pitch) premise of the input sound,
+                        measured in "semitones".<br>
+                        <strong>Usage:</strong> If it's originally a male voice and you want to convert it with a female
+                        model, it's recommended to set Pitch to <code>+12</code> (up one octave). Conversely, for female
+                        to male, set it to <code>-12</code>. Keep it at <code>0</code> for same-gender conversion. If
+                        you need to change the song's key itself to fit the model's vocal range, you can also fine-tune
+                        like `+1` or `-2`.
+                    </td>
+                </tr>
+                <tr>
+                    <th>F0 Prediction Algorithm</th>
+                    <td>
+                        <strong>Function:</strong> The method the AI uses to track your original articulation pitch
+                        curve.<br>
+                        <strong>Options:</strong>
+                        <ul>
+                            <li><span class="highlight">rmvpe (Recommended)</span>: Currently the strongest and most
+                                stable algorithm. Fast speed, strong noise resistance, moderate graphics card resource
+                                consumption. <strong>Default first choice!</strong></li>
+                            <li><span class="highlight">fcpe (Recommended)</span>: A newer, powerful algorithm. More
+                                accurate than rmvpe for grasping large high/low note drops, vocal fry, or special
+                                singing styles, but takes longer. Try this if rmvpe struggles.</li>
+                            <li><code>crepe</code>: A veteran algorithm, high accuracy but slow and consumes a lot of
+                                graphics card resources.</li>
+                            <li><code>pm</code>: The fastest speed, but worst sound quality, prone to voice cracking,
+                                suitable for extremely low-end computer specs.</li>
+                            <li><code>harvest</code>: More accurate low pitch tracking, but high pitches easily crack.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Index Rate</th>
+                    <td>
+                        <strong>Function:</strong> Controls the degree to which voice characteristics "lean towards the
+                        model" (range 0~1). Requires a <code>.index</code> file to take effect.<br>
+                        <strong>Usage:</strong> Higher values: Articulation and tone will be more like the model itself,
+                        but if the original audio quality is poor, an excessively high index rate will cause various
+                        weird "artifacts (buzzing)". Lower values: Will have more traces of your own original voice.<br>
+                        <strong>Recommendation:</strong> Default <code>0.75</code>. If weird noises appear, lower it to
+                        <code>0.3 ~ 0.5</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <th>Filter Radius</th>
+                    <td>
+                        <strong>Function:</strong> When the pitch (F0) trajectory fluctuates wildly (e.g., prediction
+                        errors caused by breathiness or voice cracking), use this value for median filtering to smooth
+                        it. Effective only when greater than 3.<br>
+                        <strong>Usage:</strong> If you notice the converted voice suddenly has extremely unnatural
+                        "off-key or popping sounds" in certain sections, you can increase this item to weaken this
+                        abrupt change.<br>
+                        <strong>Recommendation:</strong> Default <code>3</code>. Increase if you encounter breathiness
+                        or popping.
+                    </td>
+                </tr>
+                <tr>
+                    <th>RMS Mix Rate</th>
+                    <td>
+                        <strong>Function:</strong> Determines how much the "volume change of the output sound" refers to
+                        the "volume of the original input sound".<br>
+                        <strong>Usage:</strong> Default <code>0.25</code> means only a quarter of the output sound's
+                        volume fluctuation follows your input, and three-quarters are determined by the model. If you
+                        check this (or increase the value closer to 1), where the AI shouts or whispers, the volume
+                        changes will more closely restore the level of your original recording.<br>
+                        <strong>Recommendation:</strong> Check it if you want obvious emotional fluctuations (large
+                        difference between loud and soft); uncheck it (set to 0) if you want the volume of every
+                        sentence to be very even.
+                    </td>
+                </tr>
+            </table>
+
+            <div class="tip-box">
+                <strong>💡 Magic Formula: Winning Tips for Male/Female Conversion</strong><br>
+                If you use a male voice to sing a female's song (male to female), first try setting the <strong>Pitch
+                    Shift to +12</strong>. If it still sounds weird, the reason is usually that the male simply can't
+                hit those high notes. In this case, it is strongly recommended that you **make good use of our "Source
+                Key Shift" feature in the first section**. Lower your original voice by -3 to -6 semitones, and
+                <strong>keep Pitch at +12</strong>. Feeding the modified low-range vocals to RVC will yield miraculously
+                natural results!
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h2>04. Troubleshooting</h2>
+
+            <h3>Q: Why does it suddenly pop up "Cannot find model file" or "Interrupted" during conversion?</h3>
+            <p><span class="warn">Solution:</span>
+                Please ensure that the filenames of your <code>.pth</code> or <code>.index</code> files, and the "folder
+                name" they are in, <strong>absolutely do not contain any spaces, Chinese characters, Japanese
+                    characters, or special symbols</strong>!<br>
+                RVC's underlying Python is very strict about path parsing. Please change folder and model names entirely
+                to pure English + numbers.
+            </p>
+
+            <h3>Q: I checked "Auto-Separate Vocals and Mix", why is the output only accompaniment without vocals, or the
+                program freezes and won't run?</h3>
+            <p><span class="warn">Solution:</span>
+                This indicates the underlying Demucs vocal separation module failed.<br>
+                The cause is likely insufficient graphics card memory (VRAM) to load these two resource-heavy AI
+                processes simultaneously. It's recommended to first go to the "Vocal Separation" menu, manually extract
+                a pure vocal file, then bring that file here for voice conversion, and finally use video editing
+                software to layer it with the accompaniment yourself.
+            </p>
+
+            <h3>Q: The converted voice sounds like it has a cold, or like an alien talking?</h3>
+            <p><span class="highlight">Solution:</span>
+                This is because RVC's algorithm caught the wrong vocal range. The most effective solution is: Change the
+                <strong>F0 Prediction Algorithm</strong>!<br>
+                If you originally used <code>rmvpe</code>, change it to <code>fcpe</code> or <code>crepe</code> and run
+                it again; this usually results in massive improvement. Additionally, please check if your
+                <code>Pitch</code> shift is set backward.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

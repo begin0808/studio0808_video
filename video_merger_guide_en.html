@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lossless Video Merger</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #FF8A65, #FFD54F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Lossless Video Merger</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_merge.png" alt="Lossless Video Merger Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Feature Introduction</h2>
+            <p><strong>Video Merger</strong> is a fine-tuning tool designed specifically for handling "overlaying pure
+                audio onto silent video" and "remixing original vocals with accompaniment". It is often used to replace
+                the time-consuming re-rendering process of traditional editing software.</p>
+            <ul>
+                <li>High-speed combination of your newly recorded vocal track with a silent MV.</li>
+                <li>Adjust relative volumes of the video and the new audio track (Gain adjustment) during mixing.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. Step-by-Step Operations</h2>
+            <ol>
+                <li><strong>Load Media</strong>: Click the "Insert Video File" and "Insert Audio File" buttons
+                    respectively.</li>
+                <li><strong>Mix Mode</strong>:
+                    <ul>
+                        <li><span class="highlight">Check "Mix Audio Mode"</span>: This will retain the video's original
+                            background audio, "mixing and overlaying" its volume with your newly loaded audio source.
+                            Options for "Original Video Audio Volume" and "New Loaded Audio Volume" will appear below
+                            for you to adjust.
+                        </li>
+                        <li><span class="highlight">Uncheck</span>: The system will strip the built-in audio track of
+                            the original video entirely and replace it completely with the newly loaded audio. This
+                            method can usually achieve lossless output in seconds (without needing to re-encode
+                            soundwaves).
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Auto Duration Trimming</strong>: Regardless of the duration difference between the two, the
+                    final mixed file will automatically end based on the "video duration".</li>
+                <li><strong>Start Merging</strong>: Once settings are in place, simply click the pink "Start Merging"
+                    button.</li>
+            </ol>
+            <p><em>💡 Tip: The merged project will be automatically saved in the <code>Outputs/Tools</code> folder.</em>
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>03. Frequently Asked Questions (Q&A)</h2>
+
+            <h3>Q: Why is purely replacing audio extremely fast, but checking mix mode takes a long time?</h3>
+            <p>A: Pure replacement is an operation known as Remux, which can be done without re-encoding. But if you
+                enable "Mix Mode", the system must first unpack both tracks, re-render the soundwaves, and then overlay
+                and synthesize them. The required time will vary according to the file size and bitrate.</p>
+
+            <h3>Q: Can I load more than two audio files at once?</h3>
+            <p>A: Unfortunately, this simple video merger only supports the mixing of "one video source + one external
+                imported audio source". If you need multi-track mixing, please use professional DAW (Digital Audio
+                Workstation) software.</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.</p><br>
+            Powered by FFmpeg Audio Filters.
+        </div>
+    </div>
+</body>
+
+</html>

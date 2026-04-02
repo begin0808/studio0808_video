@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Subtitle Generator & Auto-Sync Engine</title>
+    <style>
+        :root {
+            --primary: #2979FF;
+            /* Bluerple for Subtitle */
+            --secondary: #1E88E5;
+            --accent: #00E676;
+            /* Green for success/tips */
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #651FFF, #D500F9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(41, 121, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .warn {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            font-size: 0.8em;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-right: 5px;
+        }
+
+        .tip-box {
+            background-color: rgba(0, 230, 118, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Subtitle Generator & Auto-Sync Engine</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/subtitle_generation.png" alt="AI Subtitle Generation Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Overview</h2>
+            <p>The <strong>Subtitle Generation Module</strong> uses OpenAI's open-source <strong>Whisper Series</strong>
+                (Fast-Whisper implementation)
+                as its recognition core. It can automatically transcribe any video or audio file into accurate,
+                time-stamped subtitles (SRT/VTT).</p>
+            <p>This system not only supports basic subtitle generation but also integrates <span
+                    class="highlight">Auto-Translation</span>, <span class="highlight">Bilingual Subtitles</span>
+                layout, and a one-click <span class="highlight">Auto Burn-in</span> feature, allowing you to produce
+                finished, subtitled videos without opening other editing software.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. AI Core Parameters Explained</h2>
+
+            <h3>🧠 AI Model Selection</h3>
+            <p>We provide four different tiers of models. You can choose based on your PC's performance and accuracy
+                needs:</p>
+            <ul>
+                <li><strong>medium</strong>: <span class="tag">Fast</span> <span class="tag">VRAM: ~2GB</span>
+                    <br>Suitable for videos with clear, standard dialogue. Fastest speed, but slightly weaker at
+                    recognizing proper nouns or fast speech.
+                </li>
+                <li><strong>large-v2 (Good)</strong>: <span class="tag">Balanced</span> <span class="tag">VRAM:
+                        ~4GB</span>
+                    <br>Currently the most stable version, striking a great balance between accuracy and speed. Suitable
+                    for most YouTube videos.
+                </li>
+                <li><strong>large-v3-turbo (Better)</strong>: <span class="tag">New Tech</span> <span class="tag">VRAM:
+                        ~6GB</span>
+                    <br>A speed-optimized V3 version, retaining V3's high-recognition traits but computing faster.
+                </li>
+                <li><strong>large-v3 (Best)</strong>: <span class="tag">Highest Quality</span> <span class="tag">VRAM:
+                        ~10GB+</span>
+                    <br>OpenAI's latest and most powerful model. Most resistant to multi-language mixing, accents, and
+                    background noise, but requires a powerful graphics card and plenty of VRAM.
+                </li>
+            </ul>
+
+            <h3>🗣️ Video Language</h3>
+            <p>Specify the language spoken in the video. While setting it to <code>Auto</code> is usually accurate, if
+                the video has very sparse dialogue or loud background music, manually specifying the language (e.g.,
+                <code>English</code>) can significantly improve accuracy.</p>
+
+            <h3>⚙️ Processing Mode</h3>
+            <ul>
+                <li><strong>Auto-Translate (to Traditional Chinese)</strong>: Regardless of whether the video is
+                    English, Japanese, or Korean, the system will automatically translate and output "Traditional
+                    Chinese" subtitles.</li>
+                <li><strong>Original (Original Text)</strong>: The language spoken in the video dictates the output
+                    subtitle language (e.g., Japanese video outputs Japanese subtitles).</li>
+            </ul>
+
+            <h3>🛡️ VAD (Voice Activity Detection) Filter</h3>
+            <p>This is a highly important feature. If checked, the AI will first analyze "where there is human voice"
+                before transcribing.<br>
+                <strong>Purpose:</strong> Prevents the AI from hallucinating subtitles (like meaningless symbols or
+                repeated words) during purely musical or silent segments.<br>
+                <strong>Recommendation:</strong> Turn on manually depending on the situation. <span class="highlight">It
+                    is turned off by default in the latest version</span> to prevent accidentally deleting soft-spoken
+                or whispered dialogue.
+            </p>
+
+            <h3>👥 Speaker Diarization</h3>
+            <p>Uses Pyannote AI for audio track separation, automatically recognizing how many people are speaking in
+                the video, and pre-pending speaker tags (e.g., <code>[SPEAKER_00]:</code>,
+                <code>[SPEAKER_01]:</code>) to the beginning of subtitles.<br>
+            <div class="tip-box">
+                <strong>⏳ Performance Tip & Time Estimation:</strong>
+                When enabled, the transcription time will <strong>increase significantly (potentially taking 2-3x
+                    longer)</strong>. This is because, besides Whisper's text recognition, the system must perform
+                Pyannote's deep voiceprint feature extraction, and finally cross-reference and merge the "Text" and "Who
+                said it" data on the timeline. If the video is long, please be patient; the system's progress percentage
+                will continually update.
+            </div><br>
+            <span class="warn">🔑 First Time Use & Authorization Check:</span> The system will pop up a window asking
+            for a <strong>Hugging Face Access Token</strong> (starting with
+            <code>hf_</code>). This is a free service. If you encounter authorization errors, please follow these steps
+            to verify:
+            </p>
+            <ol>
+                <li>Go to the <a href="https://huggingface.co/pyannote/speaker-diarization-3.1" target="_blank"
+                        style="color:var(--primary)">pyannote/speaker-diarization-3.1</a> and <a
+                        href="https://huggingface.co/pyannote/segmentation-3.0" target="_blank"
+                        style="color:var(--primary)">pyannote/segmentation-3.0</a> model pages.</li>
+                <li>Ensure you are logged into your Hugging Face account.</li>
+                <li>If you haven't agreed to the terms, an agreement and form will appear. Fill it out and click
+                    <strong>"Agree and access repository"</strong>.</li>
+                <li>If you click in and directly see the model description and "Files and versions" list, it means you
+                    have successfully authorized!</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>03. Subtitle Output & Style</h2>
+
+            <h3>📄 Output Formats</h3>
+            <ul>
+                <li><strong>SRT</strong>: The most universal subtitle format, containing timestamps and text.</li>
+                <li><strong>VTT (WebVTT)</strong>: Web-specific subtitle format, supporting simple styling.</li>
+                <li><strong>TXT</strong>: Plain text file, no timestamps. Ideal for organizing transcripts.</li>
+                <li><strong>Auto Burn-in</strong>: "Burns" the subtitles directly onto the video frames, generating a
+                    new MP4 file.</li>
+            </ul>
+
+            <h3>🎨 Independent Style Settings (Exclusive Lossless ASS Dual Engine)</h3>
+            <p>Our subtitle generation core utilizes a powerful <strong>Dual-Layer Overlay Dynamic Calculation
+                    Engine</strong>. It not only guarantees compatibility with all video resolutions but also allows the
+                "Primary Subtitle" and "Secondary Subtitle (Original Text)" to have completely independent visual
+                designs without interfering with each other!</p>
+            <p>On the right side of the interface, we provide an intuitive <strong>Tabview</strong>:</p>
+            <ul>
+                <li><strong>Primary Layout:</strong> Controls the primary translated language (usually Chinese).</li>
+                <li><strong>Secondary Layout (Original):</strong> Controls the secondary language underneath (only
+                    visible when "Bilingual Subtitles" is checked).</li>
+            </ul>
+            <p>Within each tab, you can <span class="highlight">independently configure</span> the following parameters,
+                and the settings will sync in real-time to the <strong>Preview</strong> above:</p>
+            <ul>
+                <li><strong>Font & Bold</strong>: Click the button to select from all system-installed fonts (like
+                    Microsoft JhengHei).</li>
+                <li><strong>Color & Size</strong>: Customize your text color freely.</li>
+                <li><strong>Spacing</strong>: Customize the distance between characters in the subtitle (supports values from 0-30) for more flexible layout formatting.</li>
+                <li><strong>Outline</strong>: Independently thicken the stroke around the text to prevent glare.</li>
+                <li><strong>Background Box</strong>: Add a semi-transparent custom background color behind the text (for
+                    the ultimate Netflix-style viewing experience). Through underlying
+                    <code>PrimaryStyle</code> / <code>SecondaryStyle</code> calculation tech, even if you overlap two
+                    lines with different colored boxes, the layout will never break!
+                </li>
+            </ul>
+
+            <div class="card">
+                <h2>04. Troubleshooting</h2>
+
+                <h3>Q: Receiving "VRAM OOM" or "System RAM OOM" errors?</h3>
+                <p><span class="warn">Cause:</span> Insufficient PC memory to load the large model.<br>
+                    <span class="highlight">Solution:</span> Please downgrade the model to <strong>medium</strong> or
+                    <strong>large-v2 (Good)</strong>. The difference in results is usually minor, but it allows the
+                    program to run smoothly.
+                </p>
+
+                <h3>Q: The burned-in video has no sound?</h3>
+                <p><span class="highlight">Solution:</span> This issue has been fixed in the latest version. The system
+                    now forces extraction of the original audio track and transcodes it to AAC format, ensuring audio is
+                    fully preserved.</p>
+
+                <h3>Q: What are Bilingual Subtitles?</h3>
+                <p>A: This is an incredible tool for learning foreign languages! When checked, the system simultaneously
+                    displays both the "Translated/Target Language" and the "Original", formatting them automatically
+                    (Translated on top, Original on bottom).</p>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 Studio0808 Team. All rights reserved.</p>
+            </div>
+        </div>
+</body>
+
+</html>

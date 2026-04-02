@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support & Sponsor the Developer</title>
+    <style>
+        :root {
+            --primary: #29B6F6;
+            --secondary: #AB47BC;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+            --warning: #FFB74D;
+            --pink-neon: #FF2A6D;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #8E24AA, #3949AB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--warning);
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--info);
+        }
+
+        .sponsor-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .sponsor-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Support & Sponsor the Developer</h1>
+        </header>
+
+        <div class="card">
+            <h2>🇹🇼 For Taiwan Users (LINE Bank Transfer)</h2>
+            <p>You can use the "Scan QR Code to Transfer" feature from any online banking app (like Richart, E.SUN,
+                Cathay, etc.) to scan the barcode below.</p>
+
+            <div class="tip-box">
+                <p><em>(If you are browsing on mobile, you can also copy the account number below directly)</em></p>
+                <ul>
+                    <li><strong>Bank Code</strong>: <code>397</code> (LINE Bank Taiwan)</li>
+                    <li><strong>Account Number</strong>: <code>[Your Full Bank Account Number here]</code></li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <img src="images/qr_code_placeholder.png" alt="LINE Bank Transfer QR Code"
+                    style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #03A9F4;">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">
+                    [Insert your QR Code Image URL here. Recommended to upload via GitHub Issues or an image host]</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🌍 International Users / Credit Card (Buy Me a Coffee)</h2>
+            <p>No registration required. Supports Apple Pay, Google Pay, and major credit cards. Click the button below
+                to sponsor:</p>
+
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="[Insert your BMAC Link here]" target="_blank" class="sponsor-btn">
+                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee"
+                        style="height: 60px !important; width: 217px !important;">
+                </a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; color: var(--text-muted); font-style: italic;">
+            <p>Developed with ❤️ by begin0808</p>
+        </div>
+
+    </div>
+</body>
+
+</html>

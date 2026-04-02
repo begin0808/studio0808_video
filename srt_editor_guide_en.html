@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: SRT Subtitle Editor Guide</title>
+    <style>
+        :root {
+            --bg-color: #0f1215;
+            --card-bg: #1a1e24;
+            --text-color: #e0e0e0;
+            --accent-blue: #2196F3;
+            --accent-amber: #ffa000;
+            --accent-green: #4CAF50;
+            --grid-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #64B5F6, #2196F3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            border-left: 5px solid var(--accent-amber);
+            padding-left: 15px;
+            color: var(--accent-amber);
+            font-size: 1.3em;
+            margin-top: 0;
+        }
+
+        .highlight {
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--accent-green);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>SRT Subtitle Editor Guide</h1>
+        </header>
+
+        <div class="card">
+            <h2>01. Purpose</h2>
+            <p>The <strong>SRT Subtitle Editor</strong> is a lightweight, efficient proofreading tool. It is specifically designed to handle AI-generated subtitles, allowing you to quickly correct typos and adjust timecodes without opening heavy video editing software.</p>
+        </div>
+
+        <div class="card">
+            <h2>02. Key Features</h2>
+            <ul>
+                <li><strong>Pagination System</strong>: To prevent lag when handling long videos, this tool uses "pagination" technology. It displays 50 entries per page, ensuring a fast and smooth editing experience.</li>
+                <li><strong>Dual-Column Editing</strong>: Timecodes (start and end) are on the left, and text content is on the right. You can edit entries directly in the grid.</li>
+                <li><strong>Instant Save</strong>: Click the <span class="highlight">"Save"</span> button at the top to merge all changes across all pages and write them back to the original .srt file.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. Pro Tips</h2>
+            <div class="tip-box">
+                <p>💡 <strong>How to switch pages?</strong></p>
+                <p>Use the "Previous" and "Next" buttons at the top or bottom of the list. Don't worry, the program automatically caches your current changes when you switch pages until you hit the final "Save" button.</p>
+            </div>
+            <div class="tip-box">
+                <p>💡 <strong>Timecode Format</strong></p>
+                <p>Standard time formats must follow <code>00:00:00,000</code> (HH:MM:SS,ms). If the format is invalid, players might not be able to read that specific subtitle segment correctly.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 50px;">
+            © 2026 Studio0808 Team. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>

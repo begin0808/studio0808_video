@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 生成字幕 (Subtitle Generation)</title>
+    <style>
+        :root {
+            --primary: #2979FF;
+            /* Bluerple for Subtitle */
+            --secondary: #1E88E5;
+            --accent: #00E676;
+            /* Green for success/tips */
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #651FFF, #D500F9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(41, 121, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            font-size: 1.0rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .warn {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            font-size: 0.8em;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-right: 5px;
+        }
+
+        .tip-box {
+            background-color: rgba(0, 230, 118, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>生成字幕技術</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/subtitle_generation.png" alt="AI 生成字幕 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能概述 (Overview)</h2>
+            <p><strong>生成字幕模組</strong> 採用了 OpenAI 開源的 <strong>Whisper Series</strong> (Fast-Whisper 實作)
+                作為辨識核心。它能將任何影片或錄音檔，自動轉錄為精確的時間軸字幕 (SRT/VTT)。</p>
+            <p>本系統不僅支援單純的字幕生成，更整合了 <span class="highlight">自動翻譯</span>、<span class="highlight">雙語字幕</span> 排版，以及一鍵 <span
+                    class="highlight">自動壓制 (Burn-in)</span> 功能，讓您無需開啟其他剪輯軟體，即可產出帶有字幕的成品影片。</p>
+        </div>
+
+        <div class="card">
+            <h2>02. AI 核心參數詳解</h2>
+
+            <h3>🧠 AI 模型選擇 (Model Selection)</h3>
+            <p>我們提供了四種不同等級的模型，您可以根據電腦效能與精確度需求進行選擇：</p>
+            <ul>
+                <li><strong>medium (中)</strong>：<span class="tag">速度快</span> <span class="tag">VRAM: ~2GB</span>
+                    <br>適合一般對話清晰的影片，速度最快，但對專有名詞或快速語速的辨識度稍弱。
+                </li>
+                <li><strong>large-v2 (佳)</strong>：<span class="tag">平衡型</span> <span class="tag">VRAM: ~4GB</span>
+                    <br>目前最穩定的版本，在辨識率與速度之間取得很好的平衡，適合大多數 YouTube 影片。
+                </li>
+                <li><strong>large-v3-turbo (優)</strong>：<span class="tag">新技術</span> <span class="tag">VRAM: ~6GB</span>
+                    <br>針對速度優化的 V3 版本，保留了 V3 的高辨識特性但運算更快。
+                </li>
+                <li><strong>large-v3 (最優)</strong>：<span class="tag">最高品質</span> <span class="tag">VRAM: ~10GB+</span>
+                    <br>OpenAI 最新最強大的模型，對多語言混雜、口音、背景噪音的抗性最強，但需要強大的顯卡與記憶體。
+                </li>
+            </ul>
+
+            <h3>🗣️ 影片語言 (Video Language)</h3>
+            <p>指定影片中講話的語言。雖然設為 <code>Auto (自動偵測)</code> 通常準確，但若影片對白很少或背景音樂很大，手動指定語言 (如 <code>Chinese (中文)</code>)
+                可以大幅提高準確率。</p>
+
+            <h3>⚙️ 處理模式 (Processing Mode)</h3>
+            <ul>
+                <li><strong>Auto-Translate (自動轉繁中)</strong>：無論影片是英文、日文還是韓文，系統會自動翻譯並輸出為「繁體中文」字幕。</li>
+                <li><strong>Original (原文字幕)</strong>：影片講什麼語言，就輸出該語言的字幕 (例如日文影片輸出日文字幕)。</li>
+            </ul>
+
+            <h3>🛡️ VAD 濾除雜音 (Voice Activity Detection)</h3>
+            <p>這是一個非常重要的功能。勾選後，AI 會在辨識前先分析「哪裡有人聲」。<br>
+                <strong>用途：</strong>防止 AI 在純音樂片段或無聲片段產生「幻覺字幕」(如無意義的符號或重複字詞)。<br>
+                <strong>建議：</strong>視情況手動開啟。<span class="highlight">最新版本預設為關閉</span>，以避免誤刪輕聲細語的對白。
+            </p>
+
+            <h3>👥 分辨說話者 (Speaker Diarization)</h3>
+            <p>使用 Pyannote AI 進行音軌分離，自動辨識影片中有幾個人在說話，並將對應的發言人標籤 (例如 <code>[SPEAKER_00]:</code>,
+                <code>[SPEAKER_01]:</code>) 標註在字幕開頭。<br>
+            <div class="tip-box">
+                <strong>⏳ 效能提示與時間評估：</strong>
+                開啟此功能後，轉錄時間會 <strong>顯著增加 (可能達原先的 2~3 倍時間)</strong>。這是因為系統除了必須執行 Whisper 的文字辨識外，還要額外執行 Pyannote
+                的深度聲紋特徵抽取，最後再將「文字」與「誰說的」兩份資料進行時間軸的三方交叉比對與合併。若影片較長，請您耐心等候，系統的處理進度百分比會持續更新。
+            </div><br>
+            <span class="warn">🔑 首次使用與授權確認：</span> 系統會彈出視窗要求輸入 <strong>Hugging Face Access Token</strong> (需以
+            <code>hf_</code> 開頭)。這是一項免費服務。如果您遇到授權相關錯誤，請按照以下步驟確認：
+            </p>
+            <ol>
+                <li>前往 <a href="https://huggingface.co/pyannote/speaker-diarization-3.1" target="_blank"
+                        style="color:var(--primary)">pyannote/speaker-diarization-3.1</a> 與 <a
+                        href="https://huggingface.co/pyannote/segmentation-3.0" target="_blank"
+                        style="color:var(--primary)">pyannote/segmentation-3.0</a> 這兩個模型頁面。</li>
+                <li>確保您已登入 Hugging Face 帳號。</li>
+                <li>如果您尚未同意授權，頁面上會出現一段協議和表單，請填寫並按下 <strong>"Agree and access repository"</strong>。</li>
+                <li>如果您點進去直接看到模型介紹和檔案列表 (Files and versions)，就代表您已經成功授權了！</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>03. 字幕輸出與外觀 (Output & Style)</h2>
+
+            <h3>📄 輸出格式</h3>
+            <ul>
+                <li><strong>SRT</strong>：最通用的字幕格式，包含時間軸與文字。</li>
+                <li><strong>VTT (WebVTT)</strong>：網頁專用的字幕格式，支援簡單樣式。</li>
+                <li><strong>TXT</strong>：純文字檔，不含時間軸，適合用來整理逐字稿。</li>
+                <li><strong>自動壓制影片 (Auto Burn-in)</strong>：將字幕「烙印」在影片畫面上，生成一個新的 MP4 檔。</li>
+            </ul>
+
+            <h3>🎨 獨立外觀設定 (全台首創無損 ASS 雙引擎)</h3>
+            <p>我們的字幕生成核心採用了強大的 <strong>雙層疊加動態計算引擎</strong>，不僅保證與所有影片解析度的相容，還能讓「主字幕」與「副字幕 (原文)」擁有完全獨立的外觀設計，互不干擾！</p>
+            <p>在介面右側，我們提供了直覺的 <strong>分頁標籤 (Tabview)</strong>：</p>
+            <ul>
+                <li><strong>主字幕外觀：</strong> 控制翻譯後的主要語言 (通常為中文)。</li>
+                <li><strong>副字幕外觀 (原文)：</strong> 控制底下的第二語言 (只有在勾選「雙語字幕」時才會顯示)。</li>
+            </ul>
+            <p>在每個分頁中，您可以 <span class="highlight">獨立設定</span> 以下參數，且設定會即時連動上方的 <strong>字幕預覽 (Preview)</strong>：</p>
+            <ul>
+                <li><strong>字型 (Font) 與 粗體 (Bold)</strong>：點擊按鈕可選擇系統內安裝的所有字型 (如微軟正黑體)。</li>
+                <li><strong>顏色 (Color) 與 大小 (Size)</strong>：隨意調配您的文字色彩。</li>
+                <li><strong>字元間距 (Spacing)</strong>：自訂字幕字與字之間的距離 (支援 0~30 的設定值)，讓排版更具彈性。</li>
+                <li><strong>邊框 (Outline)</strong>：單獨加粗文字外圍的描邊，防眩光。</li>
+                <li><strong>底框 (Background Box)</strong>：在文字後方加上半透明的自定義底色 (極致的 Netflix 觀影體驗)。透過底層的
+                    <code>PrimaryStyle</code> / <code>SecondaryStyle</code> 運算技術，即使兩行開啟不同顏色的底框疊加也絕不會破版！
+                </li>
+            </ul>
+
+            <div class="card">
+                <h2>04. 常見問題 (Troubleshooting)</h2>
+
+                <h3>Q: 出現 "VRAM OOM" 或 "System RAM OOM" 錯誤？</h3>
+                <p><span class="warn">原因：</span>電腦的記憶體不足以載入大型模型。<br>
+                    <span class="highlight">解法：</span>請將模型降級為 <strong>medium (中)</strong> 或 <strong>large-v2
+                        (佳)</strong>。效果差異通常不大，但能讓程式順利執行。
+                </p>
+
+                <h3>Q: 壓制出來的影片沒有聲音？</h3>
+                <p><span class="highlight">解法：</span>此問題已在最新版本修復。系統現在會強制抓取原始音軌並轉碼為 AAC 格式，確保聲音完整保留。</p>
+
+                <h3>Q: 雙語字幕 (Bilingual) 是什麼？</h3>
+                <p>A: 這是學習外語的神器！勾選後，系統會同時顯示「翻譯後的中文」與「原文」，並自動排版 (中文在上，原文在下)。</p>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 Studio0808 Team. All rights reserved.</p>
+            </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time VC: Mastering Voice Conversion</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #388E3C;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+            --warning: #FFB74D;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #F50057, #FF8A80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--warning);
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .danger-text {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .warn-box {
+            background-color: rgba(255, 82, 82, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--info);
+        }
+        
+        .tag {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 2px;
+        }
+        .tag-green { background: rgba(76, 175, 80, 0.2); color: #69F0AE; }
+        .tag-blue { background: rgba(33, 150, 243, 0.2); color: #40C4FF; }
+        .tag-orange { background: rgba(255, 152, 0, 0.2); color: #FFB74D; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Real-Time VC: Mastering Voice Conversion</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/rvc_realtime.png" alt="RVC Real-Time VC Screenshot"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. Basic Concepts & Hardware</h2>
+            <p>Real-time Voice Conversion is demanding. It slices your voice into fragments, processes them through AI, and plays them back instantly.</p>
+
+            <div class="warn-box">
+                <p>💡 <strong>Is your voice stuttering?</strong></p>
+                <p>If you see <code>Using CPU mode</code> in red, the AI load is on your processor. <strong>An NVIDIA RTX graphics card is strongly recommended for smooth conversion.</strong></p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>02. Audio Routing (How others hear you)</h2>
+            <p>By default, only you can hear the changed voice. To use it in Discord or OBS, you must install a "virtual audio cable."</p>
+
+            <h3>Setup & Routing Steps</h3>
+            <ol>
+                <li>In our software:
+                    <ul>
+                        <li><span class="highlight">Input Device (Mic):</span> Your physical microphone.<br>
+                            👉 <span class="tag tag-green">Recommended:</span> <strong>Physical Microphone</strong> (e.g., <code>Realtek Audio</code> or <code>USB Device</code>).<br>
+                            ⚠️ <span class="danger-text">Critical:</span> <strong>NEVER</strong> select <code>CABLE Output</code> as the mic here.
+                        </li>
+                        <li><span class="highlight">Output Device (Speaker):</span> Where the converted voice goes.<br>
+                            👉 <span class="tag tag-blue">To Discord/OBS:</span> Select <strong><code>CABLE Input (VB-Audio Virtual Cable)</code></strong>.<br>
+                            👉 <span class="tag tag-green">To hear yourself:</span> Select your speakers or headset.
+                        </li>
+                    </ul>
+                </li>
+                <li>In Discord/OBS Settings:
+                    <ul>
+                        <li>Input Device: Select <strong><code>CABLE Output (VB-Audio Virtual Cable)</code></strong>.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4 style="color: var(--primary); margin-top: 1.2rem; margin-bottom: 0.5rem;">📋 Common Audio Devices Explained</h4>
+            <table style="width:100%; border-collapse: collapse; font-size: 0.93em; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.05);">
+                <thead>
+                    <tr style="background:rgba(76, 175, 80, 0.15);">
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">Device</th>
+                        <th style="padding:8px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1);">Type</th>
+                        <th style="padding:8px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Microsoft Sound Mapper</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">✅ Default</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Points to your current Windows default recording/playback device.</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.02);">
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>CABLE Input (VB-Audio Cable)</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#FF5252; font-weight:bold;">❓ Missing</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Virtual cable. If not visible, please install as described below.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);"><code>Microphone (Realtek / USB Audio)</code></td>
+                        <td style="padding:7px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); color:#69F0AE; font-weight:bold;">⭐ Rec. Mic</td>
+                        <td style="padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.05);">Physical microphone. Best quality and lowest latency.</td>
+                    </tr>
+                    <tr style="background:rgba(255,255,255,0.02);">
+                        <td style="padding:7px 12px;"><code>Headset (Hands-Free)</code></td>
+                        <td style="padding:7px 12px; text-align:center; color:#FF5252; font-weight:bold;">❌ Avoid</td>
+                        <td style="padding:7px 12px;">Bluetooth call mode. Poor quality (8kHz) causes severe AI glitches.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📡 VB-Cable Installation Guide</h3>
+            <div class="tip-box">
+                <p>If you don't see <code>CABLE</code> in the list, follow these steps:</p>
+                <ol>
+                    <li><strong>Download:</strong> Visit the <a href="https://vb-audio.com/Cable/" target="_blank" style="color:#29B6F6;">VB-Audio Website</a> and download **VB-CABLE Driver**.</li>
+                    <li><strong>Install:</strong> Extract, right-click <code>VBCABLE_Setup_x64.exe</code>, and "Run as administrator".</li>
+                    <li><strong>Refresh:</strong> Once installed, **restart our app** and click "Rescan".</li>
+                </ol>
+                <p>💡 <strong>Flow</strong>: You speaking ➔ Studio0808 (Output: CABLE Input) ➔ Discord (Input: CABLE Output).</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>03. Core Parameters</h2>
+            <h3>1. Pitch Shift</h3>
+            <ul>
+                <li><strong>Male to Female</strong>: Try <strong><span class="highlight">+12</span></strong>.</li>
+                <li><strong>Female to Male</strong>: Try <strong><span class="highlight">-12</span></strong>.</li>
+            </ul>
+
+            <h3>2. Input Gain</h3>
+            <p>If you hear popping, <strong>lower the Gain (e.g., 0.8)</strong> to keep the signal clean.</p>
+
+            <h3>3. Silence Threshold</h3>
+            <p>Filters background noise.AI won't run when your volume is below this level. Move to the right if you hear constant noise.</p>
+
+            <h3>4. Release Time (Rel)</h3>
+            <p>Controls how long the AI keeps generating sound after you stop speaking. Recommended: 0.2s - 0.5s for smooth sentence endings. <strong>⚠️ Note: If you experience an echo loop when using "Sound Mapper," set this to 0.0s.</strong></p>
+
+            <h3>5. Latency (Sec)</h3>
+            <p>The size of each audio chunk. Faster GPUs (RTX 40/50 series) can handle lower values (0.2s ~ 0.4s). Increase this value if you hear stuttering or dropouts.</p>
+
+            <div class="tip-box">
+                <p>🚀 <strong>Lag-Prevention Technology</strong></p>
+                <p>Our system features a smart buffer-clearing mechanism. If the GPU falls behind, it automatically discards old audio chunks to ensure that the output is always real-time, preventing any perceived lag or "delayed echo."</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

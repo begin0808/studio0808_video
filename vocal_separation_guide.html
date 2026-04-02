@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 人聲分離 (Vocal Separation)</title>
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --secondary: #2979ff;
+            --accent: #ff0055;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #00C853, #64DD17);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 10rem;
+            background-color: var(--secondary);
+            color: white;
+            margin-left: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>人聲分離技術</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/vocal_separation.png" alt="人聲分離 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 核心技術介紹</h2>
+            <p>本程式整合了 Meta (Facebook) 開發的頂尖音樂分離模型 <strong>Hybrid Transformer Demucs
+                    (htdemucs)</strong>，為您提供錄音室等級的音軌分離服務。</p>
+            <p>不同於傳統的 EQ 濾波，AI 模型能真正「聽懂」音樂中的不同樂器，將其完美拆解為：</p>
+            <ul>
+                <li>🎤 <strong>Vocals (人聲)</strong>：保留歌手的演唱細節。</li>
+                <li>🥁 <strong>Drums (鼓組)</strong>：獨立的打擊樂軌道。</li>
+                <li>🎸 <strong>Bass (貝斯)</strong>：低頻樂器軌道。</li>
+                <li>🎹 <strong>Other (伴奏)</strong>：鋼琴、吉他、合成器等其他樂器。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>02. 支援模型解析</h2>
+            <p>我們精選了三種最強大的預訓練模型，滿足不同場景需求：</p>
+
+            <h3>🚀 htdemucs V4 (標準版 - 速度快) <span class="badge">預設</span></h3>
+            <p>這是 Demucs V4 的標準版本，兼顧了分離品質與處理速度。適合 90% 的使用場景，特別是製作卡拉 OK 伴奏。</p>
+
+            <h3>🎯 htdemucs_ft (精修版 - 音質細)</h3>
+            <p>Fine-tuned 版本特別針對「保留人聲細節」進行了優化。如果您是為了提取乾聲來進行 <strong>AI 翻唱訓練</strong>，此模型通常能保留更多高頻細節。</p>
+
+            <h3>💎 mdx_extra (MDX-Net V3 - 最佳音質 HQ)</h3>
+            <p>這是基於 MDX-Net 架構的頂級高品質模型。它能提供目前業界頂尖的分離純淨度，特別適合對音質有極高要求的用戶。</p>
+            <div class="card">
+                <h2>03. ⚠️ 重大觀念：為什麼分離出來還有回音？</h2>
+                <p>這是一個非常專業且常見的問題！Demucs 等「人聲分離」模型的主要任務是<strong>「將人聲與背景樂器聲 (BGM) 分開」</strong>。</p>
+                <p>然而，從流行歌曲或影片中分離出來的人聲，通常都帶有強烈的<strong>空間混響 (Reverb)、回音 (Echo) 或是和聲
+                        (Chorus)</strong>。這是因為歌手在錄音室錄音或後期製作時，混音師故意加上去的「空間化特效」，讓聲音聽起來更飽滿、圓潤。</p>
+
+                <h3>這對 AI 翻唱 (RVC) 有什麼影響？</h3>
+                <ul>
+                    <li><strong>致命影響：</strong> 如果在訓練 RVC 或 GPT-SoVITS 模型時，把帶有「回音/混響」的聲音丟給 AI 學習，AI 會「誤認」殘響是該歌手音色的一部分。
+                    </li>
+                    <li><strong>結果：</strong> 訓練出來的模型，講話會永遠自帶一種在山洞裡的空靈感，聲音模糊、不貼耳。</li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">※ 為什麼「去回音」後，聲音聽起來怪怪的/不像原唱？</h3>
+                <p>當您勾選了 <strong>「☑️ 啟用去回音過濾」</strong> 並聽取產出的 <code>_Vocal_Dry.wav</code>
+                    時，您可能會覺得聲音變得很單薄、甚至有點電音感。這是正常的「<strong>錄音室魔法剝奪效應</strong>」，原因如下：</p>
+                <ul>
+                    <li><strong>和聲與疊軌 (Doubling)：</strong>
+                        流行歌曲通常在主唱背後疊加了多軌和聲。去回音模型只會拔除「空間殘響」，但<strong>無法刪除和聲</strong>。因此您會聽到多個人的聲音疊在一起的詭異空間感。</li>
+                    <li><strong>素顏的聲音：</strong> 混音師在製作 CD 時，會使用百萬級的 EQ 與混響器將歌手聲音修飾得極其圓潤。當 AI
+                        將這些「化妝品」粗暴地抽乾後，留下來的自然是最乾癟、未經修飾的真實乾音。</li>
+                </ul>
+
+                <h3 style="margin-top: 2rem; color: var(--accent);">🏆 如何取得最高品質的 AI 訓練素材？</h3>
+                <p>要訓練出 S 級完美的變聲或語音克隆模型，<strong>最頂級的素材從來都不是流行歌曲 (CD)</strong>，而是：</p>
+                <ul>
+                    <li><strong>Podcast 訪談片段</strong></li>
+                    <li><strong>廣播節目 (Radio Show)</strong></li>
+                    <li><strong>清唱片段或無背景樂的直播錄影</strong></li>
+                </ul>
+                <p>上述素材本身就沒有複雜的背景音樂，且錄音環境相對乾燥。將這類素材丟入系統，經過一次普通的去底噪或去回音，出來的品質將是完美的「零瑕疵乾聲」。</p>
+            </div>
+
+            <div class="card">
+                <h2>04. 詳細操作流程</h2>
+                <ol>
+                    <li><strong>選擇檔案</strong>：直接將音訊或影片檔拖曳到程式視窗中，或者點擊「加入檔案」。支援批次處理。</li>
+                    <li><strong>選擇模型</strong>：在上方下拉選單選擇您需要的模型 (預設使用標準版)。</li>
+                    <li><strong>設定選項</strong>：
+                        <ul>
+                            <li><span class="highlight">另存乾淨人聲 (WAV)</span>：強烈建議勾選。這會將分離出來的人聲獨立儲存為高品質 WAV 檔，方便後續編輯。</li>
+                            <li><span class="highlight">純伴奏模式</span>：如果勾選，程式會自動將鼓、貝斯、其他樂器混合成一個「伴奏檔」，方便您直接拿來唱歌。</li>
+                        </ul>
+                    </li>
+                    <li><strong>開始處理</strong>：點擊橘色按鈕，程式將自動調用 GPU (若可用) 進行高速運算。</li>
+                </ol>
+                <p><em>💡 提示：處理後的檔案會自動儲存在 <code>Outputs/Vocals</code> 資料夾中。</em></p>
+            </div>
+
+            <div class="card">
+                <h2>04. 常見問題 (Q&A)</h2>
+
+                <h3>Q: 為什麼處理速度很慢？</h3>
+                <p>A: 深度學習模型需要大量的矩陣運算。如果您使用 <strong>NVIDIA 顯示卡 (GPU)</strong>，速度通常是 CPU 的 10~50 倍。若您只有 CPU，則需要較長的等待時間。
+                </p>
+
+                <h3>Q: 為什麼第一首歌處理特別久？</h3>
+                <p>A: 第一次使用新模型時，程式需要從雲端下載模型權重檔 (約數百 MB)。之後再使用就會非常快了。</p>
+
+                <h3>Q: 出現 "Out of Memory" 錯誤？</h3>
+                <p>A: 這表示您的顯示卡 VRAM 不足。不用擔心，本程式 具備 <strong>自動 fallback 機制</strong>，偵測到記憶體不足時會自動切換回 CPU 模式繼續完成任務。
+                </p>
+
+                <h3 id="uvr5-guide">Q: 本程式 可以直接幫我去回音嗎？</h3>
+                <p>A: <strong>可以！</strong>從 V2.3 版本開始，本程式 原生整合了 UVR5 的 <code>VR Architecture</code> 頂級去回音模型。</p>
+                <p>您只需要在介面上勾選 <strong>「☑️ 啟用去回音過濾 (專為模型訓練設計)」</strong>。系統在分離出人聲後，會自動在背景啟動第二次的 AI
+                    神經網路運算，對人聲進行殘響抽離，最後自動為您輸出完美無瑕的 <code>_Vocal_Dry.wav</code>。這個檔案可以直接丟進 RVC 或 GPT-SoVITS
+                    進行訓練，無須再依賴外部軟體！</p>
+            </div>
+
+            <div class="card">
+                <h2>05. 核心技術規格 (Core Specs)</h2>
+                <p>本功能基於以下開源技術構建，確保最佳的相容性與效能：</p>
+                <ul>
+                    <li><strong>AI Engine</strong>: <span class="highlight">Demucs</span> (Hybrid Transformer) & <span
+                            class="highlight">MDX-Net</span></li>
+                    <li><strong>Deep Learning Framework</strong>: <span class="highlight">PyTorch</span> (with CUDA
+                        Acceleration)</li>
+                    <li><strong>Audio Processing</strong>: <span class="highlight">FFmpeg</span> (for high-quality
+                        encoding/decoding)</li>
+                    <li><strong>Vector Search</strong>: <span class="highlight">Faiss</span> (for feature retrieval)
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer">
+                © 2026 Studio0808 Team. All rights reserved.</p><br>
+                Powered by Demucs & PyTorch.
+            </div>
+        </div>
+</body>
+
+</html>

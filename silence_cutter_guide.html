@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 自動裁剪靜音</title>
+    <style>
+        :root {
+            --primary: #E64A19;
+            --secondary: #D84315;
+            --accent: #FFB300;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #3D5AFE, #00E5FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(230, 74, 25, 0.1);
+            border-color: var(--primary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .tip-box {
+            background-color: rgba(230, 74, 25, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>自動裁剪靜音</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/toolbox_silence.png" alt="自動裁剪靜音 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能概述 (Overview)</h2>
+            <p><strong>自動裁剪靜音</strong> 專為提升剪輯效率而生。它可以自動分析您的影片或純音訊檔，辨識出裡面的「無聲片段」(例如講話時的停頓、思考時間或呼吸聲)，並將這些片段一鍵裁除。</p>
+            <p>這對於播客 (Podcast)、課程錄影或是 YouTube 一鏡到底的 Talking Head 影片創作者來說，可以節省大量「切西瓜」的手工剪輯時間。</p>
+        </div>
+
+        <div class="card">
+            <h2>02. 參數調校建議</h2>
+            <p>每個人的麥克風與錄音環境不同，適當的參數設定是成功的關鍵：</p>
+            <ul>
+                <li><strong>靜音閥值 (dB)</strong>：表示「多大聲以下的聲音算作靜音」。
+                    <ul>
+                        <li><span class="highlight">-30dB</span>：較不靈敏。適合環境噪音大的情況，但可能會誤剪呼吸聲或小聲講話。</li>
+                        <li><span class="highlight">-40dB (預設)</span>：平衡選擇，適合大多數標準麥克風收音環境。</li>
+                        <li><span class="highlight">-50dB / -60dB</span>：嚴格判定。只有非常安靜的片段才會被剪，適合極度安靜的錄音室環境。</li>
+                    </ul>
+                </li>
+                <li><strong>靜音判斷時間 (秒)</strong>：表示「要持續沒聲音多久，才去剪斷它」。
+                    <ul>
+                        <li><span class="highlight">0.3 秒 / 0.5 秒 (預設)</span>：讓說話節奏變得緊湊，幾乎句句相連。</li>
+                        <li><span class="highlight">1.0 秒以上</span>：保留自然的斷句空間，聽起來比較放鬆。</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>03. 使用注意事項</h2>
+            <div class="tip-box">
+                <strong>⚠️ 對於影片檔案的特別提醒：</strong><br>
+                處理影片時，本工具會將原始影片徹底打散並<strong>重新編碼 (Re-encode)</strong> 成新的時長。由於影片編碼非常耗費 CPU 資源，處理一小時的影片可能會需要相當可觀的時間。
+                <br><br>
+                <strong>強烈建議：</strong>先用手機錄製一段 1~2 分鐘包含停頓的測試影片，透過工具測試各項參數。確認效果滿意後，再套用於您的正式長片中。
+            </div>
+
+            <ol>
+                <li>這套流程也支援純音訊 (.mp3 / .wav)，純音訊處理的速度會比影片快上許多倍。</li>
+                <li>如果您按下「中斷」來停止影片處理，您可能會在輸出資料夾看到暫存的切片檔案，請手動清理。</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

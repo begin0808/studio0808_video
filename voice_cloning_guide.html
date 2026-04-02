@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 聲音複製 (GPT-SoVITS)</title>
+    <style>
+        :root {
+            --primary: #E91E63;
+            /* Pink for GPT-SoVITS */
+            --secondary: #9C27B0;
+            /* Purple for Custom Models */
+            --accent: #E67E22;
+            /* Orange for API Start */
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+h1 {
+           background: linear-gradient(90deg, #00E5FF, #2979FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        
+        
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(233, 30, 99, 0.15);
+            border-color: var(--secondary);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            font-size: 1.0rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: var(--info);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .warn {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            font-size: 0.8em;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .tag-pink {
+            background-color: rgba(233, 30, 99, 0.2);
+            color: #F06292;
+        }
+
+        .tag-purple {
+            background-color: rgba(156, 39, 176, 0.2);
+            color: #BA68C8;
+        }
+
+        .tag-green {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #81C784;
+        }
+
+        .tag-orange {
+            background-color: rgba(230, 126, 34, 0.2);
+            color: #FFB74D;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .analog-box {
+            background-color: rgba(156, 39, 176, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background-color: var(--card-bg);
+            border: 2px solid var(--text-muted);
+            color: var(--text);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin: 0 0.2rem;
+        }
+
+        .btn-api {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-stop {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .btn-apply {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-run {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--secondary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>聲音複製技術</h1>
+        </header>
+
+        <div class="image-container" style="text-align: center; margin: 20px 0 40px 0;">
+            <img src="images/voice_cloning.png" alt="聲音複製 GPT-SoVITS 介面截圖"
+                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
+        <div class="card">
+            <h2>01. 功能概述 (Overview)</h2>
+            <p><strong>聲音複製 (GPT-SoVITS)</strong> 是一種強大的人工智慧語音生成技術。它只需要短短的 <strong>3 到 10
+                    秒乾淨人聲</strong>，就能在瞬間模仿出該說話者的音色、語氣與腔調，並讓他講出任何您指定的文字。
+            </p>
+            <p>本系統支援跨語系發音，您甚至可以用中文的參考聲音，讓 AI 講出流利的英文或日文！這項技術非常適合用來製作 YouTube 影片配音、電子書朗讀、或是建立個人專屬的 AI 語音助理。</p>
+        </div>
+
+        <div class="card">
+            <h2>02. 核心操作流程：五大區塊</h2>
+
+            <h3>1. API 連線設定</h3>
+            <p>由於 GPT-SoVITS 是一個龐大的核心引擎，我們必須先啟動它才能開始工作：</p>
+            <ul>
+                <li><strong><span class="action-btn btn-api">🚀 啟動 API</span></strong>：點擊後，程式會在背景開啟一個黑色的命令字元視窗，載入深度學習模型
+                    (大約需要 10-20 秒)。請等待「狀態」顯示為<span style="color:var(--success);">「✅ 已連線」</span>方可繼續。</li>
+                <li><strong><span class="action-btn btn-stop">🛑 關閉 API</span></strong>：當您暫時不需要使用聲音複製功能時，<span
+                        class="warn">強烈建議您點擊此按鈕</span>。這樣能立刻關閉隱藏在背景的 AI 引擎，釋放您的顯示卡記憶體
+                    (VRAM)，確保電腦可以順暢進行剪輯或玩遊戲。<br><em>(註：直接關閉整個主程式也會自動幫您關閉 API。)</em></li>
+            </ul>
+
+            <h3>2. 模型設定 (Custom Models / 選填)</h3>
+            <p>如果您沒有特別需求，您可以完全留空，系統會自動使用預先訓練好的「預設官方模型」。如果您有在網路上下載或是自己訓練的模型，可以在此載入：</p>
+            <ul>
+                <li><strong><span class="tag tag-pink">GPT 模型 (.ckpt)</span></strong>：主導「大腦、語氣節奏、斷句習慣」。</li>
+                <li><strong><span class="tag tag-purple">SoVITS 模型 (.pth)</span></strong>：主導「音色、喉嚨發聲特徵」。</li>
+            </ul>
+            <div class="tip-box">
+                <strong>特別注意：</strong> 選好自訂的檔案後，您<span class="highlight">務必點擊右側的「載入選定模型」</span>紫色按鈕，系統才真正會將模型切換進記憶體中。
+            </div>
+
+            <div class="analog-box">
+                <h4>🎙️ 深度觀念：為何要有「模型」與「參考音訊」？它們不是重複的嗎？</h4>
+                <p>這是一個許多初學者會搞混的核心觀念。請想像 GPT-SoVITS 是一個歌手：</p>
+                <ol>
+                    <li><strong>模型 (Model) ＝ 歌手的天賦
+                            (決定像不像誰)</strong>：若您載入了周杰倫的自訂模型，代表這個歌手現在擁有完美模仿周杰倫的天賦。若「不載入」，系統就會用預設的素人聲音，絕對不會像周杰倫。這決定了聲音相似度的<strong>「天花板」</strong>。的確，如果您要複製特定名人的聲音，<span
+                            class="highlight">準備專屬的 GPT 與 SoVITS 模型是「必須的」</span>。
+                    </li>
+                    <li><strong>參考音訊 (Reference) ＝ 給歌手的「起步提示」</strong>：即便歌手有了周杰倫的嗓子，每當他要開口唱新歌時，您還是得給他聽一段 3
+                        秒的周杰倫原音。讓他知道：<strong>「喔！現在這句話要用這種語速、這個情緒、這個起步音高來念！」</strong></li>
+                </ol>
+                <p>👉 結論：如果您想讓周杰倫發聲，<span class="warn">模型與參考音訊兩者缺一不可！</span> 您必須載入周杰倫的 .ckpt 與 .pth，同時也要準備一段 3~10
+                    秒的周杰倫乾淨人聲與其文字作為參考。</p>
+            </div>
+
+            <h3>3. 參考音訊 (Reference / 必填)</h3>
+            <p>這是啟動生成的鑰匙：</p>
+            <ul>
+                <li><strong>音訊檔案</strong>：請準備一段 3~10 秒的 <span class="highlight">純淨人聲 (乾音)</span>。裡面不可含有背景音樂、風聲、混響
+                    (Reverb)。如果有雜音，AI 複製出來的聲音就會自帶雜音。</li>
+                <li><strong>參考文本</strong>：請務必<strong>一字不漏</strong>打出參考音訊中人物講的話，包含標點符號。AI 會分析聲音與文字之間的對應關係。</li>
+                <li><strong>參考語言</strong>：選擇那段音訊講話的語言。</li>
+            </ul>
+
+            <h3>4. 目標生成 (Target / 必填)</h3>
+            <p>這就是您希望 AI 講出的新內容。本系統提供兩種模式：</p>
+            <ul>
+                <li><strong>📝 單句輸入模式</strong>：
+                    <ul>
+                        <li><strong>目標語言</strong>：您想要輸出的語言 (例如中文參考音訊可以輸出流利日文)。</li>
+                        <li><strong>目標文本</strong>：輸入不超過 50 字的短句獲得最佳穩定度。適當使用「，！？」等標點符號，能引導 AI 產出情感波動更大的聲音。</li>
+                    </ul>
+                </li>
+                <li><strong>🎬 SRT 批量配音模式 <span class="badge tag-orange"
+                            style="color:white; font-size: 0.7em;">強推</span></strong>：
+                    <ul>
+                        <li><strong>如何運作</strong>：載入一份 <code>.srt</code> 字幕檔，系統會逐句把文字丟給 AI 生成語音，然後<span
+                                class="highlight">精準貼在字幕規定的時間軸上</span>！最後幫您合併成一個完整的長音軌 (WAV)。</li>
+                        <li><strong>智慧避讓</strong>：如果上一句話 AI 唸比較慢，下一句話時間卻到了，系統會自動將下一段語音「往後延」，防止聲音重疊打架。</li>
+                        <li><strong>應用場景</strong>：非常適合用來做「全自動影片解說配音」或是將外語片自動配成「全中文配音」，因為時間軸已經幫您對好，您只需把生成的 WAV
+                            檔案拿去和影片合併即可！</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="card">
+            <h2>03. 如何取得或訓練自訂模型 (Training & Sourcing Models)</h2>
+            <p>目前「影音小工具」專注於提供最輕量、最穩定也最乾淨的「語音生成(Inference)」介面，<strong>我們並未內建訓練模型的功能</strong>。原因是訓練模型需要經歷複雜的音訊切割、文字校正與漫長的顯卡運算，這些都不適合整合在快速生成的小工具中。
+            </p>
+
+            <p>但不用擔心！以下為您介紹兩種取得專屬模型的最佳途徑：</p>
+
+            <h3>途徑 A：自己動手訓練 (強烈推薦)</h3>
+            <p>這是最標準的做法，您可以利用當初下載的 <strong>GPT-SoVITS 懶人包官方工具</strong> 來輕鬆訓練：</p>
+            <ol>
+                <li><strong>準備素材</strong>：使用我們內建的「錄音助手」或「影音下載」，準備大約 2~5 分鐘的高品質人聲 (盡量安靜、無背景音)。</li>
+                <li><strong>開啟官方 WebUI</strong>：進入您電腦中的 GPT-SoVITS 資料夾，點擊 <code>go-webui.bat</code> (或對應的啟動檔)。</li>
+                <li><strong>按照教學訓練</strong>：在彈出的官方詳細網頁介面中，依序進行「音訊切割」、「文字辨識(ASR)」、「微調訓練」。建議您在 YouTube 搜尋 <a
+                        href="https://www.youtube.com/results?search_query=GPT-SoVITS+%E8%A8%93%E7%B7%B4%E6%95%99%E5%AD%B8"
+                        target="_blank" style="color:var(--info);">"GPT-SoVITS 訓練教學"</a>，網路上有非常多手把手的影片。</li>
+                <li><strong>收穫成果</strong>：訓練結束後，您會在 <code>GPT_weights</code> 與 <code>SoVITS_weights</code> 資料夾中，找到屬於您聲音的
+                    <code>.ckpt</code> 與 <code>.pth</code> 檔案！
+                </li>
+            </ol>
+
+            <h3>途徑 B：下載網友分享的模型</h3>
+            <p>許多熱心的網友會在網路上分享他們訓練好的人物模型 (例如知名 YouTuber、歌手或動漫角色)：</p>
+            <ul>
+                <li>您可以在一些 AI 模型交流社群 (如 Hugging Face 或 Discord 群組) 尋找。</li>
+                <li>下載下來通常會是一個壓縮檔，解開後就能得到成對的 <code>.ckpt</code> 與 <code>.pth</code>。</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>最後一步：</strong> 無論您是自己訓練還是下載的，只要把那兩個檔案存放在 <code>D:\本程式_Video\models\SoVITS</code>
+                資料夾中，以後就能在「影音小工具」的「模型設定」區塊中一鍵載入了！
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>04. 調整進階參數 (Hyperparameters)</h2>
+            <p>介面底部的兩個滑桿，是控制 AI 發揮創意的魔法棒。請在遇到怪聲時才調整：</p>
+
+            <table>
+                <tr>
+                    <th>參數名稱</th>
+                    <th>數值意義</th>
+                    <th>推薦使用情境</th>
+                </tr>
+                <tr>
+                    <td><strong>標點切分 (Auto Split)</strong><br>預設值: 開啟</td>
+                    <td>自動將長句子依照標點符號切分成多段處理。</td>
+                    <td><strong>強烈建議保持開啟</strong>。這能解決長文本生成時容易截斷或產生電音幻覺的問題，支援 100 字以上的長篇文字。</td>
+                </tr>
+                <tr>
+                    <td><strong>情感變異 (Temp)</strong><br>預設值: 0.8</td>
+                    <td>控制輸出的「豐富度與不規則性」。<br>數值越高：聲音越有情感起伏、調皮，但也越容易出現吃字、雜音。<br>數值越低：聲音越平淡、像機器人，但發音最清晰準確。</td>
+                    <td><strong>0.8 是兼顧穩定與質感的最佳值</strong>。若生成結果太平淡，可向右微調 (1.00 ~ 1.10)。<br>若生成結果講話含糊不清、甚至產生怪聲，請向左調低 (0.60)。</td>
+                </tr>
+                <tr>
+                    <td><strong>穩定度 (Top_P)</strong><br>預設值: 0.8</td>
+                    <td>決定 AI 預測下個字的「保守程度」。<br>與 Temp 是好搭檔。數值越低越刻板；數值越高，越能讓模型盡情發揮。</td>
+                    <td>建議與 Temp 同步調整。預設 0.8 可獲得極高的生成成功率。</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>05. 常見問題排解 (Troubleshooting)</h2>
+
+            <h3>Q: 為什麼附帶的 GPT-SoVITS 資料夾容量高達 13GB？這是正常的嗎？</h3>
+            <p>A: <strong>這是完全正常的！</strong> 這並不是系統產生了垃圾檔案，而是因為它內建了「完整的執行環境與 AI 大腦」：
+            <ul>
+                <li><strong>專屬 Python 執行環境 (約 6.6GB)</strong>：包含 PyTorch 等龐大的深度學習運算框架與 GPU 驅動，讓您免安裝「隨插即用」。</li>
+                <li><strong>預訓練 AI 核心模型 (約 4.1GB)</strong>：這是 GPT-SoVITS 耗費數萬小時語音訓練出來的基礎模型大腦，是做到零樣本 (Zero-shot)
+                    高品質模仿的關鍵。</li>
+                <li><strong>周邊輔助 AI 工具 (約 1.9GB)</strong>：包含用來自動產生訓練字幕的 ASR 語音辨識模型，以及可以去除背景音樂雜音的 UVR5 人聲分離模型。</li>
+                <li><strong>發音字典庫 (約 0.6GB)</strong>：涵蓋多國語言的發音規則，讓 AI 能準確朗讀中、英、日文。</li>
+            </ul>
+            總結來說，這 13GB 換取的是<strong>「穩定獨立的運行環境」</strong>與<strong>「不依賴網路的強大離線 AI 運算能力」</strong>，您可以安心保留在硬碟中。
+            </p>
+
+            <h3>Q: 為什麼按了「🚀 啟動 API」卻一直顯示連線失敗？</h3>
+            <p><span class="warn">解法：</span>
+            <ol>
+                <li>防毒軟體可能阻擋了背景開啟 Python 伺服器的動作，請檢查防毒軟體隔離區。</li>
+                <li>可能上次舊的 API 當機且沒有徹底關閉。請開啟電腦的工作管理員，強制結束所有名為 <code>python.exe</code> 的處理程序後再試一次。</li>
+            </ol>
+            </p>
+
+            <h3>Q: 按下「開始推理」，跑完後得到的 WAV 檔案卻是空的(沒有聲音)？</h3>
+            <p><span class="warn">原因與解法：</span>
+            <ol>
+                <li>最常見原因：<strong>參考文本有錯字！</strong> AI 找不到文字對應的聲音特徵就會當機並輸出靜音。請仔細核對您的參考文本，把所有的英文全部改為小寫，並拿掉特殊的表情符號。</li>
+                <li>您載入的「自訂模型」與「官方預設模型」版本不相容。請確認您的自定模型是 GPT-SoVITS V2 版本的架構。</li>
+            </ol>
+            </p>
+
+            <h3>Q: 合成出來的聲音都會破音，或是在後面多出「啊～」之類的怪聲？</h3>
+            <p><span class="highlight">解法：</span>這叫 AI 幻覺
+                (Hallucination)。通常是因為您的<strong>參考音訊背景不乾淨</strong>。請務必使用「錄音助手」的降噪功能，確保餵給 AI 的是非常純粹的人聲。此外，適度調低
+                <code>Temp (情感變異)</code> 也能有效減少結尾怪聲的發生。
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Studio0808 Team. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>
