@@ -316,35 +316,58 @@ h1 {
         </div>
 
         <div class="card">
-            <h2>03. 如何取得或訓練自訂模型 (Training & Sourcing Models)</h2>
-            <p>目前「影音小工具」專注於提供最輕量、最穩定也最乾淨的「語音生成(Inference)」介面，<strong>我們並未內建訓練模型的功能</strong>。原因是訓練模型需要經歷複雜的音訊切割、文字校正與漫長的顯卡運算，這些都不適合整合在快速生成的小工具中。
-            </p>
+            <h2>03. 技巧：如何讓 AI 講話更自然？ (標點符號導引)</h2>
+            <p>許多使用者剛開始會覺得 AI 講話很「死板」或「像機器人」，這通常是因為輸入的目標文字<strong>缺乏標點符號</strong>。GPT-SoVITS 非常依賴標點來決定節奏與情緒：</p>
+            
+            <div class="tip-box">
+                <ul style="margin-top: 5px;">
+                    <li><strong><code>，</code> (逗號)</strong>：產生短促的換氣停頓，可讓長句子聽起來不急躁。</li>
+                    <li><strong><code>。</code> (句號)</strong>：語氣下降，產生一個完整的句子結尾停頓。</li>
+                    <li><strong><code>！</code> (驚嘆號)</strong>：提高音調，增加激昂、強烈或強調的情緒。</li>
+                    <li><strong><code>？</code> (問號)</strong>：句末語調上揚，產生疑問語氣。</li>
+                    <li><strong><code>...</code> (刪節號)</strong>：產生較長的「深思熟慮」或「猶豫」的停頓，非常適合增加戲劇感。</li>
+                </ul>
+            </div>
+            
+            <div class="analog-box" style="background-color: rgba(76, 175, 80, 0.1); border-left-color: var(--success);">
+                <h4>💡 實戰範例對比</h4>
+                <p><strong>❌ 錯誤示範 (無標點)：</strong><br>
+                <code>這是一項驚人的技術他可以改變未來的配音產業我們拭目以待</code><br>
+                <em>→ 聽感：AI 會一口氣快速唸完，像在趕火車，毫無感情。</em></p>
+                <p><strong>✅ 正確示範 (加入標點)：</strong><br>
+                <code>這是一項... 驚人的技術！他可以改變未來的配音產業，我們，拭目以待。</code><br>
+                <em>→ 聽感：AI 在「這是一項」後會停頓醞釀，在「技術！」提高音量，並在最後兩個逗號間放慢腳步，聽起來極具真人說服力。</em></p>
+            </div>
+        </div>
 
-            <p>但不用擔心！以下為您介紹兩種取得專屬模型的最佳途徑：</p>
+        <div class="card">
+            <h2>04. 如何取得或訓練專屬模型 (Training & Sourcing Models)</h2>
+            <p>雖然上方的「參考音訊」可以直接讓 AI 進行 <strong>Few-Shot (3秒短片模仿)</strong>，但這通常只能學到 60% 的神韻，適用於快速的娛樂配音。如果要達到 100% 幾乎無損的相似度，您必須為該角色進行 <strong>Fine-Tuning (微調訓練)</strong>，製作出專屬的 <code>.ckpt</code> 與 <code>.pth</code> 模型。</p>
+            
+            <p>目前「影音小工具」專注於提供最輕量、穩定的「語音生成 (Inference)」介面，<strong>我們並未將龐大的訓練介面內建於主程式中</strong>。以下是取得專屬模型的途徑：</p>
 
             <h3>途徑 A：自己動手訓練 (強烈推薦)</h3>
-            <p>這是最標準的做法，您可以利用當初下載的 <strong>GPT-SoVITS 懶人包官方工具</strong> 來輕鬆訓練：</p>
+            <p>您可以直接利用附帶的 <strong>GPT-SoVITS 懶人包官方工具</strong> 來輕鬆訓練：</p>
             <ol>
-                <li><strong>準備素材</strong>：使用我們內建的「錄音助手」或「影音下載」，準備大約 2~5 分鐘的高品質人聲 (盡量安靜、無背景音)。</li>
-                <li><strong>開啟官方 WebUI</strong>：進入您電腦中的 GPT-SoVITS 資料夾，點擊 <code>go-webui.bat</code> (或對應的啟動檔)。</li>
-                <li><strong>按照教學訓練</strong>：在彈出的官方詳細網頁介面中，依序進行「音訊切割」、「文字辨識(ASR)」、「微調訓練」。建議您在 YouTube 搜尋 <a
+                <li><strong>準備素材</strong>：使用我們工具站內的<strong>「錄音助手」</strong>或「影音下載」功能，準備大約 <strong>2~5 分鐘</strong>的高品質人聲。請務必使用「人聲分離」與「去噪」功能，確保素材是純淨無背景音的乾音。</li>
+                <li><strong>開啟官方 WebUI</strong>：進入您電腦中的 <code>GPT-SoVITS</code> 資料夾，點擊 <code>go-webui.bat</code> (或對應的啟動檔)。</li>
+                <li><strong>按照教學訓練</strong>：在彈出的官方網頁介面中，依序進行「音訊切割」、「文字辨識(ASR)」、「微調訓練」。建議在 YouTube 搜尋 <a
                         href="https://www.youtube.com/results?search_query=GPT-SoVITS+%E8%A8%93%E7%B7%B4%E6%95%99%E5%AD%B8"
-                        target="_blank" style="color:var(--info);">"GPT-SoVITS 訓練教學"</a>，網路上有非常多手把手的影片。</li>
-                <li><strong>收穫成果</strong>：訓練結束後，您會在 <code>GPT_weights</code> 與 <code>SoVITS_weights</code> 資料夾中，找到屬於您聲音的
-                    <code>.ckpt</code> 與 <code>.pth</code> 檔案！
+                        target="_blank" style="color:var(--info);">"GPT-SoVITS 訓練教學"</a>，網路上有豐富的手把手影片。</li>
+                <li><strong>收穫成果</strong>：訓練結束後，您會在 <code>GPT_weights</code> 與 <code>SoVITS_weights</code> 資料夾中，找到屬於該角色的
+                    <code>.ckpt</code> 與 <code>.pth</code> 檔案。
                 </li>
             </ol>
 
             <h3>途徑 B：下載網友分享的模型</h3>
-            <p>許多熱心的網友會在網路上分享他們訓練好的人物模型 (例如知名 YouTuber、歌手或動漫角色)：</p>
             <ul>
-                <li>您可以在一些 AI 模型交流社群 (如 Hugging Face 或 Discord 群組) 尋找。</li>
+                <li>您可以在一些 AI 模型交流社群 (如 Hugging Face 或 Discord 群組) 尋找網友分享的 YouTuber 或動漫角色模型。</li>
                 <li>下載下來通常會是一個壓縮檔，解開後就能得到成對的 <code>.ckpt</code> 與 <code>.pth</code>。</li>
             </ul>
 
             <div class="tip-box">
-                <strong>最後一步：</strong> 無論您是自己訓練還是下載的，只要把那兩個檔案存放在 <code>D:\本程式_Video\models\SoVITS</code>
-                資料夾中，以後就能在「影音小工具」的「模型設定」區塊中一鍵載入了！
+                <strong>💡 最後一步：</strong> 無論您是自己訓練還是下載的，只要把那兩個檔案存放在本程式的 <code>models\SoVITS</code>
+                資料夾中，以後就能在介面的「模型設定」區塊中一鍵載入了！
             </div>
         </div>
 
@@ -412,6 +435,12 @@ h1 {
                 (Hallucination)。通常是因為您的<strong>參考音訊背景不乾淨</strong>。請務必使用「錄音助手」的降噪功能，確保餵給 AI 的是非常純粹的人聲。此外，適度調低
                 <code>Temp (情感變異)</code> 也能有效減少結尾怪聲的發生。
             </p>
+            
+            <h3>Q: 看到黑視窗 (Console) 出現 400 Bad Request 是什麼意思？</h3>
+            <p>A: <strong>這是完全正常的現象，請放心！</strong> 這是主程式為了確認 API 伺服器是否已經啟動完成，所發送的「連線偵測」訊號。由於 API 根目錄沒有內容，所以會回報 400 錯誤。只要您的主程式介面上顯示「✅ 已連線」，就代表一切正常，不影響使用。</p>
+
+            <h3>Q: 啟動時顯示「半精：False」，是在用 CPU 跑嗎？</h3>
+            <p>A: <strong>不是的，它依然在使用 GPU 跑！</strong> 為了相容最新一代顯卡 (如 RTX 40/50 系列)，我們在程式中強制關閉了半精度運算 (FP16) 以避免指令集相容性導致的當機。雖然改用全精度運算，但依然是在您的顯示卡上執行，速度依然遠比 CPU 快得多。</p>
         </div>
 
         <div class="footer">

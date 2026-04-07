@@ -348,51 +348,55 @@ h1 {
         </div>
 
         <div class="card">
-            <h2>03. Training & Sourcing Custom Models</h2>
-            <p>Currently, the "Video Toolbox" focuses on providing the lightest, most stable, and cleanest "Inference"
-                interface. <strong>We do not have built-in model training capabilities</strong>. This is because
-                training models requires complex audio slicing, text correction (ASR), and lengthy graphics card
-                computation, which are not suitable for integration into a quick-generation gadget.
-            </p>
+            <h2>03. Pro-Tip: How to Make AI Sound More Natural (Punctuation Guidance)</h2>
+            <p>Many users initially feel the AI sounds "stiff" or "robotic". This is usually because the input text <strong>lacks punctuation</strong>. GPT-SoVITS heavily relies on punctuation to determine rhythm and emotion:</p>
+            
+            <div class="tip-box">
+                <ul style="margin-top: 5px;">
+                    <li><strong><code>,</code> (Comma)</strong>: Creates a short breath pause, making long sentences sound unhurried.</li>
+                    <li><strong><code>.</code> (Period)</strong>: Lowers the tone, creating a complete end-of-sentence pause.</li>
+                    <li><strong><code>!</code> (Exclamation)</strong>: Raises the pitch, adding excited, intense, or emphasizing emotions.</li>
+                    <li><strong><code>?</code> (Question Mark)</strong>: Raises the tone at the end of the sentence, creating an inquiring intonation.</li>
+                    <li><strong><code>...</code> (Ellipsis)</strong>: Creates a longer "thoughtful" or "hesitant" pause, perfect for adding dramatic flair.</li>
+                </ul>
+            </div>
+            
+            <div class="analog-box" style="background-color: rgba(76, 175, 80, 0.1); border-left-color: var(--success);">
+                <h4>💡 Practical Example Comparison</h4>
+                <p><strong>❌ Bad Example (No punctuation):</strong><br>
+                <code>This is an amazing technology it can change the future dubbing industry we will see</code><br>
+                <em>→ Result: The AI rushes through it in one breath like a bullet train, lacking emotion.</em></p>
+                <p><strong>✅ Good Example (With punctuation):</strong><br>
+                <code>This is... an amazing technology! It can change the future dubbing industry, we, will see.</code><br>
+                <em>→ Result: The AI pauses to build anticipation after "This is", raises its volume at "technology!", and slows down between the commas at the end, sounding highly persuasive and human-like.</em></p>
+            </div>
+        </div>
 
-            <p>But don't worry! Here is an introduction to the two best ways to acquire your own custom models:</p>
+        <div class="card">
+            <h2>04. Training & Sourcing Custom Models</h2>
+            <p>Although you can use the "Reference Audio" section above for a quick <strong>Few-Shot (3-second mimic)</strong> generation, this usually only captures about 60% of the speaker's essence, suitable for quick entertainment purposes. To achieve a 100% near-lossless similarity, you must perform <strong>Fine-Tuning</strong> for that character to produce dedicated <code>.ckpt</code> and <code>.pth</code> models.</p>
+            
+            <p>Currently, the "Video Toolbox" focuses on providing the lightest, most stable, and cleanest "Inference" interface. <strong>We do not integrate the massive training interface into the main program</strong>. Here are the paths to acquire custom models:</p>
 
             <h3>Path A: Train it Yourself (Highly Recommended)</h3>
-            <p>This is the most standard approach. You can easily train using the <strong>official GPT-SoVITS WebUI
-                    package</strong> you originally downloaded:</p>
+            <p>You can easily train using the <strong>official GPT-SoVITS WebUI package</strong> you originally downloaded:</p>
             <ol>
-                <li><strong>Prepare Materials</strong>: Use our built-in "Recording Assistant" or "Video Downloader" to
-                    prepare about 2~5 minutes of high-quality human voice (as quiet and background-noise-free as
-                    possible).</li>
-                <li><strong>Open Official WebUI</strong>: Go to your GPT-SoVITS folder on your computer and click
-                    <code>go-webui.bat</code> (or the corresponding launcher).
-                </li>
-                <li><strong>Follow Tutorials</strong>: In the detailed official web interface that pops up, sequentially
-                    perform "Audio Slicing", "ASR (Text Recognition)", and "Fine-tuning Training". We recommend
-                    searching YouTube for <a
+                <li><strong>Prepare Materials</strong>: Use our built-in <strong>"Recording Assistant"</strong> or "Video Downloader" to prepare about <strong>2~5 minutes</strong> of high-quality human voice. Please use the vocal separation and denoise tools to ensure the material is pure dry vocals.</li>
+                <li><strong>Open Official WebUI</strong>: Go to your <code>GPT-SoVITS</code> folder on your computer and click <code>go-webui.bat</code> (or the corresponding launcher).</li>
+                <li><strong>Follow Tutorials</strong>: In the official web interface that pops up, sequentially perform "Audio Slicing", "ASR (Text Recognition)", and "Fine-tuning Training". We recommend searching YouTube for <a
                         href="https://www.youtube.com/results?search_query=GPT-SoVITS+Training+Tutorial" target="_blank"
-                        style="color:var(--info);">"GPT-SoVITS Training Tutorial"</a>. There are many step-by-step
-                    videos available online.</li>
-                <li><strong>Reap the Rewards</strong>: After training finishes, you will find the <code>.ckpt</code> and
-                    <code>.pth</code> files belonging to your voice in the <code>GPT_weights</code> and
-                    <code>SoVITS_weights</code> folders!
-                </li>
+                        style="color:var(--info);">"GPT-SoVITS Training Tutorial"</a>. There are many step-by-step videos available online.</li>
+                <li><strong>Reap the Rewards</strong>: After training finishes, you will find the <code>.ckpt</code> and <code>.pth</code> files belonging to that character in the <code>GPT_weights</code> and <code>SoVITS_weights</code> folders.</li>
             </ol>
 
             <h3>Path B: Download Models Shared by Others</h3>
-            <p>Many enthusiastic users share character models they have trained online (for example, famous YouTubers,
-                singers, or anime characters):</p>
             <ul>
-                <li>You can look for them in AI model exchange communities (like Hugging Face or Discord groups).</li>
-                <li>Downloads are usually compressed files. Extract them, and you will get the paired <code>.ckpt</code>
-                    and <code>.pth</code> files.</li>
+                <li>You can look for YouTuber or anime character models shared by others in AI model exchange communities (like Hugging Face or Discord groups).</li>
+                <li>Downloads are usually compressed files. Extract them, and you will get the paired <code>.ckpt</code> and <code>.pth</code> files.</li>
             </ul>
 
             <div class="tip-box">
-                <strong>Final Step:</strong> Whether you trained it yourself or downloaded it, just place those two
-                files into the <code>D:\this application_Video\models\SoVITS</code>
-                folder. Afterwards, you can load them with one click in the "Custom Models" section of the "Video
-                Toolbox"!
+                <strong>💡 Final Step:</strong> Whether you trained it yourself or downloaded it, just place those two files into this program's <code>models\SoVITS</code> folder. Afterwards, you can load them with one click in the "Custom Models" section of the interface!
             </div>
         </div>
 
@@ -477,6 +481,12 @@ h1 {
                 lowering
                 <code>Temp</code> can effectively reduce the occurrence of weird ending noises.
             </p>
+
+            <h3>Q: What does "400 Bad Request" in the console window mean?</h3>
+            <p>A: <strong>This is completely normal and expected!</strong> This is just the main program "pinging" the API server to check if it has finished loading. Since the API root directory doesn't have a viewable page, the server returns a 400 error. As long as your main interface shows "✅ Connected", everything is working perfectly.</p>
+
+            <h3>Q: It says "Half-precision: False" during startup. Is it using my CPU?</h3>
+            <p>A: <strong>No, it is still running on your GPU!</strong> To ensure compatibility with the latest generation GPUs (like the RTX 40/50 series), we forced full-precision (FP32) mode to prevent crashes caused by specific instruction set incompatibilities. It is still performing the heavy lifting on your graphics card, which is significantly faster than using the CPU.</p>
         </div>
 
         <div class="footer">
