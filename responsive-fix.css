@@ -1,0 +1,56 @@
+/* Responsive fixes for Studio0808 Documentation Guides */
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    header {
+        margin-bottom: 1.5rem !important;
+    }
+
+    h1 {
+        font-size: 1.5rem !important;
+    }
+
+    h2 {
+        font-size: 1.3rem !important;
+    }
+
+    .card {
+        padding: 1.2rem !important;
+        margin-bottom: 1rem !important;
+        border-radius: 8px !important;
+    }
+
+    .image-container {
+        margin: 10px 0 20px 0 !important;
+    }
+
+    /* Ensure images don't overflow */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Scale down large badges or elements if any */
+    .badge {
+        font-size: 0.75rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.3rem !important;
+    }
+
+    .card {
+        padding: 1rem !important;
+    }
+}

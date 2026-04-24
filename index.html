@@ -213,12 +213,97 @@
         .loader.hidden {
             opacity: 0;
         }
+
+        /* Responsive Sidebar Toggle */
+        .mobile-header {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+            z-index: 20;
+            align-items: center;
+            padding: 0 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            color: var(--neon-cyan);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(3px);
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                width: 280px;
+                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 25;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .overlay.active {
+                display: block;
+                opacity: 1;
+            }
+
+            .main-content {
+                padding-top: 60px;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div class="mobile-header">
+        <button class="toggle-btn" id="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <span style="margin-left: 15px; font-weight: bold; color: var(--neon-cyan);">Studio0808 AI</span>
+    </div>
 
-    <div class="sidebar">
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <img src="app.png" width="96" height="96" alt="App Logo"
                 style="display: block; margin: 0 auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">
@@ -339,6 +424,23 @@
                 document.getElementById('loader').classList.add('hidden');
             }, 300); // Small artificial delay for visual effect
         }
+
+        // Toggle Sidebar on mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking a link on mobile
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
     </script>
 </body>
 
