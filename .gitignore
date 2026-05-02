@@ -1,3 +1,53 @@
-backlog_guide.html
-rvc_training_guide.md
-private_rvc_training_guide.html
+# Private Docs
+docs/backlog_guide.html
+docs/rvc_training_guide.md
+docs/private_rvc_training_guide.html
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.mypy_cache
+.pytest_cache
+
+# IDE
+.vscode/
+.idea/
+.vs/
+
+# Build outputs
+build/
+dist/
+*.spec
+
+# Large binaries & models
+tools/
+models/
+modules/hubert_base.pt
+modules/rmvpe.pt
+modules/Whisper/
+modules/temp_rvc_clone/
+GPT-SoVITS/
+GPT-SoVITS_old/
+
+# Sensitive data
+models/hf_token.txt
+*.token
+*.key
+
+# User data
+Outputs/
+temp/
+logs/
+weights/
+
+# Config with personal data
+modules/configs/config.json
+modules/configs/inuse/
+
+# Presentation materials
+PPT/
