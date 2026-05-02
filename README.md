@@ -108,6 +108,24 @@
 
 ---
 
+## 🛠️ 開發與開源指南 (For Developers)
+
+本 GitHub 儲存庫包含完整的 Python 原始碼。為了保持程式庫輕量，**大型模型檔與外部工具執行檔未包含在內**（已在 `.gitignore` 中排除）。
+
+如果您想從原始碼執行或打包本程式，請依照以下步驟補齊必要的二進位檔案：
+
+1. 先在上方「下載」區塊下載最新的 **完整版 ZIP 壓縮檔** 並解壓縮。
+2. 將解壓縮後資料夾內的以下項目，直接複製到您 clone 下來的原始碼資料夾中：
+   - `models/` (包含所有 AI 模型)
+   - `tools/` (包含 ffmpeg, yt-dlp 等執行檔)
+   - `modules/hubert_base.pt` 與 `modules/rmvpe.pt` (RVC 核心模型)
+   - `GPT-SoVITS/` (完整的 GPT-SoVITS 環境)
+3. 複製 `modules/configs/config.json.example` 並重新命名為 `config.json`。
+4. 安裝依賴：`pip install -r requirements.txt`
+5. 執行主程式：`python Studio0808_Video.py`
+
+---
+
 ## 💬 社群與交流
 
 - **Discord**：[加入討論區](https://discord.gg/F7mC37MBtF)

@@ -1,7 +1,7 @@
 # Private Docs
-docs/backlog_guide.html
-docs/rvc_training_guide.md
-docs/private_rvc_training_guide.html
+backlog_guide.html
+rvc_training_guide.md
+private_rvc_training_guide.html
 
 # Python
 __pycache__/

@@ -1,0 +1,44 @@
+# GUI
+customtkinter
+Pillow
+
+# Core Logic
+numpy<2.0.0
+
+# Audio Processing (Demucs, KTV)
+sounddevice
+soundfile
+demucs
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch>=2.6.0
+torchaudio>=2.6.0
+pyannote.audio==3.1.1
+
+# Video Processing (KTV, Toolbox)
+opencv-python
+moviepy
+
+# Downloader
+yt-dlp
+
+# Subtitle (Whisper)
+faster-whisper
+opencc-python-reimplemented
+deep-translator
+
+# RVC Dependencies (Full)
+faiss-cpu
+torchcrepe
+# omegaconf is installed manually via fix_omegaconf.py
+hydra-core==1.0.7
+# fairseq from source (requires Admin + no-build-isolation)
+fairseq @ https://github.com/facebookresearch/fairseq/archive/main.zip
+librosa
+scipy
+bitarray
+sacrebleu
+
+# Utils
+requests
+protobuf==3.20.3
+edge-tts>=6.1.9
