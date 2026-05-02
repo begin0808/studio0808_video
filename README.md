@@ -14,7 +14,7 @@
 ## 📸 軟體截圖
 
 <p align="center">
-  <img src="images/home_view.png" alt="Studio0808 Screenshot" width="800">
+  <img src="docs/images/home_view.png" alt="Studio0808 Screenshot" width="800">
 </p>
 
 ---
