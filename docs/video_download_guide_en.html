@@ -248,15 +248,12 @@
                 </li>
                 <li><strong>Settings (Left to Right)</strong>: The UI uses an intuitive left-to-right logic:
                     <ul>
-                        <li><span class="highlight">☑ Auto-Split Chapters</span>: If the video has built-in chapters, it
-                            will be precisely sliced after downloading.</li>
-                        <li><span class="highlight">☑ Attach Subtitles</span>: If the video provides subtitles, they
-                            will be downloaded along with it.</li>
+                        <li><span class="highlight">☑ Auto-Split Chapters</span>: If the video has built-in chapters, it will be precisely sliced after downloading (mutually exclusive with "Download Specific Segment").</li>
+                        <li><span class="highlight">☑ Download Specific Segment</span>: Enter start and end times to download only a specific portion of the video (supports formats like <code>hh:mm:ss</code>, <code>mm:ss</code>, or raw seconds like <code>90</code>; mutually exclusive with "Auto-Split Chapters").</li>
+                        <li><span class="highlight">☑ Attach Subtitles</span>: If the video provides subtitles, they will be downloaded along with it.</li>
                         <li><strong>Select Sub Language</strong>: Specify the target subtitle language.</li>
                         <li><strong>Select Quality</strong>: Defaults to <code>Best Quality (Auto)</code>.</li>
-                        <li><strong>Select Format</strong>: Defaults to <code>MP4</code>, but you can also choose
-                            <code>MP3</code> for audio-only.
-                        </li>
+                        <li><strong>Select Format</strong>: Defaults to <code>MP4</code>, but you can also choose <code>MP3</code> for audio-only.</li>
                     </ul>
                 </li>
                 <li><strong>Start Download</strong>: Click the orange button, and the app will automatically handle
@@ -389,6 +386,11 @@
             <div class="faq-item">
                 <div class="question">Q: YouTube download fails with a "Sign in to confirm" or EJS error?</div>
                 <div class="answer">A: This is YouTube's new verification challenge. Click the <strong>Update Core</strong> button — the app will automatically download and integrate the <code>Deno</code> JavaScript runtime, enabling yt-dlp to bypass this challenge. Try the download again afterwards.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: How can I download only a specific part of a video instead of the whole thing?</div>
+                <div class="answer">A: Check the "Download Specific Segment" checkbox, and enter your desired start and end times in the time input fields (e.g. start <code>00:01:00</code>, end <code>00:02:30</code>, or raw seconds like <code>90</code>). The system will fetch and stream only that specific segment, saving you time and bandwidth.</div>
             </div>
         </div>
 

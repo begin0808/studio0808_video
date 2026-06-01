@@ -238,7 +238,8 @@
                 <li><strong>貼上網址</strong>：將 YouTube、Facebook、Instagram 等網址貼入上方 <code>貼上影片網址(可多筆，每行一個網址)：</code> 欄位。</li>
                 <li><strong>設定選項 (由左至右)</strong>：本系統採用直覺的由左至右操作邏輯：
                     <ul>
-                        <li><span class="highlight">☑ 按章節自動分割</span>：若影片內建章節，則下載後進行精準切割。</li>
+                        <li><span class="highlight">☑ 按章節自動分割</span>：若影片內建章節，則下載後進行精準切割（與「下載指定時間片段」互斥）。</li>
+                        <li><span class="highlight">☑ 下載指定時間片段</span>：允許輸入開始與結束時間，僅下載特定區段（格式支援 <code>hh:mm:ss</code>、<code>mm:ss</code> 或純秒數，與「按章節自動分割」互斥）。</li>
                         <li><span class="highlight">☑ 附加下載字幕</span>：影片若有提供字幕，將一併抓取。</li>
                         <li><strong>選擇字幕語言</strong>：指定要下載的字幕語言。</li>
                         <li><strong>選擇畫質</strong>：預設為 <code>最佳畫質 (Auto)</code>，字體已加寬以完整顯示。</li>
@@ -352,6 +353,11 @@
             <div class="faq-item">
                 <div class="question">Q: 遇到 YouTube 下載失敗，出現 Sign in to confirm 或 EJS 錯誤？</div>
                 <div class="answer">A: 這是 YouTube 新增的驗證機制。請點擊「更新核心」按鈕，程式會自動下載並整合 <code>Deno</code> JS 執行環境，使 yt-dlp 能繞過此驗證，再次嘗試下載即可。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: 如何只下載影片的其中一段，而不是下載整部影片？</div>
+                <div class="answer">A: 勾選「下載指定時間片段」核取方塊，並在「開始時間」與「結束時間」輸入框中輸入您要的區段時間（例如：開始 <code>00:01:00</code>，結束 <code>00:02:30</code>，或純秒數如 <code>90</code>）。系統會調用核心技術，只下載該時間片段，不浪費頻寬與下載時間。</div>
             </div>
         </div>
 

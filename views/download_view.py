@@ -193,7 +193,7 @@ class DownloadView(ctk.CTkFrame):
         
         # Layout
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(2, weight=1) # Log area (Row 2) expands
+        self.grid_rowconfigure(3, weight=1) # Log area (Row 3) expands
 
         self.setup_ui()
         self.log("系統初始化完成... (等待任務)")
@@ -257,7 +257,8 @@ class DownloadView(ctk.CTkFrame):
             self.options_frame, 
             text="按章節自動分割", 
             variable=self.split_chapters_var,
-            font=("Microsoft JhengHei UI", 15)
+            font=("Microsoft JhengHei UI", 15),
+            command=self.on_split_chapters_toggle
         )
         self.split_chapters_chk.pack(side="left", padx=(0, 15))
 
@@ -320,9 +321,56 @@ class DownloadView(ctk.CTkFrame):
         )
         self.stop_btn.pack(side="left", padx=(0, 15))
 
-        # --- Progress & Log Section (Row 2) ---
+        # --- [NEW] Range Section (Row 2) ---
+        self.range_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.range_frame.grid(row=2, column=0, pady=(5, 5), padx=20, sticky="ew")
+
+        # Checkbox for Clip Video
+        self.clip_video_var = ctk.BooleanVar(value=False)
+        self.clip_video_chk = ctk.CTkCheckBox(
+            self.range_frame, 
+            text="下載指定時間片段", 
+            variable=self.clip_video_var,
+            font=("Microsoft JhengHei UI", 15),
+            command=self.on_clip_video_toggle
+        )
+        self.clip_video_chk.pack(side="left", padx=(0, 15))
+        
+        self.start_label = ctk.CTkLabel(self.range_frame, text="開始時間:", font=("Microsoft JhengHei UI", 15))
+        self.start_label.pack(side="left", padx=(0, 5))
+        
+        self.start_time_entry = ctk.CTkEntry(
+            self.range_frame,
+            placeholder_text="00:00:00",
+            width=100, height=30,
+            font=("Microsoft JhengHei UI", 14),
+            state="disabled"
+        )
+        self.start_time_entry.pack(side="left", padx=(0, 15))
+        
+        self.end_label = ctk.CTkLabel(self.range_frame, text="結束時間:", font=("Microsoft JhengHei UI", 15))
+        self.end_label.pack(side="left", padx=(0, 5))
+        
+        self.end_time_entry = ctk.CTkEntry(
+            self.range_frame,
+            placeholder_text="00:10:00",
+            width=100, height=30,
+            font=("Microsoft JhengHei UI", 14),
+            state="disabled"
+        )
+        self.end_time_entry.pack(side="left", padx=(0, 15))
+        
+        self.range_info_label = ctk.CTkLabel(
+            self.range_frame,
+            text="(格式: hh:mm:ss、mm:ss 或純秒數)",
+            font=("Microsoft JhengHei UI", 13),
+            text_color="gray"
+        )
+        self.range_info_label.pack(side="left")
+
+        # --- Progress & Log Section (Row 3) ---
         self.bottom_frame = ctk.CTkFrame(self, fg_color="transparent")
-        self.bottom_frame.grid(row=2, column=0, pady=(0, 5), padx=20, sticky="nsew")
+        self.bottom_frame.grid(row=3, column=0, pady=(0, 5), padx=20, sticky="nsew")
         self.bottom_frame.grid_rowconfigure(2, weight=1) # Log box takes all remaining vertical space
         self.bottom_frame.grid_columnconfigure(0, weight=1)
         
@@ -390,6 +438,29 @@ class DownloadView(ctk.CTkFrame):
         
         self.open_folder_btn = ctk.CTkButton(self.bottom_btns_frame, text="開啟輸出資料夾", font=("Microsoft JhengHei UI", 15), command=self.open_download_folder, fg_color="#4CAF50", hover_color="#388E3C", text_color="white")
         self.open_folder_btn.pack(side="left")
+
+    def on_split_chapters_toggle(self):
+        if self.split_chapters_var.get():
+            self.clip_video_var.set(False)
+            self.clip_video_chk.configure(state="disabled")
+            self.start_time_entry.configure(state="disabled")
+            self.end_time_entry.configure(state="disabled")
+        else:
+            self.clip_video_chk.configure(state="normal")
+            if self.clip_video_var.get():
+                self.start_time_entry.configure(state="normal")
+                self.end_time_entry.configure(state="normal")
+
+    def on_clip_video_toggle(self):
+        if self.clip_video_var.get():
+            self.split_chapters_var.set(False)
+            self.split_chapters_chk.configure(state="disabled")
+            self.start_time_entry.configure(state="normal")
+            self.end_time_entry.configure(state="normal")
+        else:
+            self.split_chapters_chk.configure(state="normal")
+            self.start_time_entry.configure(state="disabled")
+            self.end_time_entry.configure(state="disabled")
 
     # --- Event Handlers ---
     def on_enter(self):
@@ -565,6 +636,18 @@ class DownloadView(ctk.CTkFrame):
             messagebox.showwarning("提示", "請輸入有效的影片網址！")
             return
             
+        # Range/Clip Validation
+        if self.clip_video_var.get():
+            start_val = self.start_time_entry.get().strip()
+            end_val = self.end_time_entry.get().strip()
+            if not start_val and not end_val:
+                messagebox.showwarning("提示", "請輸入開始或結束時間！")
+                return
+            time_pattern = re.compile(r'^(?:\d{1,2}:)?(?:\d{1,2}:)?\d{2}$|^\d+$|^$')
+            if not time_pattern.match(start_val) or not time_pattern.match(end_val):
+                messagebox.showwarning("提示", "時間格式不正確！\n請輸入 hh:mm:ss、mm:ss 或純秒數 (例如 00:01:30 或 90)。")
+                return
+
         self.url_entry.delete("1.0", 'end') # Clear Entry
             
         if not os.path.exists(self.yt_dlp_path):
@@ -830,6 +913,14 @@ class DownloadView(ctk.CTkFrame):
                     "--newline",
                     "--encoding", "utf-8"
                 ] + self.get_js_runtime_args()
+                
+                # --- [NEW] Add Partial Download Segment Options ---
+                if self.clip_video_var.get():
+                    start_val = self.start_time_entry.get().strip()
+                    end_val = self.end_time_entry.get().strip()
+                    if start_val or end_val:
+                        range_str = f"*{start_val}-{end_val}"
+                        cmd.extend(["--download-sections", range_str, "--force-keyframes-at-cuts"])
                 
                 # --- [NEW] Add Subtitle Options ---
                 if self.dl_subs_var.get() and target_sub_lang and not retry_without_subs:
