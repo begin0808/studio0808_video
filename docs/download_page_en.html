@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: Downloads & Version Updates</title>
+    <style>
+        :root {
+            --primary: #29B6F6;
+            --secondary: #AB47BC;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+            --warning: #FFB74D;
+            --accent-orange: #FF9800;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #D500F9, #FF4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .download-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .download-btn .desc {
+            font-size: 12px;
+            font-weight: normal;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        .btn-full {
+            background: linear-gradient(135deg, #00B0FF, #0081CB);
+            box-shadow: 0 4px 15px rgba(0, 176, 255, 0.2);
+        }
+
+        .btn-full:hover {
+            box-shadow: 0 6px 20px rgba(0, 176, 255, 0.4);
+        }
+
+        .btn-update {
+            background: linear-gradient(135deg, #FF9800, #EF6C00);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-update::after {
+            content: "HOT";
+            position: absolute;
+            top: 5px;
+            right: -20px;
+            background: red;
+            color: white;
+            font-size: 8px;
+            padding: 2px 20px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-update:hover {
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5);
+        }
+
+        .btn-mid {
+            background: linear-gradient(135deg, #00C853, #00A244);
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
+        }
+
+        .btn-mid:hover {
+            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.4);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+        }
+
+        .btn-discord:hover {
+            background: #4752C4;
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .warn-box {
+            background-color: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid var(--accent-orange);
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .orange-highlight {
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+    <link rel="stylesheet" href="responsive-fix.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Downloads & Version Updates</h1>
+            <p class="subtitle"><span style="color: #FF5252;">Studio0808</span> <span style="color: #00E5FF;">Downloads & Version Updates</span></p>
+        </header>
+
+        <!-- 01. Download Channels -->
+        <div class="card">
+            <h2>01. Download Channels</h2>
+            <div class="download-grid">
+                <a href="https://drive.google.com/file/d/15ZfQhFUGVTCoKxLwNDMinNuGALd3HiYC/view?usp=sharing" class="download-btn btn-full" target="_blank">
+                    <span>📥 Full Version</span>
+                    <span class="desc">Includes Voice Cloning & all models</span>
+                </a>
+                <a href="https://drive.google.com/file/d/1YCADcJ0e1h2S8juhaWhTG8vM2TAm-qq3/view?usp=sharing" class="download-btn btn-update" target="_blank">
+                    <span>📥 Update V20260527</span>
+                    <span class="desc">New executable & fixed components</span>
+                </a>
+                <a href="https://drive.google.com/file/d/1WQ4ha5JsA9Tjs8Z6oN7BpP26cZFimnOv/view?usp=sharing" class="download-btn btn-mid" target="_blank">
+                    <span>📥 Medium Version</span>
+                    <span class="desc">No Voice Cloning features</span>
+                </a>
+                <a href="https://discord.gg/F7mC37MBtF" class="download-btn btn-discord" target="_blank">
+                    <span>💬 Discord Community</span>
+                    <span class="desc">Discuss & submit feedback</span>
+                </a>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 15px;">Last Release: 2026.05.27</p>
+        </div>
+
+        <!-- 02. Changelog & Highlights -->
+        <div class="card">
+            <h2>02. V20260527 Changelog & Highlights</h2>
+            <ul>
+                <li>🎨 <span class="highlight">Dark/Light Theme Toggle</span>: Switch appearance modes in the top right for a more comfortable working experience under low light conditions.</li>
+                <li>⌨️ <span class="highlight">Keyboard Tab Navigation</span>: Switch sidebar pages cleanly using <code>Ctrl + Tab</code> and <code>Ctrl + Shift + Tab</code> without relying on a mouse.</li>
+                <li>📝 <span class="highlight">Whisper Custom Vocabulary (Initial Prompt)</span>: Input custom prompts or terminologies to guide AI transcription, significantly improving accuracy.</li>
+                <li>⏳ <span class="highlight">Progress & Remaining Time (ETA) Display</span>: Real-time dynamic remaining time calculation in the progress bar, supporting both CPU and GPU modes.</li>
+                <li>🔄 <span class="highlight">Microsoft TTS Core Updates Fix</span>: Resolved environment path issues that blocked edge-tts updates when running in packaged EXE environments.</li>
+                <li>🛡️ <span class="highlight">VAD Noise Filtering Fix</span>: Package missing <code>silero_vad_v6.onnx</code> model assets directly into the distribution, fixing crashes when checking the VAD option.</li>
+            </ul>
+        </div>
+
+        <!-- 03. How to Update -->
+        <div class="card">
+            <h2>03. How to Update</h2>
+            
+            <div class="warn-box">
+                <p>💡 <strong>If you have a previous version of Studio0808 installed:</strong></p>
+                <ol style="margin-top: 8px;">
+                    <li>Download the orange <span class="orange-highlight">"Update Version V20260527"</span> zip archive above.</li>
+                    <li>Decompress/unzip the downloaded file on your computer.</li>
+                    <li>Copy the extracted <code>Studio0808.exe</code> file and the <code>_internal</code> folder.</li>
+                    <li><strong>Paste and overwrite (replace)</strong> them inside your existing Studio0808 installation folder. Your configuration, settings, and other models will be preserved.</li>
+                </ol>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1.5rem;">
+                <p>💡 <strong>If you are a new user (Fresh Install):</strong></p>
+                <p style="margin-top: 5px;">Directly download the blue <strong>"Full Version"</strong> (if you need voice cloning) or the green <strong>"Medium Version"</strong>, extract it to a directory with a fully English path, and run the main executable to begin.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>

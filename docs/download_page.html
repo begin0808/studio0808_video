@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio0808 :: 檔案下載與版本更新</title>
+    <style>
+        :root {
+            --primary: #29B6F6;
+            --secondary: #AB47BC;
+            --bg: #0f111a;
+            --card-bg: #1a1d29;
+            --text: #e0e0e0;
+            --text-muted: #9aa0a6;
+            --danger: #FF5252;
+            --info: #03A9F4;
+            --success: #4CAF50;
+            --warning: #FFB74D;
+            --accent-orange: #FF9800;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei UI", "Segoe UI", system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            background: linear-gradient(90deg, #D500F9, #FF4081);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.0rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .download-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .download-btn .desc {
+            font-size: 12px;
+            font-weight: normal;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        .btn-full {
+            background: linear-gradient(135deg, #00B0FF, #0081CB);
+            box-shadow: 0 4px 15px rgba(0, 176, 255, 0.2);
+        }
+
+        .btn-full:hover {
+            box-shadow: 0 6px 20px rgba(0, 176, 255, 0.4);
+        }
+
+        .btn-update {
+            background: linear-gradient(135deg, #FF9800, #EF6C00);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-update::after {
+            content: "HOT";
+            position: absolute;
+            top: 5px;
+            right: -20px;
+            background: red;
+            color: white;
+            font-size: 8px;
+            padding: 2px 20px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-update:hover {
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5);
+        }
+
+        .btn-mid {
+            background: linear-gradient(135deg, #00C853, #00A244);
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
+        }
+
+        .btn-mid:hover {
+            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.4);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+        }
+
+        .btn-discord:hover {
+            background: #4752C4;
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+        }
+
+        .tip-box {
+            background-color: rgba(3, 169, 244, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .warn-box {
+            background-color: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid var(--accent-orange);
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .orange-highlight {
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+    <link rel="stylesheet" href="responsive-fix.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>檔案下載與版本更新</h1>
+            <p class="subtitle"><span style="color: #FF5252;">Studio0808</span> <span style="color: #00E5FF;">Downloads & Version Updates</span></p>
+        </header>
+
+        <!-- 01. 檔案下載通道 -->
+        <div class="card">
+            <h2>01. 檔案下載通道</h2>
+            <div class="download-grid">
+                <a href="https://drive.google.com/file/d/15ZfQhFUGVTCoKxLwNDMinNuGALd3HiYC/view?usp=sharing" class="download-btn btn-full" target="_blank">
+                    <span>📥 完整版</span>
+                    <span class="desc">含 AI 聲音複製與完整模型</span>
+                </a>
+                <a href="https://drive.google.com/file/d/1YCADcJ0e1h2S8juhaWhTG8vM2TAm-qq3/view?usp=sharing" class="download-btn btn-update" target="_blank">
+                    <span>📥 更新版本 V20260527</span>
+                    <span class="desc">新版主程式與修復組件</span>
+                </a>
+                <a href="https://drive.google.com/file/d/1WQ4ha5JsA9Tjs8Z6oN7BpP26cZFimnOv/view?usp=sharing" class="download-btn btn-mid" target="_blank">
+                    <span>📥 中量版</span>
+                    <span class="desc">不含 AI 聲音複製</span>
+                </a>
+                <a href="https://discord.gg/F7mC37MBtF" class="download-btn btn-discord" target="_blank">
+                    <span>💬 Discord 社群</span>
+                    <span class="desc">交流討論與意見回饋</span>
+                </a>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 15px;">最後發布版本：2026.05.27</p>
+        </div>
+
+        <!-- 02. 版本更新亮點 -->
+        <div class="card">
+            <h2>02. V20260527 版本更新亮點</h2>
+            <ul>
+                <li>🎨 <span class="highlight">全新雙色主題切換</span>：新增右上角一鍵切換深色/淺色模式，夜間作業更舒適，白天對比度更佳。</li>
+                <li>⌨️ <span class="highlight">支援鍵盤快捷鍵</span>：實裝 <code>Ctrl + Tab</code> 與 <code>Ctrl + Shift + Tab</code>，無需滑鼠即可快速在左側功能頁籤間進行切換，效率大幅提升。</li>
+                <li>📝 <span class="highlight">Whisper 自訂詞庫輸入 (Initial Prompt)</span>：新增自訂提示詞文字框，手動餵入特定人名、專有名詞或字詞庫，強烈引導 AI 模型精準識別，免除後期繁瑣校對。</li>
+                <li>⏳ <span class="highlight">進度與剩餘時間 (ETA) 顯示</span>：在字幕生成進度列中自動計算並顯示剩餘時間，支援 GPU 與 CPU 雙運作模式，專案時程隨時掌握。</li>
+                <li>🔄 <span class="highlight">微軟語音一鍵更新修復</span>：徹底修正程式在打包成 EXE 獨立執行檔後，在部分系統上更新 Edge-TTS 組件失敗的問題，現在即使在打包環境下依然能在介面中一鍵無痛升級。</li>
+                <li>🛡️ <span class="highlight">VAD 噪音過濾模組修復</span>：修正先前使用者勾選「VAD 濾除雜音」功能時，因缺少 <code>silero_vad_v6.onnx</code> 資源檔案而導致轉錄中斷崩潰的錯誤。</li>
+            </ul>
+        </div>
+
+        <!-- 03. 如何更新檔案 -->
+        <div class="card">
+            <h2>03. 如何更新檔案</h2>
+            
+            <div class="warn-box">
+                <p>💡 <strong>如果您先前已經下載過 Studio0808 的完整版或中量版：</strong></p>
+                <ol style="margin-top: 8px;">
+                    <li>請點擊下載上方橘色的 <span class="orange-highlight">「更新版本 V20260527」</span> 壓縮檔。</li>
+                    <li>下載完成後，請將壓縮檔解壓縮。</li>
+                    <li>複製解壓出來的 <code>Studio0808.exe</code> 主程式以及 <code>_internal</code> 資料夾。</li>
+                    <li>將它們<strong>貼上並覆蓋（取代）</strong>您原先安裝 Studio0808 的資料夾即可完成更新，原本的設定與已經下載的其他大型模型將會保留。</li>
+                </ol>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1.5rem;">
+                <p>💡 <strong>如果您是第一次使用本系統（全新安裝）：</strong></p>
+                <p style="margin-top: 5px;">請直接下載藍色的 <strong>「完整版」</strong>（若需要聲音複製功能）或綠色的 <strong>「中量版」</strong>（不需聲音複製功能），並解壓縮至任意英文路徑資料夾中，直接執行主程式即可開始使用。</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Studio0808 Team. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>
