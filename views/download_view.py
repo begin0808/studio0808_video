@@ -207,7 +207,7 @@ class DownloadView(ctk.CTkFrame):
             self.input_frame,
             text="貼上影片網址(可多筆，每行一個網址)：",
             font=("Microsoft JhengHei UI", 15, "bold"),
-            text_color="white"
+            text_color=("gray10", "gray90")
         )
         self.url_instruction_label.pack(side="top", anchor="w", padx=(0, 15), pady=(0, 5))
         
@@ -215,8 +215,8 @@ class DownloadView(ctk.CTkFrame):
             self.input_frame,
             height=120,
             font=("Microsoft JhengHei UI", 15),
-            fg_color="#2B2B2B", # Matches the file list box color in subtitle view
-            text_color="#e0e0e0" # Light text against dark bg
+            fg_color=("gray95", "#2B2B2B"),
+            text_color=("gray10", "#e0e0e0")
         )
         self.url_entry.pack(side="left", fill="x", expand=True, padx=(0, 15))
 
@@ -327,7 +327,7 @@ class DownloadView(ctk.CTkFrame):
         self.bottom_frame.grid_columnconfigure(0, weight=1)
         
         # --- [NEW] Status Layout (Thumbnail + Progress) ---
-        self.status_frame = ctk.CTkFrame(self.bottom_frame, fg_color="#1E1E1E") # Slightly different bg to stand out
+        self.status_frame = ctk.CTkFrame(self.bottom_frame, fg_color=("gray90", "#1E1E1E")) # Slightly different bg to stand out
         self.status_frame.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 5))
         self.status_frame.grid_columnconfigure(1, weight=1) # Right side expands
         
@@ -350,13 +350,13 @@ class DownloadView(ctk.CTkFrame):
         self.status_label.pack(side="left", fill="x", expand=True)
         
         # Details inside info_frame1 next to status
-        self.speed_label = ctk.CTkLabel(info_frame1, text="速度: -- MiB/s", font=("Microsoft JhengHei UI", 13), text_color="white")
+        self.speed_label = ctk.CTkLabel(info_frame1, text="速度: -- MiB/s", font=("Microsoft JhengHei UI", 13), text_color=("gray10", "gray90"))
         self.speed_label.pack(side="left", padx=(0, 15))
         
-        self.eta_label = ctk.CTkLabel(info_frame1, text="預計: --:--", font=("Microsoft JhengHei UI", 13), text_color="white")
+        self.eta_label = ctk.CTkLabel(info_frame1, text="預計: --:--", font=("Microsoft JhengHei UI", 13), text_color=("gray10", "gray90"))
         self.eta_label.pack(side="left", padx=(0, 15))
         
-        self.size_label = ctk.CTkLabel(info_frame1, text="大小: -- MiB", font=("Microsoft JhengHei UI", 13), text_color="white")
+        self.size_label = ctk.CTkLabel(info_frame1, text="大小: -- MiB", font=("Microsoft JhengHei UI", 13), text_color=("gray10", "gray90"))
         self.size_label.pack(side="left", padx=(0, 15))
         
         self.percent_label = ctk.CTkLabel(info_frame1, text="0%", font=("Microsoft JhengHei UI", 16, "bold"), text_color="#ffa000")
@@ -369,7 +369,7 @@ class DownloadView(ctk.CTkFrame):
         # ----------------------------------------------------
 
         # Log
-        self.log_box = ctk.CTkTextbox(self.bottom_frame, font=("Microsoft JhengHei UI", 14), fg_color="#000000") # Pure black log background
+        self.log_box = ctk.CTkTextbox(self.bottom_frame, font=("Microsoft JhengHei UI", 14), fg_color=("gray95", "#000000"), text_color=("gray10", "gray90")) # Responsive log background
         self.log_box.grid(row=2, column=0, columnspan=2, sticky="nsew") # Span 2 columns to make room for buttons
         self.log_box.configure(state="disabled")
         

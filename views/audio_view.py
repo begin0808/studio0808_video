@@ -59,7 +59,7 @@ class AudioView(ctk.CTkFrame):
             from utils.gpu_utils import safe_check_cuda
             cuda_ok, info = safe_check_cuda()
             if cuda_ok:
-                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color="#00E676")
+                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color=("#2E7D32", "#00E676"))
                 self.device = "cuda"
             else:
                 self.gpu_label.configure(text=f"GPU: {info} (使用 CPU mode)", text_color="#FF5252")
@@ -204,7 +204,7 @@ class AudioView(ctk.CTkFrame):
         self.lbl_progress = ctk.CTkLabel(self.status_frame, text="0%", font=("Microsoft JhengHei UI", 15), text_color="#ffa000")
         self.lbl_progress.pack(side="right", padx=10, pady=(0, 5))
         
-        self.log_box = ctk.CTkTextbox(self.log_frame, font=("Microsoft JhengHei UI", 15), fg_color="#000000")
+        self.log_box = ctk.CTkTextbox(self.log_frame, font=("Microsoft JhengHei UI", 15), fg_color=("gray95", "#000000"), text_color=("gray10", "gray90"))
         self.log_box.grid(row=1, column=0, sticky="nsew", padx=10, pady=5)
         self.log_box.configure(state="disabled")
         

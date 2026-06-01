@@ -49,7 +49,7 @@ class HomeView(ctk.CTkFrame):
         # Professional Title
         self.title_label = ctk.CTkLabel(self.text_title_frame, 
                                       text="Studio0808 AI 影音工作站", 
-                                      text_color="#E0E0E0", # Light Silver
+                                      text_color=("gray10", "#E0E0E0"), # Light Silver
                                       font=("Microsoft JhengHei UI", 24, "bold"))
         self.title_label.pack(anchor="w", pady=(15, 5))
         
@@ -64,7 +64,7 @@ class HomeView(ctk.CTkFrame):
         self.outer_info_frame = ctk.CTkFrame(self.center_frame, fg_color="#3949AB", corner_radius=15)
         self.outer_info_frame.pack(pady=10, fill="x")
         
-        self.info_frame = ctk.CTkFrame(self.outer_info_frame, fg_color="#181A1F", corner_radius=13)
+        self.info_frame = ctk.CTkFrame(self.outer_info_frame, fg_color=("gray95", "#181A1F"), corner_radius=13)
         self.info_frame.pack(padx=2, pady=2, fill="both", expand=True)
 
         # Inner frame to control exact padding from the border
@@ -75,7 +75,7 @@ class HomeView(ctk.CTkFrame):
         def create_text_lines(lines, last_pady=10):
             for i, line in enumerate(lines):
                 py = (0, last_pady) if i == len(lines)-1 else (0, 3) # Reduced line height spacing from 5 to 3
-                ctk.CTkLabel(self.inner_padding_frame, text=line, text_color="#E0E0E0", font=("Microsoft JhengHei UI", 15), justify="left", anchor="w").pack(fill="x", pady=py)
+                ctk.CTkLabel(self.inner_padding_frame, text=line, text_color=("gray20", "#E0E0E0"), font=("Microsoft JhengHei UI", 15), justify="left", anchor="w").pack(fill="x", pady=py)
 
         # Tech Stack Suggestion
         tech_title = ctk.CTkLabel(self.inner_padding_frame, text=" 核心技術", image=img_hammer, compound="left", text_color="#FFCA28", font=("Microsoft JhengHei UI", 20, "bold"), anchor="w")
@@ -89,7 +89,7 @@ class HomeView(ctk.CTkFrame):
         ])
 
         # Hardware Suggestion
-        hw_title = ctk.CTkLabel(self.inner_padding_frame, text=" 硬體建議", image=img_bulb, compound="left", text_color="#00E676", font=("Microsoft JhengHei UI", 20, "bold"), anchor="w")
+        hw_title = ctk.CTkLabel(self.inner_padding_frame, text=" 硬體建議", image=img_bulb, compound="left", text_color=("#2E7D32", "#00E676"), font=("Microsoft JhengHei UI", 20, "bold"), anchor="w")
         hw_title.pack(fill="x", pady=(0, 5))
         
         create_text_lines([

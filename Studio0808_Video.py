@@ -323,12 +323,13 @@ class App(ctk.CTk):
         self.after(200, _initialize_window)
         
         # Set Application Icon
+        # Set Application Icon
         try:
-            import ctypes
-            myappid = 'studio0808.video.app.1.0'
-            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
             icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app.ico")
-            self.iconbitmap(icon_path)
+            if os.path.exists(icon_path):
+                self.iconbitmap(icon_path)
+                self.iconbitmap(default=icon_path) # Critical for Taskbar icon in Tkinter
+                self.wm_iconbitmap(icon_path)
         except Exception as e:
             print(f"Warning: Could not load application icon app.ico. Error: {e}")
         
@@ -340,7 +341,7 @@ class App(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
 
         # 1. Navigation Frame (Darker background for depth)
-        self.navigation_frame = ctk.CTkFrame(self, width=180, corner_radius=0, fg_color="#181A1F") # Very dark grey
+        self.navigation_frame = ctk.CTkFrame(self, width=180, corner_radius=0, fg_color=("gray90", "#181A1F")) # Support both light and dark
         self.navigation_frame.grid(row=0, column=0, sticky="nsew")
         self.navigation_frame.grid_rowconfigure(20, weight=1) # Spacer at bottom
         
@@ -417,13 +418,45 @@ class App(ctk.CTk):
         # Select default view
         self.select_frame_by_name("home")
 
+        # [NEW] Theme Switch (Top Right)
+        self.theme_switch = ctk.CTkOptionMenu(self, values=["深色模式 (Dark)", "淺色模式 (Light)"], 
+                                              command=self.change_appearance_mode_event,
+                                              font=self.menu_font, dropdown_font=self.menu_font, width=160)
+        self.theme_switch.place(relx=0.98, rely=0.02, anchor="ne")
+        
+        # [NEW] Keyboard Navigation for Sidebar
+        self.bind("<Control-Tab>", self.next_tab)
+        self.bind("<Control-Shift-Tab>", self.prev_tab)
+
+    def change_appearance_mode_event(self, new_appearance_mode: str):
+        if "Dark" in new_appearance_mode or "深色" in new_appearance_mode:
+            ctk.set_appearance_mode("Dark")
+        else:
+            ctk.set_appearance_mode("Light")
+
+    def next_tab(self, event=None):
+        names = [btn["name"] for btn in self.buttons_info]
+        if self.current_frame in names:
+            idx = names.index(self.current_frame)
+            next_idx = (idx + 1) % len(names)
+            self.select_frame_by_name(names[next_idx])
+        return "break"
+
+    def prev_tab(self, event=None):
+        names = [btn["name"] for btn in self.buttons_info]
+        if self.current_frame in names:
+            idx = names.index(self.current_frame)
+            prev_idx = (idx - 1) % len(names)
+            self.select_frame_by_name(names[prev_idx])
+        return "break"
+
     def select_frame_by_name(self, name):
         # Update button colors
         for btn_name, btn in self.nav_buttons.items():
             if btn_name == name:
                 # Active State: Colored background, white text
                 target_color = next((item["color"] for item in self.buttons_info if item["name"] == btn_name), "#3949AB")
-                btn.configure(fg_color=target_color, text_color="white")
+                btn.configure(fg_color=target_color, text_color=("white", "white"))
             else:
                 # Inactive State: Transparent background, muted text
                 btn.configure(fg_color="transparent", text_color=("gray20", "gray85"))
@@ -504,5 +537,13 @@ if __name__ == "__main__":
             except:
                 pass
                 
+        # Set Windows App ID to separate taskbar icon from generic python.exe
+        try:
+            import ctypes
+            myappid = 'studio0808.video.app.1.0'
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+        except Exception:
+            pass
+
         app = App()
         app.mainloop()

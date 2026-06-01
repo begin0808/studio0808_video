@@ -247,7 +247,7 @@ class TTSView(ctk.CTkFrame):
 
         # Log
         ctk.CTkLabel(right_panel, text="執行日誌", font=self.font_ui).pack(anchor="w", padx=10, pady=(10, 5))
-        self.log_box = ctk.CTkTextbox(right_panel, font=self.font_log, height=150, fg_color="#000000", state="disabled")
+        self.log_box = ctk.CTkTextbox(right_panel, font=self.font_log, height=150, fg_color=("gray95", "#000000"), text_color=("gray10", "gray90"), state="disabled")
         self.log_box.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
         self.last_output_file = None
@@ -266,7 +266,7 @@ class TTSView(ctk.CTkFrame):
             from utils.gpu_utils import safe_check_cuda
             cuda_ok, info = safe_check_cuda()
             if cuda_ok:
-                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color="#00E676")
+                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color=("#2E7D32", "#00E676"))
             else:
                 self.gpu_label.configure(text=f"GPU: {info} (使用 CPU mode)", text_color="#FF5252")
         except Exception:
@@ -805,6 +805,13 @@ class TTSView(ctk.CTkFrame):
         
         def _run_update():
             try:
+                if getattr(sys, 'frozen', False):
+                    self.log("⚠️ 偵測到您使用的是打包過的獨立執行檔版本 (.exe)")
+                    self.log("獨立執行檔無法直接透過 pip 更新內部套件。")
+                    self.log("請等待作者發布最新版本的主程式，或改用 Python 原始碼執行。")
+                    self.after(0, lambda: messagebox.showinfo("提示", "打包過的獨立執行檔版本無法自動更新核心套件。\n請下載作者發布的最新版主程式。"))
+                    return
+                
                 # pip install --upgrade edge-tts
                 cmd = [sys.executable, "-m", "pip", "install", "--upgrade", "edge-tts"]
                 

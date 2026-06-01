@@ -58,7 +58,7 @@ class RVCView(ctk.CTkFrame):
             from utils.gpu_utils import safe_check_cuda
             cuda_ok, info = safe_check_cuda()
             if cuda_ok:
-                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color="#00E676")
+                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color=("#2E7D32", "#00E676"))
             else:
                 self.gpu_label.configure(text=f"GPU: {info} (使用 CPU mode)", text_color="#FF5252")
         except Exception:

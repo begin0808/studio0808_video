@@ -53,6 +53,7 @@ class SubtitleView(ctk.CTkFrame):
         self.lang_var = ctk.StringVar(value="Auto (自動偵測)")
         self.compute_mode_var = ctk.StringVar(value="Auto (自動最佳化)")  # [NEW]
         self.trans_var = ctk.StringVar(value="Auto-Translate (自動轉繁中)") # Changed to string for Mode
+        self.prompt_var = ctk.StringVar(value="") # [NEW] Custom Prompt for custom vocabulary
         # [NEW] VAD Option
         self.vad_var = ctk.BooleanVar(value=False) 
         self.bilingual_var = ctk.BooleanVar(value=False)
@@ -164,12 +165,19 @@ class SubtitleView(ctk.CTkFrame):
         ctk.CTkLabel(r2, text="處理模式:", font=self.font_ui).pack(side="left")
         ctk.CTkComboBox(r2, variable=self.trans_var, values=["Auto-Translate (自動轉繁中)", "Original (原文字幕)"], width=260, font=self.font_ui, dropdown_font=self.font_ui).pack(side="left", padx=5)
 
+        # [NEW] Custom Prompt (字詞庫)
+        r_prompt = ctk.CTkFrame(left_frame, fg_color="transparent")
+        r_prompt.pack(fill="x", pady=2)
+        ctk.CTkLabel(r_prompt, text="自訂字庫:", font=self.font_ui).pack(side="left")
+        self.entry_prompt = ctk.CTkEntry(r_prompt, textvariable=self.prompt_var, placeholder_text="輸入專有名詞(以逗號分隔)，可提升精準度", font=self.font_ui, width=310)
+        self.entry_prompt.pack(side="left", padx=5)
+
         # Options
         r3 = ctk.CTkFrame(left_frame, fg_color="transparent")
         r3.pack(fill="x", pady=2)
         ctk.CTkCheckBox(r3, text="VAD 濾除雜音", variable=self.vad_var, font=self.font_ui).pack(side="left", padx=(0, 10))
         ctk.CTkCheckBox(r3, text="雙語字幕 (中上原文下)", variable=self.bilingual_var, font=self.font_ui, command=self.update_preview).pack(side="left", padx=(0, 10))
-        ctk.CTkCheckBox(r3, text="分辨說話者", variable=self.diarization_var, font=self.font_ui, text_color="#00E676", command=self.toggle_diarization).pack(side="left")
+        ctk.CTkCheckBox(r3, text="分辨說話者", variable=self.diarization_var, font=self.font_ui, text_color=("#2E7D32", "#00E676"), command=self.toggle_diarization).pack(side="left")
         
         r4 = ctk.CTkFrame(left_frame, fg_color="transparent")
         r4.pack(fill="x", pady=2)
@@ -204,7 +212,7 @@ class SubtitleView(ctk.CTkFrame):
                             self.sec_bgbox_var, self.sec_bg_color_var, self.sec_bg_alpha_var, prefix="sec")
 
         # Preview Canvas (Bottom of Right Column)
-        self.preview_frame = ctk.CTkFrame(right_frame, fg_color="#000000", height=80) # Increased height
+        self.preview_frame = ctk.CTkFrame(right_frame, fg_color=("gray90", "#000000"), height=80) # Increased height
         self.preview_frame.pack(fill="both", expand=True, pady=(0, 5)) # Use expand=True to fill remaining space
         self.preview_canvas = tk.Canvas(self.preview_frame, height=80, bg="#000000", highlightthickness=0)
         self.preview_canvas.pack(fill="both", expand=True)
@@ -555,7 +563,7 @@ class SubtitleView(ctk.CTkFrame):
         self.percent_label = ctk.CTkLabel(status_frame, text="0%", font=self.font_ui, text_color="#ffa000")
         self.percent_label.pack(side="right", padx=10, pady=(0, 5))
         
-        self.log_box = ctk.CTkTextbox(log_frame, font=self.font_ui, fg_color="#000000")
+        self.log_box = ctk.CTkTextbox(log_frame, font=self.font_ui, fg_color=("gray95", "#000000"), text_color=("gray10", "gray90"))
         self.log_box.grid(row=1, column=0, sticky="nsew", padx=10, pady=5)
         self.log_box.configure(state="disabled")
         
@@ -568,7 +576,7 @@ class SubtitleView(ctk.CTkFrame):
             from utils.gpu_utils import safe_check_cuda
             cuda_ok, info = safe_check_cuda()
             if cuda_ok:
-                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color="#00E676")
+                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color=("#2E7D32", "#00E676"))
                 self.device = "cuda"
                 self.compute_type = "float16"
             else:
@@ -911,6 +919,11 @@ class SubtitleView(ctk.CTkFrame):
                         self.log("⚠️ 提示：您可能需要安裝 Pyannote (pip install pyannote.audio) 或您的 Token 尚未同意 Hugging Face 上的 pyannote 模型授權條款。")
                 
                 try:
+                    import time
+                except ImportError:
+                    pass
+                self.start_time = time.time()
+                try:
                     self.log("... 正在進行 AI 轉錄 (這可能需要一點時間)")
                     segments_gen, info = model.transcribe(
                         file_path, 
@@ -918,6 +931,7 @@ class SubtitleView(ctk.CTkFrame):
                         beam_size=5, 
                         condition_on_previous_text=False,
                         temperature=0,
+                        initial_prompt=self.prompt_var.get() if self.prompt_var.get().strip() else None,
                         vad_filter=self.vad_var.get(),
                         vad_parameters=dict(min_silence_duration_ms=500, threshold=0.3)
                     )
@@ -938,7 +952,19 @@ class SubtitleView(ctk.CTkFrame):
                             m, s = divmod(int(seg.end), 60)
                             h, m = divmod(m, 60)
                             percent = min(100, int((seg.end / total_duration) * 100)) if total_duration > 0 else 0
-                            self.log(f"  - 處理進度: {h:02d}:{m:02d}:{s:02d} -- {percent}%")
+                            
+                            # ETA Calculation
+                            elapsed = time.time() - self.start_time
+                            if seg.end > 0 and percent < 100:
+                                speed = elapsed / seg.end
+                                remaining_audio = total_duration - seg.end
+                                eta_sec = max(0, int(remaining_audio * speed))
+                                eta_m, eta_s = divmod(eta_sec, 60)
+                                eta_h, eta_m = divmod(eta_m, 60)
+                                eta_str = f"{eta_h:02d}:{eta_m:02d}:{eta_s:02d}" if eta_h > 0 else f"{eta_m:02d}:{eta_s:02d}"
+                                self.log(f"  - 處理進度: {h:02d}:{m:02d}:{s:02d} -- {percent}% (預估剩餘: {eta_str})")
+                            else:
+                                self.log(f"  - 處理進度: {h:02d}:{m:02d}:{s:02d} -- {percent}%")
                     
                 except RuntimeError as e:
                     if self.stop_requested:
@@ -965,12 +991,15 @@ class SubtitleView(ctk.CTkFrame):
                             
                             # 3. Retry
                             self.log("... 正在使用 CPU 重試轉錄")
+                            import time
+                            self.start_time = time.time()
                             segments_gen, info = model.transcribe(
                                 file_path, 
                                 language=lang_arg, 
                                 beam_size=5, 
                                 condition_on_previous_text=False,
                                 temperature=0,
+                                initial_prompt=self.prompt_var.get() if self.prompt_var.get().strip() else None,
                                 vad_filter=self.vad_var.get(),
                                 vad_parameters=dict(min_silence_duration_ms=500, threshold=0.3)
                             )
@@ -990,7 +1019,19 @@ class SubtitleView(ctk.CTkFrame):
                                     m, s = divmod(int(seg.end), 60)
                                     h, m = divmod(m, 60)
                                     percent = min(100, int((seg.end / total_duration) * 100)) if total_duration > 0 else 0
-                                    self.log(f"  - 處理進度: {h:02d}:{m:02d}:{s:02d} -- {percent}%")
+                                    
+                                    # ETA Calculation
+                                    elapsed = time.time() - self.start_time
+                                    if seg.end > 0 and percent < 100:
+                                        speed = elapsed / seg.end
+                                        remaining_audio = total_duration - seg.end
+                                        eta_sec = max(0, int(remaining_audio * speed))
+                                        eta_m, eta_s = divmod(eta_sec, 60)
+                                        eta_h, eta_m = divmod(eta_m, 60)
+                                        eta_str = f"{eta_h:02d}:{eta_m:02d}:{eta_s:02d}" if eta_h > 0 else f"{eta_m:02d}:{eta_s:02d}"
+                                        self.log(f"  - 處理進度: {h:02d}:{m:02d}:{s:02d} -- {percent}% (預估剩餘: {eta_str})")
+                                    else:
+                                        self.log(f"  - 處理進度: {h:02d}:{m:02d}:{s:02d} -- {percent}%")
 
                             self.log("✅ CPU 模式接手成功！")
                         except Exception as fallback_e:
@@ -1021,6 +1062,7 @@ class SubtitleView(ctk.CTkFrame):
                 if "Auto-Translate" in mode_sel and GoogleTranslator:
                     translator = GoogleTranslator(source='auto', target='zh-TW')
 
+                total_segments = len(segments)
                 for segment in segments:
                     if self.stop_requested: break
                     
@@ -1091,7 +1133,8 @@ class SubtitleView(ctk.CTkFrame):
                     
                     # Log preview every 10 lines
                     if idx % 10 == 0: 
-                        self.log(f"  ... 已生成 {idx} 行字幕")
+                        percent = int((idx / total_segments) * 100) if total_segments > 0 else 0
+                        self.log(f"  ... 已生成 {idx}/{total_segments} 行字幕 -- {percent}%")
                     
                     idx += 1  # [FIX] Increment index
                 

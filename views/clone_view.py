@@ -64,7 +64,7 @@ class CloneView(ctk.CTkFrame):
             from utils.gpu_utils import safe_check_cuda
             cuda_ok, info = safe_check_cuda()
             if cuda_ok:
-                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color="#00E676")
+                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color=("#2E7D32", "#00E676"))
             else:
                 self.gpu_label.configure(text=f"GPU: {info} (使用 CPU mode)", text_color="#FF5252")
         except Exception:
@@ -226,7 +226,7 @@ class CloneView(ctk.CTkFrame):
 
         # Log
         ctk.CTkLabel(self.scroll_content, text="執行日誌:", font=self.font_ui).pack(anchor="w", padx=20)
-        self.log_box = ctk.CTkTextbox(self.scroll_content, height=100, font=("Microsoft JhengHei UI", 15), fg_color="#000000", state="disabled") # Taller log box
+        self.log_box = ctk.CTkTextbox(self.scroll_content, height=100, font=("Microsoft JhengHei UI", 15), fg_color=("gray95", "#000000"), text_color=("gray10", "gray90"), state="disabled") # Taller log box
         self.log_box.pack(fill="x", pady=5, padx=20)
 
     def log(self, msg):

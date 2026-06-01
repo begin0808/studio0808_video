@@ -2,11 +2,34 @@ import os
 import sys
 import subprocess
 import shutil
+import stat
+
+def force_rmtree(dir_path):
+    def remove_readonly(func, path, excinfo):
+        try:
+            os.chmod(path, stat.S_IWRITE)
+            func(path)
+        except Exception:
+            pass
+    if os.path.exists(dir_path):
+        shutil.rmtree(dir_path, onerror=remove_readonly)
 
 def build_app():
     print("========================================")
     print("  Studio0808 PyInstaller Build Script   ")
     print("========================================")
+
+    # [NEW] Version and Build Type Prompts
+    version = input("請輸入本次發布版本號 (例如 1.0.1，直接 Enter 則預設為今日日期): ").strip()
+    if not version:
+        import datetime
+        version = datetime.datetime.now().strftime("%Y%m%d")
+        
+    build_type = input("請選擇打包模式 [1] 完整版 (包含所有模型) [2] 更新包 (僅主程式與 _internal): ").strip()
+    is_patch = (build_type == "2")
+    
+    app_folder_name = f"Studio0808_v{version}"
+    print(f"\n準備打包發布目錄: dist\\{app_folder_name} ({'更新包模式' if is_patch else '完整版模式'})\n")
 
     # 1. Determine paths
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -49,6 +72,8 @@ def build_app():
         "--noconfirm",           # Overwrite output directory without asking
         "--onedir",              # Create a one-folder bundle containing an executable
         "--windowed",            # Do not provide a console window for standard i/o
+        "--exclude-module", "torch.distributed",
+        "--exclude-module", "tensorboard",
         "--collect-data", "demucs", # [NEW] Prevent files.txt error
         "--copy-metadata", "audio-separator", # [NEW] Prevent VR De-Reverb NoneType version error
         "--collect-data", "audio_separator", # [NEW] Prevent models-scores.json error
@@ -68,8 +93,10 @@ def build_app():
         "--collect-all", "torchcrepe",  # [NEW] Fix missing torchcrepe for Crepe f0 estimation
         "--collect-all", "torchfcpe",   # [NEW] Fix missing torchfcpe for FCPE f0 estimation
         "--collect-data", "lightning_fabric", # [NEW] Fix speaker diarization (version.info missing)
+        "--collect-data", "faster_whisper",    # [NEW] Fix silero_vad_v6.onnx file missing error
         "--collect-all", "pyannote.audio",    # [NEW] Fix missing pyannote.audio.pipelines
         "--collect-all", "speechbrain",       # [NEW] Fix potential speechbrain missing modules
+        "--distpath", os.path.join(current_dir, "build_output"), # [NEW] 輸出到暫存目錄避免動到原本的 dist
         "--icon", os.path.join(current_dir, "app.ico"),
         "--manifest", os.path.join(current_dir, "app.manifest"),
         "--name", "Studio0808"
@@ -108,8 +135,9 @@ def build_app():
 
     print("\n[1/3] 執行 PyInstaller 打包主程式...")
     print("指令: " + " ".join(pyinstaller_cmd))
-    print("清除先前的編譯快取 (強迫重新分析)...")
-    shutil.rmtree(os.path.join(current_dir, "build", "Studio0808"), ignore_errors=True)
+    print("清除先前的編譯與輸出快取 (強迫重新分析，避免權限錯誤)...")
+    force_rmtree(os.path.join(current_dir, "build", "Studio0808"))
+    force_rmtree(os.path.join(current_dir, "build_output")) # 只清理暫存輸出，不動 dist\Studio0808
     
     try:
         # [NEW] 將專案根目錄加入 PYTHONPATH 讓 PyInstaller 的獨立程序能吃到 sitecustomize.py 進行相容性修補
@@ -121,28 +149,44 @@ def build_app():
         print(f"打包失敗，錯誤代碼: {e.returncode}")
         sys.exit(1)
 
-    # 5. Copy essential external directories to dist
-    dist_dir = os.path.join(current_dir, "dist", "Studio0808")
-    print(f"\n[2/3] 複製必備外部資料夾至 {dist_dir} ...")
+    # 5. Rename output folder to include version
+    pyinstaller_output_dir = os.path.join(current_dir, "build_output", "Studio0808")
+    dist_dir_target = os.path.join(current_dir, "dist", app_folder_name)
     
-    if not os.path.exists(dist_dir):
-        os.makedirs(dist_dir)
+    print("\n[2/3] 整理輸出目錄...")
+    if os.path.exists(dist_dir_target):
+        force_rmtree(dist_dir_target)
         
-    external_dirs = ["models", "tools", "modules", "GPT-SoVITS"]
+    if os.path.exists(pyinstaller_output_dir):
+        # 確保 dist 目錄存在
+        if not os.path.exists(os.path.join(current_dir, "dist")):
+            os.makedirs(os.path.join(current_dir, "dist"))
+        # 將打包結果從 build_output 移動到 dist/Studio0808_vXXX
+        os.rename(pyinstaller_output_dir, dist_dir_target)
+        force_rmtree(os.path.join(current_dir, "build_output")) # 刪除暫存資料夾
+        
+    dist_dir = dist_dir_target
     
-    for folder_name in external_dirs:
-        src_folder = os.path.join(current_dir, folder_name)
-        dst_folder = os.path.join(dist_dir, folder_name)
+    if is_patch:
+        print(f"\n=> 目前為「更新包模式」，已跳過複製大型模型！")
+        print(f"=> 您只需要將 {dist_dir} 內的 Studio0808.exe 與 _internal 資料夾打包發布即可。")
+    else:
+        print(f"\n=> 複製必備外部資料夾至 {dist_dir} ...")
+        external_dirs = ["models", "tools", "modules", "GPT-SoVITS"]
         
-        if os.path.exists(src_folder):
-            print(f"-> 複製資料夾: {folder_name} ...", end="", flush=True)
-            try:
-                shutil.copytree(src_folder, dst_folder, dirs_exist_ok=True)
-                print(" [成功]")
-            except Exception as e:
-                print(f" [失敗: {e}]")
-        else:
-            print(f"-> 找不到資料夾: {folder_name}，已跳過。")
+        for folder_name in external_dirs:
+            src_folder = os.path.join(current_dir, folder_name)
+            dst_folder = os.path.join(dist_dir, folder_name)
+            
+            if os.path.exists(src_folder):
+                print(f"-> 複製資料夾: {folder_name} ...", end="", flush=True)
+                try:
+                    shutil.copytree(src_folder, dst_folder, dirs_exist_ok=True, ignore=shutil.ignore_patterns('.git', '__pycache__'))
+                    print(" [成功]")
+                except Exception as e:
+                    print(f" [失敗: {e}]")
+            else:
+                print(f"-> 找不到資料夾: {folder_name}，已跳過。")
 
     # 6. Create Empty Folders (Outputs, temp)
     # temp 資料夾用途：

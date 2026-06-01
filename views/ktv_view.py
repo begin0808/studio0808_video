@@ -75,7 +75,7 @@ class KTVView(ctk.CTkFrame):
             from utils.gpu_utils import safe_check_cuda
             cuda_ok, info = safe_check_cuda()
             if cuda_ok:
-                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color="#00E676")
+                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color=("#2E7D32", "#00E676"))
             else:
                 self.gpu_label.configure(text=f"GPU: {info} (使用 CPU mode)", text_color="#FF5252")
         except Exception:
@@ -395,8 +395,8 @@ class KTVView(ctk.CTkFrame):
         if not hasattr(self, 'status_label') or isinstance(self.status_label, ctk.CTkLabel):
              self.status_label = ctk.StringVar(value="請載入歌曲...")
              
-        # Change color to White (#FFFFFF) as requested, anchor="n" to align with top of right frame
-        lbl_status = ctk.CTkLabel(status_frame, textvariable=self.status_label, text_color="#FFFFFF", font=font_label, anchor="w")
+        # Change color to adapt to light/dark mode
+        lbl_status = ctk.CTkLabel(status_frame, textvariable=self.status_label, text_color=("gray10", "white"), font=font_label, anchor="w")
         lbl_status.pack(side="left", padx=10, pady=(0, 5), anchor="n")
         
         # Right Side Container (Vertical: Progress Top, Button Bottom)

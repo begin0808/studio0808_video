@@ -57,7 +57,7 @@ class RealTimeVCView(ctk.CTkFrame):
             from utils.gpu_utils import safe_check_cuda
             cuda_ok, info = safe_check_cuda()
             if cuda_ok:
-                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color="#00E676")
+                self.gpu_label.configure(text=f"GPU: {info} (CUDA)", text_color=("#2E7D32", "#00E676"))
             else:
                 self.gpu_label.configure(text=f"GPU: {info} (使用 CPU mode)", text_color="#FF5252")
         except Exception:
@@ -149,7 +149,7 @@ class RealTimeVCView(ctk.CTkFrame):
         
         # RNNoise Checkbox
         self.rnnoise_var = ctk.BooleanVar(value=False)
-        self.chk_rnnoise = ctk.CTkCheckBox(ctrl_frame, text="AI 降噪 (RNNoise)", variable=self.rnnoise_var, command=self.update_params, font=self.font_ui, text_color="#00E676")
+        self.chk_rnnoise = ctk.CTkCheckBox(ctrl_frame, text="AI 降噪 (RNNoise)", variable=self.rnnoise_var, command=self.update_params, font=self.font_ui, text_color=("#2E7D32", "#00E676"))
         self.chk_rnnoise.grid(row=2, column=4, columnspan=3, padx=5, pady=10, sticky="w")
         
         # Row 3: F0 Method | (Explain)
@@ -162,14 +162,14 @@ class RealTimeVCView(ctk.CTkFrame):
         
         
         
-        # Footer
-        footer = ctk.CTkFrame(self, height=70, fg_color="#2b2b2b")
+        # Footer (Adaptive color for light/dark mode)
+        footer = ctk.CTkFrame(self, height=70, fg_color=("gray90", "#2b2b2b"))
         footer.grid(row=2, column=0, sticky="ew", pady=(10, 0))
         
         # We want everything in one row on the left
         # Recording Checkbox
         self.record_var = ctk.BooleanVar(value=False)
-        self.chk_record = ctk.CTkCheckBox(footer, text="同步錄製變聲結果 (儲存為 WAV)", variable=self.record_var, font=self.font_ui, text_color="#00E676")
+        self.chk_record = ctk.CTkCheckBox(footer, text="同步錄製變聲結果 (儲存為 WAV)", variable=self.record_var, font=self.font_ui, text_color=("black", "#00E676"))
         self.chk_record.pack(side="left", padx=(20, 15), pady=15)
         
         self.btn_run = ctk.CTkButton(footer, text="開始變聲", command=self.toggle_conversion, 
@@ -180,7 +180,7 @@ class RealTimeVCView(ctk.CTkFrame):
                                      width=140, height=45, font=("Microsoft JhengHei UI", 16, "bold"), fg_color="#4CAF50", hover_color="#388E3C", text_color="white")
         self.btn_open.pack(side="left", padx=5, pady=10)
         
-        self.status_label = ctk.CTkLabel(footer, text="準備就緒", font=("Microsoft JhengHei UI", 16, "bold"), text_color="#FF9800")
+        self.status_label = ctk.CTkLabel(footer, text="準備就緒", font=("Microsoft JhengHei UI", 16, "bold"), text_color=("black", "#FF9800"))
         self.status_label.pack(side="left", padx=(15, 0), pady=15)
 
     def add_section(self, text, row, color):
@@ -328,7 +328,7 @@ class RealTimeVCView(ctk.CTkFrame):
             
             # Lock UI
             self.btn_run.configure(state="disabled", text="啟動中...")
-            self.status_label.configure(text="正在載入模型...", text_color="yellow")
+            self.status_label.configure(text="正在載入模型...", text_color=("black", "yellow"))
             self.update_idletasks()
             
             def _start_logic():
@@ -356,7 +356,7 @@ class RealTimeVCView(ctk.CTkFrame):
                     self.engine.start(in_idx, out_idx, chunk_duration=self.chunk_var.get(), record_audio=record_audio, output_dir=output_dir)
                     self.is_running = True
                     self.btn_run.configure(state="normal", text="停止變聲", fg_color="#F44336")
-                    self.status_label.configure(text="正在運行變聲...", text_color="#66BB6A")
+                    self.status_label.configure(text="正在運行變聲...", text_color=("black", "#66BB6A"))
                 except Exception as e:
                     messagebox.showerror("Error", f"引擎啟動失敗:\n{e}")
                     self.btn_run.configure(state="normal", text="開始變聲")
@@ -375,7 +375,7 @@ class RealTimeVCView(ctk.CTkFrame):
                 self.is_running = False
                 self.btn_run.configure(state="normal", text="開始變聲", fg_color="#E91E63")
                 if saved_path:
-                    self.status_label.configure(text=f"已儲存錄音: {os.path.basename(saved_path)}", text_color="#4CAF50")
+                    self.status_label.configure(text=f"已儲存錄音: {os.path.basename(saved_path)}", text_color=("black", "#4CAF50"))
                 else:
                     self.status_label.configure(text="已停止", text_color="gray")
             

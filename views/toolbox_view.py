@@ -73,8 +73,8 @@ class ToolboxView(ctk.CTkFrame):
         self.grid_rowconfigure(10, weight=1)
         self.grid_rowconfigure(1, weight=0) # Make main content NOT push components to the bottom
         
-        # Status Card (Container for Status and Progress)
-        self.status_card = ctk.CTkFrame(self, fg_color="#181A1F", corner_radius=8)
+        # Status Card (Container for Status and Progress - adaptive for light/dark mode)
+        self.status_card = ctk.CTkFrame(self, fg_color=("gray90", "#181A1F"), corner_radius=8)
         self.status_card.grid(row=2, column=0, sticky="ew", padx=20, pady=(5, 5))
         self.status_card.grid_columnconfigure(0, weight=1)
         
@@ -83,8 +83,8 @@ class ToolboxView(ctk.CTkFrame):
         self.progress_bars = {}
         
         for k in ["convert", "audio", "trim", "merge", "compress", "cut_silence"]:
-            sl = ctk.CTkLabel(self.status_card, text="系統狀態： 就緒", anchor="w", text_color="#00E676", font=("Microsoft JhengHei UI", 15, "bold"))
-            pl = ctk.CTkLabel(self.status_card, text="0%", font=("Microsoft JhengHei UI", 14, "bold"), text_color="#F57C00")
+            sl = ctk.CTkLabel(self.status_card, text="系統狀態： 就緒", anchor="w", text_color=("#2E7D32", "#00E676"), font=("Microsoft JhengHei UI", 15, "bold"))
+            pl = ctk.CTkLabel(self.status_card, text="0%", font=("Microsoft JhengHei UI", 14, "bold"), text_color=("black", "#F57C00"))
             pb = ctk.CTkProgressBar(self.status_card, height=12, progress_color="#F57C00")
             pb.set(0)
             
@@ -562,11 +562,11 @@ class ToolboxView(ctk.CTkFrame):
         
         ctk.CTkButton(btn_frame, text="開啟輸出資料夾", command=lambda: os.startfile(self.output_dir), font=self.font_tab, width=150, fg_color="#4CAF50", hover_color="#388E3C", text_color="white").pack(side="left", padx=10)
 
-        # Recommendation Tip
-        tip_frame = ctk.CTkFrame(parent, fg_color="#263238", corner_radius=6)
+        # Recommendation Tip (Adaptive for light/dark mode)
+        tip_frame = ctk.CTkFrame(parent, fg_color=("gray90", "#263238"), corner_radius=6)
         tip_frame.pack(anchor="w", fill="x", padx=(0, 20), pady=(10, 0))
         ctk.CTkLabel(tip_frame, text="💡 建議：若要在 Windows 內建播放器觀看，請優先選擇 MP4 (影片) 格式，相容性最佳。", 
-                     font=self.font_small, text_color="#FFD54F", justify="left").pack(padx=10, pady=5)
+                     font=self.font_small, text_color=("black", "#FFD54F"), justify="left").pack(padx=10, pady=5)
 
 
     def run_convert(self):
@@ -734,7 +734,7 @@ class ToolboxView(ctk.CTkFrame):
         ctk.CTkLabel(file_frame, text="(支援讀取影片或純音訊檔)", text_color="gray", font=self.font_small).pack(side="left", padx=10)
 
         # 2. Video Preview Area (Adjusted to 680x382 for maximum screen compatibility)
-        self.preview_label = ctk.CTkLabel(parent, text="無預覽畫面", width=680, height=382, fg_color="black", font=self.font_ui)
+        self.preview_label = ctk.CTkLabel(parent, text="無預覽畫面", width=680, height=382, fg_color=("gray85", "black"), font=self.font_ui, text_color=("black", "white"))
         self.preview_label.grid(row=1, column=0, pady=5) # Reduced pady
         
         # 3. Timeline Slider
@@ -1592,12 +1592,12 @@ class ToolboxView(ctk.CTkFrame):
         ctk.CTkLabel(settings_frame, text="靜音閥值 (dB):", font=self.font_ui).grid(row=0, column=0, padx=5, sticky="e")
         self.silence_thresh_var = ctk.StringVar(value="-40")
         ctk.CTkComboBox(settings_frame, variable=self.silence_thresh_var, values=["-30", "-40", "-50", "-60"], font=self.font_ui, width=150).grid(row=0, column=1, padx=5, pady=5)
-        ctk.CTkLabel(settings_frame, text="(音量低於此值視為靜音，越向右側數字越小則越嚴格)", text_color="#ffffff", font=self.font_small).grid(row=0, column=2, padx=5, sticky="w")
+        ctk.CTkLabel(settings_frame, text="(音量低於此值視為靜音，越向右側數字越小則越嚴格)", text_color=("gray40", "#ffffff"), font=self.font_small).grid(row=0, column=2, padx=5, sticky="w")
         
         ctk.CTkLabel(settings_frame, text="靜音判斷時間 (秒):", font=self.font_ui).grid(row=1, column=0, padx=5, sticky="e")
         self.silence_duration_var = ctk.StringVar(value="0.5")
         ctk.CTkComboBox(settings_frame, variable=self.silence_duration_var, values=["0.3", "0.5", "1.0", "1.5", "2.0"], font=self.font_ui, width=150).grid(row=1, column=1, padx=5, pady=5)
-        ctk.CTkLabel(settings_frame, text="(持續靜音超過此長度才會被剪掉)", text_color="#ffffff", font=self.font_small).grid(row=1, column=2, padx=5, sticky="w")
+        ctk.CTkLabel(settings_frame, text="(持續靜音超過此長度才會被剪掉)", text_color=("gray40", "#ffffff"), font=self.font_small).grid(row=1, column=2, padx=5, sticky="w")
         
         # Alert for Video
         ctk.CTkLabel(parent, text="⚠️ 注意：這項功能會重新編碼影片，可能需要較長的處理時間。\n建議先用較短的檔案測試您的靜音參數。", text_color="#FFB300", font=self.font_ui, justify="left").pack(anchor="w", padx=10, pady=10)
@@ -1839,7 +1839,7 @@ class ToolboxView(ctk.CTkFrame):
         # Tip
         tip_text = "💡 提示:\n1. 錄製電腦聲音 (影片): 請選「立體聲混音 (Stereo Mix)」\n2. 錄製人聲 (麥克風): 請選「麥克風 (Microphone)」或「麥克風排列」"
         ctk.CTkLabel(parent, text=tip_text, 
-                     text_color="white", font=("Microsoft JhengHei UI", 14, "bold"), justify="left").pack(anchor="w", padx=20)
+                     text_color=("gray20", "white"), font=("Microsoft JhengHei UI", 14, "bold"), justify="left").pack(anchor="w", padx=20)
                      
         # 2. Timer & Status
         # Content Container (Shift Left ~1/4)
@@ -1847,7 +1847,7 @@ class ToolboxView(ctk.CTkFrame):
         content_frame.pack(anchor="w", padx=100, pady=10)
         
         # 2. Timer & Status
-        self.lbl_rec_time = ctk.CTkLabel(content_frame, text="00:00", font=("Consolas", 48, "bold"), text_color="#CFD8DC")
+        self.lbl_rec_time = ctk.CTkLabel(content_frame, text="00:00", font=("Consolas", 48, "bold"), text_color=("gray20", "#CFD8DC"))
         self.lbl_rec_time.pack(pady=(10, 10))
         
         self.lbl_rec_status = ctk.CTkLabel(content_frame, text="準備就緒", font=self.font_ui, text_color="gray")
@@ -2160,7 +2160,7 @@ class ToolboxView(ctk.CTkFrame):
                         try: shutil.rmtree(temp_out_base)
                         except: pass
                         
-                        self.lbl_rec_status.configure(text="✨ 錄音與降噪完成！", text_color="#00E676")
+                        self.lbl_rec_status.configure(text="✨ 錄音與降噪完成！", text_color=("#2E7D32", "#00E676"))
                         self.lbl_rec_file.configure(text=f"已儲存: {os.path.basename(denoised_path)}")
                         
                         self.latest_record_path = os.path.abspath(denoised_path)
