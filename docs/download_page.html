@@ -75,11 +75,18 @@
             margin-bottom: 1.5rem;
         }
 
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .download-rows {
+            display: flex;
+            flex-direction: column;
             gap: 15px;
             margin: 20px 0;
+        }
+
+        .download-row {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
 
         .download-btn {
@@ -96,6 +103,9 @@
             text-align: center;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            width: 250px;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .download-btn:hover {
@@ -216,23 +226,29 @@
         <!-- 01. 檔案下載通道 -->
         <div class="card">
             <h2>01. 檔案下載通道</h2>
-            <div class="download-grid">
-                <a href="https://drive.google.com/file/d/1vwLNkzU3QZsWcO4GbRLSS48wwWtCd-ys/view?usp=sharing" class="download-btn btn-full" target="_blank">
-                    <span>📥 完整版 V20260602</span>
-                    <span class="desc">含 AI 聲音複製與完整模型</span>
-                </a>
-                <a href="https://drive.google.com/file/d/1YCADcJ0e1h2S8juhaWhTG8vM2TAm-qq3/view?usp=sharing" class="download-btn btn-update" target="_blank">
-                    <span>📥 更新版本 V20260602</span>
-                    <span class="desc">新版主程式與修復組件</span>
-                </a>
-                <a href="https://drive.google.com/file/d/1WQ4ha5JsA9Tjs8Z6oN7BpP26cZFimnOv/view?usp=sharing" class="download-btn btn-mid" target="_blank">
-                    <span>📥 中量版 V20260602</span>
-                    <span class="desc">不含 AI 聲音複製</span>
-                </a>
-                <a href="https://discord.gg/F7mC37MBtF" class="download-btn btn-discord" target="_blank">
-                    <span>💬 Discord 社群</span>
-                    <span class="desc">交流討論與意見回饋</span>
-                </a>
+            <div class="download-rows">
+                <div class="download-row">
+                    <a href="https://drive.google.com/file/d/1YCADcJ0e1h2S8juhaWhTG8vM2TAm-qq3/view?usp=sharing" class="download-btn btn-update" target="_blank">
+                        <span>📥 更新版本 V20260602</span>
+                        <span class="desc">新版主程式與修復組件</span>
+                    </a>
+                </div>
+                <div class="download-row">
+                    <a href="https://drive.google.com/file/d/1vwLNkzU3QZsWcO4GbRLSS48wwWtCd-ys/view?usp=sharing" class="download-btn btn-full" target="_blank">
+                        <span>📥 完整版 V20260602</span>
+                        <span class="desc">含 AI 聲音複製與完整模型</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1WQ4ha5JsA9Tjs8Z6oN7BpP26cZFimnOv/view?usp=sharing" class="download-btn btn-mid" target="_blank">
+                        <span>📥 中量版 V20260602</span>
+                        <span class="desc">不含 AI 聲音複製</span>
+                    </a>
+                </div>
+                <div class="download-row">
+                    <a href="https://discord.gg/F7mC37MBtF" class="download-btn btn-discord" target="_blank">
+                        <span>💬 Discord 社群</span>
+                        <span class="desc">交流討論與意見回饋</span>
+                    </a>
+                </div>
             </div>
             <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 15px;">最後發布版本：2026.06.02</p>
         </div>
