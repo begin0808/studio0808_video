@@ -50,9 +50,6 @@ class SRTEditorWindow(ctk.CTkToplevel):
         
         self.lbl_filename = ctk.CTkLabel(self.top_frame, text=os.path.basename(self.srt_path), font=self.font_bold)
         self.lbl_filename.pack(side="left", padx=20)
-        
-        self.help_btn = ctk.CTkButton(self.top_frame, text="說明 (Help)", width=100, command=self.open_help, fg_color="#4CAF50", hover_color="#388E3C", font=self.font_ui)
-        self.help_btn.pack(side="right", padx=5)
 
         # 頂部分頁導航 (Pagination Nav Top)
         self.nav_frame = ctk.CTkFrame(self)
@@ -80,17 +77,6 @@ class SRTEditorWindow(ctk.CTkToplevel):
         
         self.btn_next_b = ctk.CTkButton(self.nav_frame_btm, text="下一頁", width=100, command=self.next_page, font=self.font_ui)
         self.btn_next_b.pack(side="right", padx=10)
-
-    def open_help(self):
-        """ 開啟 SRT 編輯器指南 """
-        docs_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs")
-        help_file = "srt_editor_guide.html"
-        full_path = os.path.join(docs_path, help_file)
-        if os.path.exists(full_path):
-            os.startfile(full_path)
-        else:
-            messagebox.showinfo("提示", f"找不到說明文件: {help_file}")
-
 
     def load_srt(self):
         """ 讀取 SRT 檔案到記憶體，但不產生 UI """
