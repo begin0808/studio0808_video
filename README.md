@@ -112,7 +112,8 @@
 
 本 GitHub 儲存庫包含完整的 Python 原始碼。為了保持程式庫輕量，**大型模型檔與外部工具執行檔未包含在內**（已在 `.gitignore` 中排除）。
 
-如果您想從原始碼執行或打包本程式，請依照以下步驟補齊必要的二進位檔案：
+### 💻 Windows 開發環境
+如果您想從原始碼執行或打包本程式（Windows 系統），請依照以下步驟補齊必要的二進位檔案：
 
 1. 先在上方「下載」區塊下載最新的 **完整版 ZIP 壓縮檔** 並解壓縮。
 2. 將解壓縮後資料夾內的以下項目，直接複製到您 clone 下來的原始碼資料夾中：
@@ -123,6 +124,10 @@
 3. 複製 `modules/configs/config.json.example` 並重新命名為 `config.json`。
 4. 安裝依賴：`pip install -r requirements.txt`
 5. 執行主程式：`python Studio0808_Video.py`
+
+### 🍎 macOS 開發環境與打包
+如果您是 Mac 使用者且具備 Python 開發經驗，專案支援移轉至 macOS 執行與打包測試。詳細環境設定與打包指引請參閱獨立指南：
+👉 **[macOS 開發、測試與打包指引 (README_macOS.md)](README_macOS.md)**
 
 ---
 
