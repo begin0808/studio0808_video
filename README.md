@@ -1,8 +1,10 @@
-# 🎬 Studio0808 AI 影音工具站
+# 🎬 Studio0808 AI Video & Audio Workstation
 
 **Unprofessional Audio & Video Processing Suite**
 
-一個人開發的【非】專業級 AI 影音工作站 — 免費、離線、開箱即用
+English | [繁體中文](README.zh-TW.md)
+
+A free, offline, and ready-to-use AI audio & video workstation developed by a single person.
 
 [![Download](https://img.shields.io/badge/Download-Full%20Version-blue?style=for-the-badge&logo=googledrive)](https://drive.google.com/file/d/15ZfQhFUGVTCoKxLwNDMinNuGALd3HiYC/view?usp=sharing)
 [![Download](https://img.shields.io/badge/Download-Medium%20Version-green?style=for-the-badge&logo=googledrive)](https://drive.google.com/file/d/1WQ4ha5JsA9Tjs8Z6oN7BpP26cZFimnOv/view?usp=sharing)
@@ -11,7 +13,7 @@
 
 ---
 
-## 📸 軟體截圖
+## 📸 Screenshots
 
 <p align="center">
   <img src="docs/images/home_view.png" alt="Studio0808 Screenshot" width="800">
@@ -19,148 +21,148 @@
 
 ---
 
-## ✨ 功能總覽
+## ✨ Features Overview
 
-### 🎯 九大核心功能
+### 🎯 9 Core Features
 
-| 功能 | 說明 | 核心技術 |
+| Feature | Description | Core Technology |
 |------|------|---------|
-| 🎬 **影音下載** | 一鍵下載 1000+ 平台影片，支援 4K 無損 | yt-dlp + FFmpeg |
-| 🎤 **人聲與伴奏分離** | AI 拆解人聲、鼓組、貝斯、伴奏 | Meta Demucs + MDX-Net |
-| 🎵 **KTV 錄音合成** | 載入伴奏即時演唱，自動混音 | WASAPI + AI 降噪 |
-| 📝 **AI 生成字幕** | 自動聽打 + 翻譯 + 雙語字幕 + 壓制 | OpenAI Whisper + Pyannote |
-| 🗣️ **微軟語音合成** | 免費 AI 神經網路語音，多語言多角色 | Microsoft Edge-TTS |
-| 🧬 **聲音複製** | 3~10 秒人聲即可模仿音色與語氣 | GPT-SoVITS |
-| 🔄 **RVC 變聲推論** | AI 翻唱，保留情緒替換音色 | RVC |
-| 🎙️ **RVC 即時變聲** | 麥克風即時變聲，支援 VB-Cable 路由 | RVC Real-time |
-| 🏋️ **RVC 模型訓練** | 透過 Google Colab 免費訓練專屬模型 | Applio RVC |
+| 🎬 **Video/Audio Downloader** | One-click download of videos from 1000+ platforms, supports lossless 4K | yt-dlp + FFmpeg |
+| 🎤 **Vocal & Accompaniment Separation** | AI separates vocals, drums, bass, and accompaniment | Meta Demucs + MDX-Net |
+| 🎵 **KTV Recording & Synthesis** | Load accompaniment for real-time singing, automatic mixing | WASAPI + AI Noise Reduction |
+| 📝 **AI Subtitle Generation** | Auto transcription + translation + bilingual subtitles + hardburning | OpenAI Whisper + Pyannote |
+| 🗣️ **Microsoft TTS** | Free AI neural network voice synthesis, multi-language, multi-character | Microsoft Edge-TTS |
+| 🧬 **Voice Cloning** | Mimic voice tone and intonation with just 3~10 seconds of audio sample | GPT-SoVITS |
+| 🔄 **RVC Voice Changer Inference** | AI cover generation, replacing vocal timbre while preserving emotion | RVC |
+| 🎙️ **RVC Real-time Voice Changer** | Real-time voice changing from microphone, supports VB-Cable routing | RVC Real-time |
+| 🏋️ **RVC Model Training** | Free training of your own custom voice models via Google Colab | Applio RVC |
 
-### 🛠️ 七大影音小工具
+### 🛠️ 7 Essential Audio & Video Tools
 
-| 工具 | 說明 |
+| Tool | Description |
 |------|------|
-| 🎙️ 錄音助手 | 輕量錄音 + 即時音波顯示 + AI 降噪 |
-| 🔄 萬用格式轉換 | 影片/音訊格式互轉，智慧無損秒轉 |
-| 🎵 高音質音訊提取 | 從影片中抽離立體聲音軌 |
-| ✂️ 無損簡易剪輯 | 不重新編碼的快速切割，畫質零損失 |
-| 🔗 無損影音合併 | 影片 + 音訊一鍵合成，支援混音模式 |
-| 📦 智能影片壓縮 | FFmpeg CRF 編碼，肉眼無差異壓縮 |
-| 🤫 自動裁剪靜音 | AI 偵測無聲片段，一鍵裁除停頓 |
+| 🎙️ Recording Assistant | Lightweight recording + real-time waveform display + AI noise reduction |
+| 🔄 Universal Format Converter | High-speed lossless conversion between video/audio formats |
+| 🎵 Audio Extractor | Extract high-quality stereo audio tracks from video files |
+| ✂️ Lossless Cutter | Quick cutting without re-encoding, zero loss in quality |
+| 🔗 Lossless Merger | One-click merge of video and audio tracks, supports mixing |
+| 📦 Intelligent Video Compressor | FFmpeg CRF encoding, compresses file size with no perceptual visual loss |
+| 🤫 Auto Silence Cut | AI detects silent segments and clips out pauses automatically |
 
 ---
 
-## 💻 系統需求
+## 💻 System Requirements
 
-| 項目 | 建議規格 |
+| Item | Recommended Spec |
 |------|---------|
-| 作業系統 | Windows 10/11 (64-bit) |
-| 顯示卡 | **NVIDIA RTX 系列**（強烈建議） |
-| 記憶體 | 8GB 以上 |
-| 硬碟空間 | 完整版約 38GB / 中量版約 25GB |
+| Operating System | Windows 10/11 (64-bit) |
+| Graphics Card | **NVIDIA RTX Series** (Highly Recommended) |
+| RAM | 8GB or more |
+| Disk Space | Full Version: ~38GB / Medium Version: ~25GB |
 
-> ⚠️ 目前僅支援 Windows 系統。沒有 NVIDIA 顯卡仍可使用（自動切換 CPU 模式），但速度較慢。
+> ⚠️ Currently only Windows is officially supported. You can run it without an NVIDIA GPU (it automatically falls back to CPU mode), but the performance will be slower.
 
 ---
 
-## 📦 版本差異
+## 📦 Version Differences
 
-| 項目 | 完整版 (~38GB) | 中量版 (~25GB) |
+| Item | Full Version (~38GB) | Medium Version (~25GB) |
 |------|---------------|---------------|
-| 聲音複製 (GPT-SoVITS) | ✅ | ❌ |
-| 其他所有功能 | ✅ | ✅ |
-| 升級方式 | 替換 Studio0808.exe 即可 | 替換 Studio0808.exe 即可 |
+| Voice Cloning (GPT-SoVITS) | ✅ | ❌ |
+| All Other Features | ✅ | ✅ |
+| Upgrade Path | Simply replace `Studio0808.exe` | Simply replace `Studio0808.exe` |
 
 ---
 
-## 📥 下載
+## 📥 Download
 
-- **完整版** (含聲音複製)：[Google Drive 下載](https://drive.google.com/file/d/15ZfQhFUGVTCoKxLwNDMinNuGALd3HiYC/view?usp=sharing)
-- **完整版備援連結**：[Google Drive 備援](https://drive.google.com/file/d/11MaSf_Gz0MjQ0X8js2NCxmmgkgb9JyOW/view?usp=sharing)
-- **中量版** (無聲音複製)：[Google Drive 下載](https://drive.google.com/file/d/1WQ4ha5JsA9Tjs8Z6oN7BpP26cZFimnOv/view?usp=sharing)
+- **Full Version** (Includes Voice Cloning): [Google Drive Download](https://drive.google.com/file/d/15ZfQhFUGVTCoKxLwNDMinNuGALd3HiYC/view?usp=sharing)
+- **Full Version Backup Link**: [Google Drive Backup](https://drive.google.com/file/d/11MaSf_Gz0MjQ0X8js2NCxmmgkgb9JyOW/view?usp=sharing)
+- **Medium Version** (No Voice Cloning): [Google Drive Download](https://drive.google.com/file/d/1WQ4ha5JsA9Tjs8Z6oN7BpP26cZFimnOv/view?usp=sharing)
 
-下載後解壓縮，執行 `Studio0808.exe` 即可使用，**免安裝**。
-
----
-
-## 📖 線上文件
-
-完整功能說明與操作教學：[https://begin0808.github.io/studio0808_video/](https://begin0808.github.io/studio0808_video/)
-
-提供中文與英文雙語版本。
+After downloading, extract the ZIP file and run `Studio0808.exe` directly. **No installation required**.
 
 ---
 
-## ⚙️ 核心技術
+## 📖 Online Documentation
 
-| 技術 | 用途 |
+Complete feature explanation and usage guide: [https://begin0808.github.io/studio0808_video/](https://begin0808.github.io/studio0808_video/)
+
+Bilingual version (Traditional Chinese & English) is available.
+
+---
+
+## ⚙️ Core Technologies
+
+| Technology | Purpose |
 |------|------|
-| PyTorch v2.6.0+cu124 | 核心 AI 運算引擎（支援 RTX 50 系列） |
-| FFmpeg | 影音編碼 / 解碼 / 合併 / 切割 |
-| Demucs (htdemucs) | Meta 人聲分離模型 |
-| faster-whisper | AI 語音轉寫與字幕生成 |
-| Pyannote | 說話者辨識 |
-| GPT-SoVITS | 語音複製合成 |
-| RVC | 語音轉換（變聲） |
-| Edge-TTS | 微軟雲端語音合成 |
-| yt-dlp | 影音串流下載 |
-| Torchcrepe | 精準音高分析 |
-| CustomTkinter | 現代化 GUI 框架 |
+| PyTorch v2.6.0+cu124 | Core AI computation engine (RTX 50 series ready) |
+| FFmpeg | Video/audio encoding, decoding, merging, and cutting |
+| Demucs (htdemucs) | Meta vocal separation model |
+| faster-whisper | AI speech-to-text transcription and subtitle generation |
+| Pyannote | Speaker diarization |
+| GPT-SoVITS | Voice cloning and text-to-speech synthesis |
+| RVC | Retrieval-based Voice Conversion (voice changing) |
+| Edge-TTS | Microsoft cloud-based speech synthesis |
+| yt-dlp | Video and audio streaming downloader |
+| Torchcrepe | High-precision pitch estimation |
+| CustomTkinter | Modern GUI framework |
 
 ---
 
-## 🛠️ 開發與開源指南 (For Developers)
+## 🛠️ Developer & Open Source Guide
 
-本 GitHub 儲存庫包含完整的 Python 原始碼。為了保持程式庫輕量，**大型模型檔與外部工具執行檔未包含在內**（已在 `.gitignore` 中排除）。
+This GitHub repository contains the complete Python source code. To keep the repository lightweight, **large model weights and external binary tools are not included** (excluded in `.gitignore`).
 
-### 💻 Windows 開發環境
-如果您想從原始碼執行或打包本程式（Windows 系統），請依照以下步驟補齊必要的二進位檔案：
+### 💻 Windows Development Environment
+If you want to run from source or package the program on Windows, please follow these steps to download the necessary binaries:
 
-1. 先在上方「下載」區塊下載最新的 **完整版 ZIP 壓縮檔** 並解壓縮。
-2. 將解壓縮後資料夾內的以下項目，直接複製到您 clone 下來的原始碼資料夾中：
-   - `models/` (包含所有 AI 模型)
-   - `tools/` (包含 ffmpeg, yt-dlp 等執行檔)
-   - `modules/hubert_base.pt` 與 `modules/rmvpe.pt` (RVC 核心模型)
-   - `GPT-SoVITS/` (完整的 GPT-SoVITS 環境)
-3. 複製 `modules/configs/config.json.example` 並重新命名為 `config.json`。
-4. 安裝依賴：`pip install -r requirements.txt`
-5. 執行主程式：`python Studio0808_Video.py`
+1. Download the latest **Full Version ZIP** from the download section above and extract it.
+2. Copy the following items from the extracted folder directly into your cloned repository folder:
+   - `models/` (contains all AI model weights)
+   - `tools/` (contains executables like ffmpeg, yt-dlp, etc.)
+   - `modules/hubert_base.pt` and `modules/rmvpe.pt` (RVC core models)
+   - `GPT-SoVITS/` (the complete GPT-SoVITS environment)
+3. Copy `modules/configs/config.json.example` and rename it to `config.json`.
+4. Install dependencies: `pip install -r requirements.txt`
+5. Run the main application: `python Studio0808_Video.py`
 
-### 🍎 macOS 開發環境與打包
-如果您是 Mac 使用者且具備 Python 開發經驗，專案支援移轉至 macOS 執行與打包測試。詳細環境設定與打包指引請參閱獨立指南：
-👉 **[macOS 開發、測試與打包指引 (README_macOS.md)](README_macOS.md)**
-
----
-
-## 💬 社群與交流
-
-- **Discord**：[加入討論區](https://discord.gg/F7mC37MBtF)
-- 使用問題、Bug 回報、功能許願，都歡迎到 Discord 交流！
+### 🍎 macOS Development Environment & Packaging
+If you are a macOS user with Python development experience, this project supports porting, running, and packaging on macOS. Please refer to the standalone guide for detailed environment configuration and instructions:
+👉 **[macOS Development, Testing & Packaging Guide (README_macOS.md)](README_macOS.md)**
 
 ---
 
-## ☕ 贊助支持
+## 💬 Community & Support
 
-Studio0808 是一套**完全免費**的軟體，沒有試用期、沒有功能限制、沒有廣告。
-
-如果你覺得好用，歡迎自由贊助，請開發者喝杯咖啡：
-
-- **LINE ID**：`begin0808`（李佳恩）
-- 支援 LINE Pay 與 TWQR 轉帳
+- **Discord**: [Join the Community](https://discord.gg/F7mC37MBtF)
+- For questions, bug reports, or feature requests, feel free to start a conversation in our Discord!
 
 ---
 
-## ⚠️ 免責聲明
+## ☕ Support the Project
 
-- 本軟體僅供個人學習、研究與學術交流使用。
-- 嚴禁用於商業侵權、偽造聲音進行詐騙或散佈假消息。
-- 使用者須為自身行為負完全法律責任。
+Studio0808 is a **completely free** suite with no trials, no feature limitations, and no ads.
+
+If you find it helpful, feel free to buy the developer a coffee:
+
+- **LINE ID**: `begin0808` (Jia-En Li)
+- Supports LINE Pay and TWQR transfers
+
+---
+
+## ⚠️ Disclaimer
+
+- This software is for personal learning, research, and academic exchange only.
+- Commercial copyright infringement, voice cloning for fraud, or spreading misinformation is strictly prohibited.
+- Users assume full legal responsibility for their own actions.
 
 ---
 
 ## 📄 License
 
-本專案的文件網頁（docs）以 GitHub Pages 方式託管。
-軟體本體為獨立發布的免費桌面應用程式。
+The documentation website (`docs`) is hosted via GitHub Pages.
+The software application itself is released independently as a free desktop application.
 
 ---
 
